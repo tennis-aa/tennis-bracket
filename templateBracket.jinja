@@ -1,0 +1,33 @@
+{% set vspace = 60 %}
+{% set hspace = 50 %}
+<!DOCTYPE html>
+<html>
+<body>
+    <div class="bracket_container" style="position:relative">
+    {% for j in range(rounds) %}
+        {% for i in range((bracketSize/(2**j)) | int) %} 
+            {%- if i < bracketSize/(2**(j+1)) %}
+                <div class="player" id="p{{ counter[j] + i }}" style="position: absolute;left:{{ j*hspace }}px;top:{{ i*vspace*(2**j) + vspace*(2**(j-1)) }}px"> Player {{ counter[j] + i}} </div>
+            {% else %}
+                <div class="player" id="p{{ counter[j] + i }}" style="position: absolute;left:{{ hspace * (2*rounds - j)}}px;top:{{ (i-bracketSize/(2**(j+1)))*vspace*(2**j)  + vspace*(2**(j-1)) }}px"> Player {{ counter[j] + i }} </div>
+            {% endif %}
+        {% endfor %}
+    {% endfor %}
+    <div class="player" id="p{{ counter[rounds] }}" style="position: absolute;left:{{ rounds*hspace }}px;top:{{ vspace*(2**(rounds-2) - 1/2) }}px"> Player {{ counter[rounds] }} </div>
+
+    </div>
+</body>
+<head>
+    <style>
+        .player {
+            font-size: {{ vspace/4 }}px;
+            font-family: Arial, Helvetica, sans-serif;
+            width: {{ 2*hspace }}px;
+            text-align: center;
+            }
+    </style>
+</head>
+</html>
+
+
+            {# Specify the width of each player div #}
