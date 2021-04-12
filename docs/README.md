@@ -1,0 +1,1 @@
+This folder contains the website to display results of personal brackets
