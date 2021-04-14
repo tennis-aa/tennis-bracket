@@ -1,33 +1,48 @@
-{% set vspace = 60 %}
-{% set hspace = 50 %}
+{% set vspace = 45 %}
+{% set hspace = 80 %}
+{% set linespace = 1.5 %}
 <!DOCTYPE html>
 <html>
 <body>
     <div class="bracket_container" style="position:relative">
     {% for j in range(rounds) %}
-        {% for i in range((bracketSize/(2**j)) | int) %} 
+        {% for i in range((bracketSize/(2**j)) | int) %}
             {%- if i < bracketSize/(2**(j+1)) %}
-                <div class="player" id="p{{ counter[j] + i }}" style="position: absolute;left:{{ j*hspace }}px;top:{{ i*vspace*(2**j) + vspace*(2**(j-1)) }}px"> Player {{ counter[j] + i}} </div>
+                {%- if i%2 == 0 and j<rounds-1 %}{# draw the lines between players in a match #}
+        <div class="line" style="position: absolute; left:{{ j*hspace + linespace*hspace }}px;top:{{ i*vspace*(2**j) + vspace*(2**(j-1) - 1/2) }}px;height: {{ vspace*(2**j) }}px"> </div>
+                {% endif %}
+        <div class="player" id="p{{ counter[j] + i }}" style="position: absolute;left:{{ j*hspace }}px;top:{{ i*vspace*(2**j) + vspace*(2**(j-1) - 1/2) }}px"> Player {{ counter[j] + i}} </div>
             {% else %}
-                <div class="player" id="p{{ counter[j] + i }}" style="position: absolute;left:{{ hspace * (2*rounds - j)}}px;top:{{ (i-bracketSize/(2**(j+1)))*vspace*(2**j)  + vspace*(2**(j-1)) }}px"> Player {{ counter[j] + i }} </div>
+                {% if i%2 == 0 and j<rounds-1 %}{# draw the lines between players in a match #}
+        <div class="line" style="position: absolute; left:{{ hspace * (2*rounds - j + 2.5) - linespace*hspace }}px;top:{{ (i-bracketSize/(2**(j+1)))*vspace*(2**j) + vspace*(2**(j-1) - 1/2) }}px;height: {{ vspace*(2**j) }}px"> </div>
+                {% endif %}
+        <div class="player" id="p{{ counter[j] + i }}" style="position: absolute;left:{{ hspace * (2*rounds - j + 1/2) }}px;top:{{ (i-bracketSize/(2**(j+1)))*vspace*(2**j)  + vspace*(2**(j-1) - 1/2) }}px"> Player {{ counter[j] + i }} </div>
             {% endif %}
         {% endfor %}
     {% endfor %}
-    <div class="player" id="p{{ counter[rounds] }}" style="position: absolute;left:{{ rounds*hspace }}px;top:{{ vspace*(2**(rounds-2) - 1/2) }}px"> Player {{ counter[rounds] }} </div>
+        <div class="line" style="position: absolute; left:{{ (rounds+0.25)*hspace + linespace*hspace }}px;top:{{ vspace*(2**(rounds-2) - 2) }}px;height: {{ 1.5*vspace }}px"> </div>
+        <div class="line" style="position: absolute; left:{{ (rounds+2.25)*hspace - linespace*hspace }}px;top:{{ vspace*(2**(rounds-2) - 2) }}px;height: {{ 1.5*vspace }}px"> </div>
+        <div class="player" id="p{{ counter[rounds] }}" style="position: absolute;left:{{ (rounds+0.25)*hspace }}px;top:{{ vspace*(2**(rounds-2) - 2) }}px"> Player {{ counter[rounds] }} </div>
 
     </div>
 </body>
 <head>
+    <script src="displayDraw.js"></script>
     <style>
         .player {
-            font-size: {{ vspace/4 }}px;
+            font-size: {{ vspace/3 }}px;
             font-family: Arial, Helvetica, sans-serif;
             width: {{ 2*hspace }}px;
             text-align: center;
+            border: 1px solid black;
+            border-radius: 5px;
+            background-color: white;
             }
+        .line {
+            border-left: 2px solid navy; 
+        }
     </style>
 </head>
 </html>
 
 
-            {# Specify the width of each player div #}
