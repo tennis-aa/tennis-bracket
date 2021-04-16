@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Table of positions</title>
+  <script src="tablePositions.js"></script>
+  <script src="computePoints.js"></script>
+  <style>
+    #table-positions {
+      border-collapse: collapse;
+      text-align: center;
+    }
+    #table-positions td {
+      font-size: 12pt;
+    }
+    #table-positions th {
+      font-size: 14pt;
+      color: Black;
+      background-color: white;
+    }
+    #table-positions tr:nth-child(even) {
+      background-color: lightgray;
+    }
+    #table-positions tr:nth-child(odd) {
+      background-color: white;
+    }
+  </style>
+</head>
+<body>
+  <div id="table-container">
+    <table id="table-positions">
+      <tr>
+        <th style="width: 0.5cm"> </th>
+        <th style="width: 2cm"> User </th>
+        <th style="width: 2cm"> Score </th>
+        <th style="width: 2cm"> Rank </th>
+      </tr>
+    </table>
+  </div>
+</body>
+</html>
