@@ -22,7 +22,7 @@ let players;
 // console.log("end")
 
 
-// Put players in the draw
+// Put players in the bracket
 fetch("players.json").then((response)=>response.json()
 ).then(function (p){
   console.log("start");
@@ -74,23 +74,23 @@ function update_options(){
   }
 }
 
-// The following function allows the user to save the draw in json format
-function save_draw(){
-  let draw = [];
+// The following function allows the user to save the bracket in json format
+function save_bracket(){
+  let bracket = [];
   let username = document.getElementById("user-name").value;
   for (let j = 1; j <= rounds; j++){
     for (let i = 0; i < bracketSize/(2**j); i++) {
       let selectNode = document.getElementById("select"+ (counter[j]+i));
-      draw.push(selectNode.value);
+      bracket.push(selectNode.value);
     }
   }
   let entry = {};
-  entry[username] = draw;
+  entry[username] = bracket;
   let blob = new Blob([JSON.stringify(entry)],{type : "application:json"});
   url = URL.createObjectURL(blob);
   let link = document.createElement('a');
   link.href = url;
   link.innerText = 'Open the URL';
-  link.setAttribute("download","draw.json");
+  link.setAttribute("download","bracket.json");
   link.click();
 }

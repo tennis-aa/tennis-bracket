@@ -1,54 +1,56 @@
 <!DOCTYPE html>
 <html>
 <body>
-  <div class="bracket_container" style="position:relative;height:180.0px">
-  haha
-    <div class="line" style="position: absolute; left:120.0px;top:0.0px;height: 45px"> </div>
+  <div class="bracket_container" style="position:relative;height:128.0px">
+    <div class="line" style="position: absolute; left:90px;top:16.0px;height: 33px"> </div>
     <div class="player" id="p0" style="position: absolute;left:0px;top:0.0px"> 1</div>
-    <div class="player" id="p1" style="position: absolute;left:0px;top:45.0px"> 1</div>
-    <div class="line" style="position: absolute; left:120.0px;top:90.0px;height: 45px"> </div>
-    <div class="player" id="p2" style="position: absolute;left:0px;top:90.0px"> 1</div>
-    <div class="player" id="p3" style="position: absolute;left:0px;top:135.0px"> 1</div>
-    <div class="line" style="position: absolute; left:560.0px;top:0.0px;height: 45px"> </div>
-    <div class="player" id="p4" style="position: absolute;left:520.0px;top:0.0px"> 1</div>
-    <div class="player" id="p5" style="position: absolute;left:520.0px;top:45.0px"> 1</div>
-    <div class="line" style="position: absolute; left:560.0px;top:90.0px;height: 45px"> </div>
-    <div class="player" id="p6" style="position: absolute;left:520.0px;top:90.0px"> 1</div>
-    <div class="player" id="p7" style="position: absolute;left:520.0px;top:135.0px"> 1</div>
-    <div class="line" style="position: absolute; left:200.0px;top:22.5px;height: 90px"> </div>
-    <div class="player" id="p8" style="position: absolute;left:80px;top:22.5px"> 1</div>
-    <div class="player" id="p9" style="position: absolute;left:80px;top:112.5px"> 1</div>
-    <div class="line" style="position: absolute; left:480.0px;top:22.5px;height: 90px"> </div>
-    <div class="player" id="p10" style="position: absolute;left:440.0px;top:22.5px"> 1</div>
-    <div class="player" id="p11" style="position: absolute;left:440.0px;top:112.5px"> 1</div>
-    <div class="player" id="p12" style="position: absolute;left:160px;top:67.5px"> 1</div>
-    <div class="player" id="p13" style="position: absolute;left:360.0px;top:67.5px"> 1</div>
-    <div class="line" style="position: absolute; left:380.0px;top:0px;height: 67.5px"> </div>
-    <div class="line" style="position: absolute; left:300.0px;top:0px;height: 67.5px"> </div>
-    <div class="player" id="p14" style="position: absolute;left:260.0px;top:0px"> 1</div>
+    <div class="player" id="p1" style="position: absolute;left:0px;top:32.0px"> 1</div>
+    <div class="line" style="position: absolute; left:90px;top:80.0px;height: 33px"> </div>
+    <div class="player" id="p2" style="position: absolute;left:0px;top:64.0px"> 1</div>
+    <div class="player" id="p3" style="position: absolute;left:0px;top:96.0px"> 1</div>
+    <div class="line" style="position: absolute; left:540px;top:16.0px;height: 33px"> </div>
+    <div class="player" id="p4" style="position: absolute;left:540px;top:0.0px"> 1</div>
+    <div class="player" id="p5" style="position: absolute;left:540px;top:32.0px"> 1</div>
+    <div class="line" style="position: absolute; left:540px;top:80.0px;height: 33px"> </div>
+    <div class="player" id="p6" style="position: absolute;left:540px;top:64.0px"> 1</div>
+    <div class="player" id="p7" style="position: absolute;left:540px;top:96.0px"> 1</div>
+    <div class="line" style="position: absolute; left:180px;top:32.0px;height: 65px"> </div>
+    <div class="player" id="p8" style="position: absolute;left:90px;top:16.0px"> 1</div>
+    <div class="player" id="p9" style="position: absolute;left:90px;top:80.0px"> 1</div>
+    <div class="line" style="position: absolute; left:450px;top:32.0px;height: 65px"> </div>
+    <div class="player" id="p10" style="position: absolute;left:450px;top:16.0px"> 1</div>
+    <div class="player" id="p11" style="position: absolute;left:450px;top:80.0px"> 1</div>
+    <div class="player" id="p12" style="position: absolute;left:180px;top:48.0px"> 1</div>
+    <div class="player" id="p13" style="position: absolute;left:360px;top:48.0px"> 1</div>
+    <div class="line" style="position: absolute; left:270px;top:16px;height: 49.0px"> </div>
+    <div class="line" style="position: absolute; left:360px;top:16px;height: 49.0px"> </div>
+    <div class="player" id="p14" style="position: absolute;left:270px;top:0px;text-align: center"> 1</div>
   </div>
   <div id="submit-container">
     <label for = "user-name">User name: </label>
     <input type=text id="user-name" name="user-name">
-    <button onclick=save_draw()>Submit</button>
+    <button onclick=save_bracket()>Submit</button>
   </div>
 </body>
 <head>
-  <title>Draw template</title>
-  <script src="filloutDraw.js"></script>
+  <title>bracket template</title>
+  <script src="displayBracket.js"></script>
   <style>
     .player {
-      font-size: 15.0px;
+      font-size: 12.8px;
       font-family: Arial, Helvetica, sans-serif;
-      width: 160px;
-      height: 18.0px;
-      text-align: center;
-      border: 1px solid black;
-      border-radius: 5px;
-      background-color: white;
+      width: 87.3px;
+      height: 16px;
+      text-align: left;
+      padding-left: 2.6999999999999997px;
+
+      border-bottom: 1px solid black;
+      border-radius: 0px;
+      background-color: none;
+      overflow: hidden;
       }
     .line {
-      border-left: 2px solid navy; 
+      border-left: 1px solid black; 
     }
   </style>
 </head>

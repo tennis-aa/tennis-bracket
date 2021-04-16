@@ -1,53 +1,56 @@
-{% set vspace = 45 %}
-{% set hspace = 80 %}
-{% set linespace = 1.5 %}
+{% set cellheight = 16 %}
+{% set vspace = 2*cellheight %}
+{% set hspace = 90 %}
+{% set linewidth = 1 %}
 <!DOCTYPE html>
 <html>
 <body>
   <div class="bracket_container" style="position:relative;height:{{bracketSize/2*vspace}}px">
-  haha
   {% for j in range(rounds) %}
     {% for i in range((bracketSize/(2**j)) | int) %}
         {%- if i < bracketSize/(2**(j+1)) %}
             {%- if i%2 == 0 and j<rounds-1 %}{# draw the lines between players in a match #}
-    <div class="line" style="position: absolute; left:{{ j*hspace + linespace*hspace }}px;top:{{ i*vspace*(2**j) + vspace*(2**(j-1) - 1/2) }}px;height: {{ vspace*(2**j) }}px"> </div>
+    <div class="line" style="position: absolute; left:{{ (j+1)*hspace }}px;top:{{ i*vspace*(2**j) + vspace*(2**(j-1) - 1/2) + cellheight }}px;height: {{ vspace*(2**j) + linewidth }}px"> </div>
             {% endif %}
     <div class="player" id="p{{ counter[j] + i }}" style="position: absolute;left:{{ j*hspace }}px;top:{{ i*vspace*(2**j) + vspace*(2**(j-1) - 1/2) }}px"> 1</div>
         {% else %}
             {% if i%2 == 0 and j<rounds-1 %}{# draw the lines between players in a match #}
-    <div class="line" style="position: absolute; left:{{ hspace * (2*rounds - j + 2.5) - linespace*hspace }}px;top:{{ (i-bracketSize/(2**(j+1)))*vspace*(2**j) + vspace*(2**(j-1) - 1/2) }}px;height: {{ vspace*(2**j) }}px"> </div>
+    <div class="line" style="position: absolute; left:{{ hspace * (2*rounds - j) }}px;top:{{ (i-bracketSize/(2**(j+1)))*vspace*(2**j) + vspace*(2**(j-1) - 1/2) + cellheight }}px;height: {{ vspace*(2**j) + linewidth }}px"> </div>
             {% endif %}
-    <div class="player" id="p{{ counter[j] + i }}" style="position: absolute;left:{{ hspace * (2*rounds - j + 1/2) }}px;top:{{ (i-bracketSize/(2**(j+1)))*vspace*(2**j)  + vspace*(2**(j-1) - 1/2) }}px"> 1</div>
+    <div class="player" id="p{{ counter[j] + i }}" style="position: absolute;left:{{ hspace * (2*rounds - j) }}px;top:{{ (i-bracketSize/(2**(j+1)))*vspace*(2**j)  + vspace*(2**(j-1) - 1/2) }}px"> 1</div>
         {% endif %}
     {% endfor %}
   {% endfor %}
-    <div class="line" style="position: absolute; left:{{ (rounds+0.25)*hspace + linespace*hspace }}px;top:{{ vspace*(2**(rounds-2) - 2) }}px;height: {{ 1.5*vspace }}px"> </div>
-    <div class="line" style="position: absolute; left:{{ (rounds+2.25)*hspace - linespace*hspace }}px;top:{{ vspace*(2**(rounds-2) - 2) }}px;height: {{ 1.5*vspace }}px"> </div>
-    <div class="player" id="p{{ counter[rounds] }}" style="position: absolute;left:{{ (rounds+0.25)*hspace }}px;top:{{ vspace*(2**(rounds-2) - 2) }}px"> 1</div>
+    <div class="line" style="position: absolute; left:{{ rounds*hspace }}px;top:{{ vspace*(2**(rounds-2) - 2) + cellheight }}px;height: {{ 1.5*vspace+linewidth }}px"> </div>
+    <div class="line" style="position: absolute; left:{{ (rounds+1)*hspace }}px;top:{{ vspace*(2**(rounds-2) - 2) + cellheight }}px;height: {{ 1.5*vspace+linewidth }}px"> </div>
+    <div class="player" id="p{{ counter[rounds] }}" style="position: absolute;left:{{ (rounds)*hspace }}px;top:{{ vspace*(2**(rounds-2) - 2) }}px;text-align: center"> 1</div>
   </div>
   <div id="submit-container">
     <label for = "user-name">User name: </label>
     <input type=text id="user-name" name="user-name">
-    <button onclick=save_draw()>Submit</button>
+    <button onclick=save_bracket()>Submit</button>
   </div>
 </body>
 <head>
-  <title>Draw template</title>
-  {# <script src="displayDraw.js"></script> #}
-  <script src="filloutDraw.js"></script>
+  <title>bracket template</title>
+  <script src="displayBracket.js"></script>
+  {# <script src="filloutBracket.js"></script> #}
   <style>
     .player {
-      font-size: {{ vspace/3 }}px;
+      font-size: {{ cellheight*0.8 }}px;
       font-family: Arial, Helvetica, sans-serif;
-      width: {{ 2*hspace }}px;
-      height: {{ vspace*0.4 }}px;
-      text-align: center;
-      border: 1px solid black;
-      border-radius: 5px;
-      background-color: white;
+      width: {{ hspace*0.97 }}px;
+      height: {{ cellheight }}px;
+      text-align: left;
+      padding-left: {{ hspace*0.03 }}px;
+
+      border-bottom: {{ linewidth }}px solid black;
+      border-radius: 0px;
+      background-color: none;
+      overflow: hidden;
       }
     .line {
-      border-left: 2px solid navy; 
+      border-left: {{ linewidth }}px solid black; 
     }
   </style>
 </head>

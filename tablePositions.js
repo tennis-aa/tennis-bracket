@@ -2,11 +2,11 @@ let draws;
 let results;
 let points_per_round;
 
-promise1 = fetch("draws_examples/draws.json").then((response)=>response.json()
+promise1 = fetch("ao2021_draws.json").then((response)=>response.json()
 ).then(function (p){
   draws = p;
 });
-promise2 = fetch("results.json").then((response)=>response.json()
+promise2 = fetch("ao2021_results.json").then((response)=>response.json()
 ).then(function(p){
   results=p; 
 });
