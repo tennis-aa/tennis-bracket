@@ -56,8 +56,8 @@ function display_bracket() {
   } else {
     let bracket = brackets[user];
     let user_loc = table_results.user.findIndex(element=> element==user);
-    console.log(user_loc)
-    user_info.innerHTML = user + " has " + table_results.points[user_loc] + " points and is in position " + table_results.position[user_loc] + " (" + table_results.rank[user_loc] + ")";
+    let nr_users = table_results.user.length;
+    user_info.innerHTML =  table_results.points[user_loc] + " puntos" + "<br>" + "Posicion " + table_results.position[user_loc] + "/" + nr_users + " (" + table_results.rank[user_loc] + ")";
     for (let i = 0; i < bracket.length; i++) {
       let player = document.getElementById("p" + (i+bracketSize));
       player.innerHTML = bracket[i];
