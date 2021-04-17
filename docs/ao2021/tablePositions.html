@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Table of positions</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="/css/main.css">
+  <script src="/js/tablePositions.js"></script>
+  <style>
+    #table-positions {
+      border-collapse: collapse;
+      text-align: center;
+    }
+    #table-positions td {
+      font-size: 12pt;
+    }
+    #table-positions th {
+      font-size: 14pt;
+      color: Black;
+      background-color: white;
+    }
+    #table-positions tr:nth-child(even) {
+      background-color: lightgray;
+    }
+    #table-positions tr:nth-child(odd) {
+      background-color: white;
+    }
+  </style>
+</head>
+<body onLoad="loadTable()">
+<div class="container">
+  <h1><a href="/"> Home </a></h1>
+  <nav class="navbar navbar-default border-primary">
+    <ul class = "nav navbar-nav">
+      <li><a href="./bracketDisplay.html"> Brackets </a></li>
+      <li class="active"><a href="./tablePositions.html"> Tables </a></li>
+      <li><a href="./bracketFillout.html"> Fillout bracket </a></li>
+    </ul>
+  </nav>
+  <div id="table-container">
+    <table id="table-positions">
+      <tr>
+        <th style="width: 0.5cm"> </th>
+        <th style="width: 2cm"> User </th>
+        <th style="width: 2cm"> Score </th>
+        <th style="width: 2cm"> Rank </th>
+      </tr>
+    </table>
+  </div>
+</div>
+</body>
+</html>

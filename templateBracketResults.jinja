@@ -6,35 +6,54 @@
 <html>
 <body>
   <div class="bracket_container" style="position:relative;height:{{bracketSize/2*vspace}}px">
+    <div id="bracket-size" style="display: none"> {{ bracketSize }} </div>
   {% for j in range(rounds) %}
     {% for i in range((bracketSize/(2**j)) | int) %}
       {%- if i < bracketSize/(2**(j+1)) %}
         {%- if i%2 == 0 and j<rounds-1 %}{# draw the lines between players in a match #}
     <div class="line" style="position: absolute; left:{{ (j+1)*hspace }}px;top:{{ i*vspace*(2**j) + vspace*(2**(j-1) - 1/2) + cellheight }}px;height: {{ vspace*(2**j) + linewidth }}px"> </div>
         {% endif %}
-    <div class="player" id="p{{ counter[j] + i }}" style="position: absolute;left:{{ j*hspace }}px;top:{{ i*vspace*(2**j) + vspace*(2**(j-1) - 1/2) }}px"> Player {{ counter[j]+i+1 }} </div>
+    <div class="player" id="p{{ counter[j] + i }}" style="position: absolute;left:{{ j*hspace }}px;top:{{ i*vspace*(2**j) + vspace*(2**(j-1) - 1/2) }}px"> 
+      <select id = "select{{ counter[j] + i }}">
+        <option></option>
+      </select>
+    </div>
         {% else %}
           {% if i%2 == 0 and j<rounds-1 %}{# draw the lines between players in a match #}
     <div class="line" style="position: absolute; left:{{ hspace * (2*rounds - j) }}px;top:{{ (i-bracketSize/(2**(j+1)))*vspace*(2**j) + vspace*(2**(j-1) - 1/2) + cellheight }}px;height: {{ vspace*(2**j) + linewidth }}px"> </div>
           {% endif %}
-    <div class="player" id="p{{ counter[j] + i }}" style="position: absolute;left:{{ hspace * (2*rounds - j) }}px;top:{{ (i-bracketSize/(2**(j+1)))*vspace*(2**j)  + vspace*(2**(j-1) - 1/2) }}px"> Player {{ counter[j]+i+1 }} </div>
+    <div class="player" id="p{{ counter[j] + i }}" style="position: absolute;left:{{ hspace * (2*rounds - j) }}px;top:{{ (i-bracketSize/(2**(j+1)))*vspace*(2**j)  + vspace*(2**(j-1) - 1/2) }}px"> 
+      <select id = "select{{ counter[j] + i }}">
+        <option></option>
+      </select>
+    </div>
         {% endif %}
     {% endfor %}
   {% endfor %}
     <div class="line" style="position: absolute; left:{{ rounds*hspace }}px;top: {{ vspace*(2**(rounds-2) - 2) + cellheight }}px;height: {{ 1.5*vspace+linewidth }}px"> </div>
     <div class="line" style="position: absolute; left:{{ (rounds+1)*hspace }}px;top:{{ vspace*(2**(rounds-2) - 2) + cellheight }}px;height: {{ 1.5*vspace+linewidth }}px"> </div>
-    <div class="player" id="p{{ counter[rounds] }}" style="position: absolute;left:{{ (rounds)*hspace }}px;top:{{ vspace*(2**(rounds-2) - 2) }}px;text-align: center"> Player {{ counter[rounds] + 1 }} </div>
+    <div class="player" id="p{{ counter[rounds] }}" style="position: absolute;left:{{ (rounds)*hspace }}px;top:{{ vspace*(2**(rounds-2) - 2) }}px;text-align: center"> 
+      <select id = "select{{ counter[rounds] }}">
+        <option></option>
+      </select>
+    </div>
+    <div id="userinfo-container" style="position: absolute; left: {{ (rounds-1)*hspace }}px; top: {{ vspace*(2**(rounds-2) - 5) }}px;width: {{ 3*hspace }}px; height: {{ vspace }}px; text-align: center"> 
+      <button onclick="save_results()"> Save </button>
+    </div>
+  </div>
 </body>
 <head>
-  <title> bracket template </title>
+  <title>bracket template</title>
+  <script src="resultsBracket.js"></script>
+  <script src="computePoints.js"></script>
   <style>
     .player {
       font-size: {{ cellheight*0.6 }}px;
       font-family: Arial, Helvetica, sans-serif;
-      width: {{ hspace*0.97 }}px;
+      width: {{ hspace }}px;
       height: {{ cellheight }}px;
       text-align: left;
-      padding-left: {{ hspace*0.03 }}px;
+      padding-left: {{ hspace*0}}px;
       border-bottom: {{ linewidth }}px solid black;
       border-radius: 0px;
       background-color: transparent;
@@ -42,6 +61,11 @@
     }
     .line {
       border-left: {{ linewidth }}px solid black; 
+    }
+    select {
+      height: {{ cellheight }}px;
+      width: {{ hspace }}px;
+      font-size: {{ cellheight*0.6 }}px;
     }
   </style>
 </head>
