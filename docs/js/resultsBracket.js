@@ -1,8 +1,7 @@
 let bracketSize;
 let rounds;
 let counter;
-let options;
-let option_blank;
+let option_blank = document.createElement("option");
 let players;
 let brackets;
 let results;
@@ -15,12 +14,6 @@ function loadResults() {
   for (let j = 0; j < rounds; j++) {
     counter[j+1] = counter[j] + bracketSize/(2**j);
   }
-
-  options = []
-  option_blank = document.createElement("option");
-  // option_blank.innerHTML = " ";
-  option_blank.setAttribute("value","");
-
 
   // Put players in the bracket
   let promise1 = fetch("players.json").then((response)=>response.json()
@@ -46,21 +39,34 @@ function loadResults() {
 
 
   Promise.all([promise1,promise2,promise3,promise4]).then(function (){ // options in each select element
-    for (let i = 0; i < bracketSize; i++){
-        let option = document.createElement("option");
-        option.innerHTML = players[i];
-        options.push(option);
+    for (let i = 0; i < bracketSize/2; i++){
+      let sel = document.getElementById("select"+ (counter[1] + i))
+      let option1 = document.createElement("option");
+      let option2 = document.createElement("option");
+      option1.innerHTML = players[2*i];
+      option2.innerHTML = players[2*i+1];
+      sel.appendChild(option1)
+      sel.appendChild(option2)
+      if (results[counter[1]+i-bracketSize] == players[2*i]) {
+        sel.value = option1.value;
+      } else if (results[counter[1]+i-bracketSize] == players[2*i+1]) {
+        sel.value = option2.value;
+      }
     }
-    for (let j = 1; j <= rounds; j++){
+
+    for (let j = 2; j <= rounds; j++){
       for (let i = 0; i < bracketSize/(2**j); i++) {
-        let selectNode = document.getElementById("select"+ (counter[j] + i))
-        document.createElement("select");
-        let predecessors = [...Array(2**j).keys()].map(x => x + i*(2**j));
-        for (let k=0; k<predecessors.length;k++) {
-          selectNode.appendChild(options[predecessors[k]].cloneNode(true));
-          if (results[counter[j]+i-bracketSize] == options[predecessors[k]].value) {
-            selectNode.value = options[predecessors[k]].value;
-          }
+        let sel = document.getElementById("select" + (counter[j] + i));
+        sel.appendChild(option_blank.cloneNode(true));
+        sel.appendChild(option_blank.cloneNode(true));
+        sel1 = document.getElementById("select" + (counter[j-1]+2*i));
+        sel2 = document.getElementById("select" + (counter[j-1]+2*i+1));
+        sel.options[1].innerHTML = sel1.value;
+        sel.options[2].innerHTML = sel2.value;
+        if (results[counter[j]+i-bracketSize] == sel.options[1].value) {
+          sel.value = sel.options[1].value;
+        } else if (results[counter[j]+i-bracketSize] == sel.options[2].value) {
+          sel.value = sel.options[2].value;
         }
       }
     }
@@ -68,22 +74,37 @@ function loadResults() {
 }
 
 // The following function should update the available options depending on the choices of the user
-function update_options(){
-  for (let j = 1; j <= rounds-1; j++){
-    for (let i = 0; i < bracketSize/(2**j); i++) {
-      let selectNode = document.getElementById("select"+ (counter[j]+i));
-      let selectchildNodes = selectNode.childNodes;
-      len = selectchildNodes.length;
-      for (let k=0; k<len;k++){
-        selectNode.removeChild(selectchildNodes[0]);
-      }
-      // selectNode.appendChild(option_blank.cloneNode(true));
-      // let predecessors = [...Array(2**j).keys()].map(x => x + i*(2**j));
-      // for (let k=0; k<predecessors.length;k++) {
-      //   selectNode.appendChild(options[predecessors[k]].cloneNode(true));
-      // }
+function update_options(player){
+  let round;
+  let place;
+  for (let j=1; j<rounds; j++) {
+    if (player >= counter[j]) {
+      round = j;
+      break;
     }
   }
+  let i = player - counter[round];
+  if (i % 2) { // odd
+    playerNew = counter[round+1] + (i-1)/2;
+    place = 2;
+  } else {
+    playerNew = counter[round+1] + i/2;
+    place = 1;
+  }
+  console.log(playerNew)
+  let sel = document.getElementById("select"+player)
+  let selNew = document.getElementById("select"+playerNew)
+  selNew.options[place].innerHTML = sel.value; 
+  // for (let j = 1; j <= rounds-1; j++){
+  //   for (let i = 0; i < bracketSize/(2**j); i++) {
+  //     let selectNode = document.getElementById("select"+ (counter[j]+i));
+  //     let selectchildNodes = selectNode.childNodes;
+  //     len = selectchildNodes.length;
+  //     for (let k=0; k<len;k++){
+  //       selectNode.removeChild(selectchildNodes[0]);
+  //     }
+  //   }
+  // }
 }
 
 // The following function allows the user to save the bracket in json format
@@ -91,8 +112,8 @@ function save_results(){
   // Gather selected inputs
   for (let j = 1; j <= rounds; j++){
     for (let i = 0; i < bracketSize/(2**j); i++) {
-      let selectNode = document.getElementById("select"+ (counter[j]+i));
-      results[i] = selectNode.value;
+      let sel = document.getElementById("select"+ (counter[j]+i));
+      results[i] = sel.value;
     }
   }
 

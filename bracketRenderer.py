@@ -4,6 +4,8 @@ import sys
 import math
 
 def bracketRenderer(bracketSize):
+    tournament = "Australian Open 2021"
+
     rounds = math.log(bracketSize,2)
     if not rounds.is_integer():
             raise ValueError("bracketSize has to be 2^n")
@@ -15,14 +17,14 @@ def bracketRenderer(bracketSize):
         counter[j+1] = counter[j] + int(bracketSize/(2**j))
     # print(counter)
 
-    render_vars = {"bracketSize" : bracketSize, "rounds" : rounds, "counter" : counter}
+    render_vars = {"bracketSize" : bracketSize, "rounds" : rounds, "counter" : counter, "tournament": tournament}
 
     script_path = os.path.dirname(os.path.abspath(__file__))
     # template_file_path = os.path.join(script_path, template_filename)
     
     # Display bracket
     template_filename = "./templateBracketDisplay.jinja"
-    fileName="bracketDisplay.html"
+    fileName="index.html"
     rendered_file_path = os.path.join(script_path, fileName)
 
     environment = jinja2.Environment(loader=jinja2.FileSystemLoader(script_path))
@@ -34,7 +36,7 @@ def bracketRenderer(bracketSize):
 
     # Fillout bracket
     template_filename = "./templateBracketFillout.jinja"
-    fileName="bracketFillout.html"
+    fileName="submit.html"
     rendered_file_path = os.path.join(script_path, fileName)
 
     environment = jinja2.Environment(loader=jinja2.FileSystemLoader(script_path))
@@ -46,7 +48,7 @@ def bracketRenderer(bracketSize):
 
     # Results bracket
     template_filename = "./templateBracketResults.jinja"
-    fileName="bracketResults.html"
+    fileName="inputResults.html"
     rendered_file_path = os.path.join(script_path, fileName)
 
     environment = jinja2.Environment(loader=jinja2.FileSystemLoader(script_path))

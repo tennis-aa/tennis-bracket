@@ -1,3 +1,4 @@
+/* General */
 .navbar {
   background-color: white;
   padding-top: 10px;
@@ -26,6 +27,8 @@ p, ul {
   font-size: 14pt;
 }
 
+
+/* table of positions */
 #table-positions {
   border-collapse: collapse;
   text-align: center;

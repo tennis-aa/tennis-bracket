@@ -5,7 +5,40 @@
 {% set fillout = False %}
 <!DOCTYPE html>
 <html>
-<body>
+<head>
+  <title> {{ tournament }} </title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="../css/main.css">
+  <script src="../js/displayBracket.js"></script>
+  <style>
+    .player {
+      font-size: {{ cellheight*0.6 }}px;
+      font-family: Arial, Helvetica, sans-serif;
+      width: {{ hspace }}px;
+      height: {{ cellheight }}px;
+      text-align: left;
+      padding-left: {{ hspace*0.03 }}px;
+      border-bottom: {{ linewidth }}px solid black;
+      border-radius: 0px;
+      background-color: transparent;
+      overflow: hidden;
+    }
+    .line {
+      border-left: {{ linewidth }}px solid black; 
+    }
+  </style>
+</head>
+<body onLoad="loadDisplay()">
+<div class="container">
+  <h1><a href="../"> Home </a></h1>
+  <h2> {{ tournament }} </h2>
+  <nav class="navbar navbar-default border-primary">
+    <ul class = "nav navbar-nav">
+      <li class="active"><a href="./"> Cuadros </a></li>
+      <li><a href="./table.html"> Tabla de posiciones </a></li>
+      <li><a href="./submit.html"> Crear cuadro </a></li>
+    </ul>
+  </nav>
   <div class="bracket_container" style="position:relative;height:{{bracketSize/2*vspace}}px">
       <div id="bracket-size" style="display: none"> {{ bracketSize }} </div>
   {% for j in range(rounds) %}
@@ -28,7 +61,7 @@
     <div class="player" id="p{{ counter[rounds] }}" style="position: absolute;left:{{ (rounds)*hspace }}px;top:{{ vspace*(2**(rounds-2) - 2) }}px;text-align: center"> </div>
     
     <div id="userinfo-container" style="position: absolute; left: {{ (rounds-1)*hspace }}px; top: {{ vspace }}px;width: {{ 3*hspace }}px; height: {{ vspace }}px; text-align: center"> 
-      <label for="user"> Select user </label>
+      <label for="user"> Usuario </label>
       <select id="user" name="user" onchange="display_bracket()">
         <option></option>
       </select>
@@ -36,27 +69,6 @@
     </div>
   </div>
 </body>
-<head>
-  <title>bracket template</title>
-  <script src="displayBracket.js"></script>
-  <style>
-    .player {
-      font-size: {{ cellheight*0.6 }}px;
-      font-family: Arial, Helvetica, sans-serif;
-      width: {{ hspace*0.97 }}px;
-      height: {{ cellheight }}px;
-      text-align: left;
-      padding-left: {{ hspace*0.03 }}px;
-      border-bottom: {{ linewidth }}px solid black;
-      border-radius: 0px;
-      background-color: transparent;
-      overflow: hidden;
-    }
-    .line {
-      border-left: {{ linewidth }}px solid black; 
-    }
-  </style>
-</head>
 </html>
 
 
