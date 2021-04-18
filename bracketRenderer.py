@@ -4,7 +4,7 @@ import sys
 import math
 
 def bracketRenderer(bracketSize):
-    tournament = "Australian Open 2021"
+    tournament = "Barcelona 2021"
 
     rounds = math.log(bracketSize,2)
     if not rounds.is_integer():

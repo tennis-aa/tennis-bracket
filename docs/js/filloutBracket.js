@@ -37,7 +37,6 @@ function loadFillout() {
       }
     }
     let sel = document.getElementById("select"+ (192));
-    console.log(sel.options)
   });
 }
 
@@ -60,7 +59,6 @@ function update_options(player){
     playerNew = counter[round+1] + i/2;
     place = 1;
   }
-  console.log(playerNew)
   let sel = document.getElementById("select"+player)
   let selNew = document.getElementById("select"+playerNew)
   selNew.options[place].innerHTML = sel.value; 
