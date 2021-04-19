@@ -91,7 +91,6 @@ function update_options(player){
     playerNew = counter[round+1] + i/2;
     place = 1;
   }
-  console.log(playerNew)
   let sel = document.getElementById("select"+player)
   let selNew = document.getElementById("select"+playerNew)
   selNew.options[place].innerHTML = sel.value; 
@@ -113,7 +112,7 @@ function save_results(){
   for (let j = 1; j <= rounds; j++){
     for (let i = 0; i < bracketSize/(2**j); i++) {
       let sel = document.getElementById("select"+ (counter[j]+i));
-      results[i] = sel.value;
+      results[counter[j]+i-bracketSize] = sel.value;
     }
   }
 
@@ -147,8 +146,6 @@ function save_results(){
     table_results.position.push(entries[i].position)
     table_results.rank.push(entries[i].rank)
   }
-  console.log(table_results)
-
 
   let blob = new Blob([JSON.stringify(results)],{type : "application:json"});
   url = URL.createObjectURL(blob);
