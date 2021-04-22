@@ -90,6 +90,6 @@ function save_bracket(){
   url = URL.createObjectURL(blob);
   let link = document.createElement('a');
   link.href = url;
-  link.setAttribute("download","bracket.json");
+  link.setAttribute("download",username + ".json");
   link.click();
 }

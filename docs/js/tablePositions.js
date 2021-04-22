@@ -12,27 +12,35 @@ function loadTable() {
       table_row = document.createElement("tr");
       // Add position
       table_entry = document.createElement("td");
-      table_entry.appendChild(document.createTextNode(table_results.position[i]))
-      table_row.appendChild(table_entry)
+      table_entry.appendChild(document.createTextNode(table_results.position[i]));
+      table_row.appendChild(table_entry);
 
       // Add user name
       table_entry = document.createElement("td");
-      table_entry.appendChild(document.createTextNode(table_results.user[i]))
-      table_row.appendChild(table_entry)
+      link = document.createElement("a");
+      link.href = "./?user=" + table_results.user[i];
+      link.appendChild(document.createTextNode(table_results.user[i]));
+      table_entry.appendChild(link);
+      table_row.appendChild(table_entry);
 
       // Add points
       table_entry = document.createElement("td");
-      table_entry.appendChild(document.createTextNode(table_results.points[i]))
-      table_row.appendChild(table_entry)
+      table_entry.appendChild(document.createTextNode(table_results.points[i]));
+      table_row.appendChild(table_entry);
 
       // Add rank
       table_entry = document.createElement("td");
-      table_entry.appendChild(document.createTextNode(table_results.rank[i]))
-      table_row.appendChild(table_entry)
+      table_entry.appendChild(document.createTextNode(table_results.rank[i]));
+      table_row.appendChild(table_entry);
+
+      // Add rank among monkeys
+      table_entry = document.createElement("td");
+      table_entry.appendChild(document.createTextNode(table_results.monkey_rank[i] + "%"));
+      table_row.appendChild(table_entry);
 
       // Add row to table
-      table = document.getElementById("table-positions")
-      table.appendChild(table_row)
+      table = document.getElementById("table-positions");
+      table.appendChild(table_row);
     }
   });
 }

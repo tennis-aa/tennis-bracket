@@ -6,7 +6,8 @@ let players;
 let brackets;
 let results;
 let points_per_round
-
+let monkeys;
+let monkeys_save = false;
 function loadResults() {
   bracketSize = Number(document.getElementById("bracket-size").innerHTML);
   rounds = Math.log2(bracketSize);
@@ -32,11 +33,20 @@ function loadResults() {
   ).then(function(response){
     results = response;
   })
-  promise4 = fetch("config.json").then((response)=>response.json()
+  let promise4 = fetch("config.json").then((response)=>response.json()
   ).then(function(response) {
     points_per_round = response["points_per_round"];
   });
-
+  let promise5 = fetch("monkeys.json").then(function(response) {
+    if (response.ok){
+      response.json().then(function(response) {
+        monkeys = response;
+      })
+    } else {
+      promise1.then(generateMonkeys);
+      monkeys_save = true;
+    }
+  })
 
   Promise.all([promise1,promise2,promise3,promise4]).then(function (){ // options in each select element
     for (let i = 0; i < bracketSize/2; i++){
@@ -106,7 +116,7 @@ function update_options(player){
   // }
 }
 
-// The following function allows the user to save the bracket in json format
+// The following function allows the organizer to save the results of the bracket in json format
 function save_results(){
   // Gather selected inputs
   for (let j = 1; j <= rounds; j++){
@@ -116,9 +126,10 @@ function save_results(){
     }
   }
 
+  // Define the object that contains the standings
+  let table_results = {user: [],points: [], position: [], rank: [], monkey_rank: []}
   // compute points and positions for all participants
   let entries = [];
-  let table_results = {user: [],points: [], position: [], rank: []}
   for (let key in brackets) {
     let points = computePoints(brackets[key],results,points_per_round);
     entries.push({user: key, points: points,position: 1,rank: ""});
@@ -134,17 +145,41 @@ function save_results(){
       entries[i].position = i + 1;
     }
   }
+
   // compute rank
   for (let i=0;i<nr_users;i++) {
     if (entries[i].position <= nr_users/2) {
-      entries[i].rank = "top " + (entries[i].position/nr_users*100) + "%";
+      entries[i].rank = "top " + Math.round(entries[i].position/nr_users*100) + "%";
     } else {
-      entries[i].rank = "bot " + ((nr_users - entries[i].position + 1)/nr_users*100) + "%";
+      entries[i].rank = "bot " + Math.round((nr_users - entries[i].position + 1)/nr_users*100) + "%";
     }
     table_results.user.push(entries[i].user)
     table_results.points.push(entries[i].points)
     table_results.position.push(entries[i].position)
     table_results.rank.push(entries[i].rank)
+  }
+
+  // Compute rank among monkeys
+  let monkey_points = [];
+  for (let key in monkeys) {
+    monkey_points.push(computePoints(monkeys[key],results,points_per_round));
+  }
+  monkey_points.sort(function(a,b) {
+    return b - a;
+  })
+  console.log(monkeys)
+  for (let i=0;i<nr_users;i++) {
+    let monkey_position = 0;
+    if (table_results.points[i] < monkey_points[monkey_points.length-1]) {
+      table_results.monkey_rank.push(100);
+      continue;
+    }
+    for (let j=0; j<monkey_points.length; j++) {
+      if (table_results.points[i] >= monkey_points[j]) {
+        table_results.monkey_rank.push(Math.round(j/monkey_points.length*100));
+        break;
+      }
+    }
   }
 
   let blob = new Blob([JSON.stringify(results)],{type : "application:json"});
@@ -160,4 +195,45 @@ function save_results(){
   link.href = url;
   link.setAttribute("download","table_results.json");
   link.click();
+
+  if (monkeys_save) {
+    blob = new Blob([JSON.stringify(monkeys)],{type : "application:json"});
+    url = URL.createObjectURL(blob);
+    link = document.createElement('a');
+    link.href = url;
+    link.setAttribute("download","monkeys.json");
+    link.click();
+  }
+}
+
+function generateMonkeys() {
+  number_monkeys = 10000;
+  monkeys = {};
+  for (let k=0; k<number_monkeys; k++){
+    let bracket=[];
+    // Picks for the second round
+    for (let i = 0; i < bracketSize/2; i++){
+      if (players[2*i]=="Bye") {
+        bracket.push(players[2*i+1]);
+      } else if (players[2*i+1]=="Bye") {
+        bracket.push(players[2*i]);
+      } else if (Math.random()<0.5) {
+        bracket.push(players[2*i]);
+      } else {
+        bracket.push(players[2*i+1]);
+      }
+    }
+    // picks for the third round onwards
+    for (let j = 2; j <= rounds; j++){
+      for (let i = 0; i < bracketSize/(2**j); i++) {
+        if (Math.random()<0.5) {
+          bracket.push(bracket[counter[j-1]-bracketSize+2*i]);
+        } else {
+          bracket.push(players[counter[j-1]-bracketSize+2*i+1]);
+        }
+      }
+    }
+    // Save bracket to monkeys
+    monkeys["monkey"+k] = bracket;
+  }
 }

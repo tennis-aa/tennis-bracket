@@ -41,15 +41,23 @@ function loadDisplay() {
   ).then(function(response) {
     table_results = response;
   });
+
+  Promise.all([promise2,promise3,promise4]).then(function() {
+    let params = new URLSearchParams(location.search);
+    let sel = document.getElementById("user");
+    sel.value = params.get("user");
+    sel.onchange();
+  })
 }
 
 function display_bracket() {
   let user = document.getElementById("user").value;
   let user_info = document.getElementById("user-info");
   if (user==""){
+    console.log()
     user_info.innerHTML = "";
-    let player = document.getElementById("p" + (i+bracketSize));
-    for (let i = 0; i < bracket.length; i++) {
+    for (let i = 0; i < results.length; i++) {
+      let player = document.getElementById("p" + (i+bracketSize));
       player.innerHTML = results[i];
       player.style.color = "black";
     }
