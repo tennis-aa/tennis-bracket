@@ -8,10 +8,10 @@ function loadDisplay() {
   bracketSize = Number(document.getElementById("bracket-size").innerHTML);
   promise1 = fetch("./players.json").then((response)=>response.json()
   ).then(function (p){
-    players = p;
-    for (let i = 0; i < p.length; i++) {
+    players = p["players"];
+    for (let i = 0; i < players.length; i++) {
       let id = "p" + i;
-      document.getElementById(id).innerHTML = p[i];
+      document.getElementById(id).innerHTML = players[i];
     }
   });
 

@@ -8,6 +8,9 @@ let results;
 let points_per_round
 let monkeys;
 let monkeys_save = false;
+let bots;
+let bots_save = false;
+let elo;
 function loadResults() {
   bracketSize = Number(document.getElementById("bracket-size").innerHTML);
   rounds = Math.log2(bracketSize);
@@ -19,10 +22,11 @@ function loadResults() {
   // Put players in the bracket
   let promise1 = fetch("players.json").then((response)=>response.json()
   ).then(function (p){
-    players = p;
-    for (let i = 0; i < p.length; i++) {
+    players = p["players"];
+    elo = p["elo"];
+    for (let i = 0; i < players.length; i++) {
       let id = "p" + i;
-      document.getElementById(id).innerHTML = p[i];
+      document.getElementById(id).innerHTML = players[i];
     }
   });
   let promise2 = fetch("brackets.json").then((response)=>response.json()
@@ -45,6 +49,16 @@ function loadResults() {
     } else {
       promise1.then(generateMonkeys);
       monkeys_save = true;
+    }
+  })
+  let promise6 = fetch("bots.json").then(function(response) {
+    if (response.ok){
+      response.json().then(function(response) {
+        bots = response;
+      })
+    } else {
+      promise1.then(generatebots);
+      bots_save = true;
     }
   })
 
@@ -127,7 +141,7 @@ function save_results(){
   }
 
   // Define the object that contains the standings
-  let table_results = {user: [],points: [], position: [], rank: [], monkey_rank: []}
+  let table_results = {user: [],points: [], position: [], rank: [], monkey_rank: [], bot_rank: []};
   // compute points and positions for all participants
   let entries = [];
   for (let key in brackets) {
@@ -167,9 +181,8 @@ function save_results(){
   monkey_points.sort(function(a,b) {
     return b - a;
   })
-  console.log(monkeys)
+  console.log(monkey_points)
   for (let i=0;i<nr_users;i++) {
-    let monkey_position = 0;
     if (table_results.points[i] < monkey_points[monkey_points.length-1]) {
       table_results.monkey_rank.push(100);
       continue;
@@ -177,6 +190,28 @@ function save_results(){
     for (let j=0; j<monkey_points.length; j++) {
       if (table_results.points[i] >= monkey_points[j]) {
         table_results.monkey_rank.push(Math.round(j/monkey_points.length*100));
+        break;
+      }
+    }
+  }
+
+  // Compute rank among bots
+  let bot_points = [];
+  for (let key in bots) {
+    bot_points.push(computePoints(bots[key],results,points_per_round));
+  }
+  bot_points.sort(function(a,b) {
+    return b - a;
+  })
+  console.log(bot_points)
+  for (let i=0;i<nr_users;i++) {
+    if (table_results.points[i] < bot_points[bot_points.length-1]) {
+      table_results.bot_rank.push(100);
+      continue;
+    }
+    for (let j=0; j<bot_points.length; j++) {
+      if (table_results.points[i] >= bot_points[j]) {
+        table_results.bot_rank.push(Math.round(j/bot_points.length*100));
         break;
       }
     }
@@ -204,6 +239,15 @@ function save_results(){
     link.setAttribute("download","monkeys.json");
     link.click();
   }
+
+  if (bots_save) {
+    blob = new Blob([JSON.stringify(bots)],{type : "application:json"});
+    url = URL.createObjectURL(blob);
+    link = document.createElement('a');
+    link.href = url;
+    link.setAttribute("download","bots.json");
+    link.click();
+  }
 }
 
 function generateMonkeys() {
@@ -229,11 +273,59 @@ function generateMonkeys() {
         if (Math.random()<0.5) {
           bracket.push(bracket[counter[j-1]-bracketSize+2*i]);
         } else {
-          bracket.push(players[counter[j-1]-bracketSize+2*i+1]);
+          bracket.push(bracket[counter[j-1]-bracketSize+2*i+1]);
         }
       }
     }
     // Save bracket to monkeys
     monkeys["monkey"+k] = bracket;
+  }
+}
+
+function generatebots() {
+  number_bots = 10000;
+  bots = {};
+  for (let k=0; k<number_bots; k++){
+    let bracket=[];
+    let bracket_elo = [];
+    // Picks for the second round
+    for (let i = 0; i < bracketSize/2; i++){
+      if (players[2*i]=="Bye") {
+        bracket.push(players[2*i+1]);
+        bracket_elo.push(elo[2*i+1]);
+        continue;
+      } else if (players[2*i+1]=="Bye") {
+        bracket.push(players[2*i]);
+        bracket_elo.push(elo[2*i]);
+        continue
+      }
+      let Q1 = 10**(elo[2*i]/400);
+      let Q2 = 10**(elo[2*i+1]/400);
+      let probability = Q1/(Q1+Q2);
+      if (Math.random()<probability) {
+        bracket.push(players[2*i]);
+        bracket_elo.push(elo[2*i])
+      } else {
+        bracket.push(players[2*i+1]);
+        bracket_elo.push(elo[2*i+1]);
+      } 
+    }
+    // picks for the third round onwards
+    for (let j = 2; j <= rounds; j++){
+      for (let i = 0; i < bracketSize/(2**j); i++) {
+        let Q1 = 10**(bracket_elo[counter[j-1]-bracketSize+2*i]/400);
+        let Q2 = 10**(bracket_elo[counter[j-1]-bracketSize+2*i+1]/400);
+        let probability = Q1/(Q1+Q2);
+        if (Math.random()<probability) {
+          bracket.push(bracket[counter[j-1]-bracketSize+2*i]);
+          bracket_elo.push(bracket_elo[counter[j-1]-bracketSize+2*i]);
+        } else {
+          bracket.push(bracket[counter[j-1]-bracketSize+2*i+1]);
+          bracket_elo.push(bracket_elo[counter[j-1]-bracketSize+2*i+1]);
+        }
+      }
+    }
+    // Save bracket to bots
+    bots["bot"+k] = bracket;
   }
 }

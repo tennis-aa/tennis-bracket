@@ -14,10 +14,10 @@ function loadFillout() {
   // Put players in the bracket
   fetch("./players.json").then((response)=>response.json()
   ).then(function (p){
-    players = p;
-    for (let i = 0; i < p.length; i++) {
+    players = p["players"];
+    for (let i = 0; i < players.length; i++) {
       let id = "p" + i;
-      document.getElementById(id).innerHTML = p[i];
+      document.getElementById(id).innerHTML = players[i];
     }
   }).then(function (){ // Put select elements to pick winners in the first round
     for (let i = 0; i < bracketSize/2; i++){
