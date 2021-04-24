@@ -34,14 +34,22 @@ function loadTable() {
       table_row.appendChild(table_entry);
 
       // Add rank among monkeys
+      try {
       table_entry = document.createElement("td");
       table_entry.appendChild(document.createTextNode(table_results.monkey_rank[i] + "%"));
       table_row.appendChild(table_entry);
+      } catch (error) {
+        console.log(error)
+      }
 
       // Add rank among bots
+      try {
       table_entry = document.createElement("td");
       table_entry.appendChild(document.createTextNode(table_results.bot_rank[i] + "%"));
       table_row.appendChild(table_entry);
+      } catch (error) {
+        console.log(error)
+      }
 
       // Add row to table
       table = document.getElementById("table-positions");
