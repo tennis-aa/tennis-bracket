@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title> Madrid 2021 </title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="../css/main.css">
+  <script src="../js/displayBracket.js"></script>
+  <style>
+    .player {
+      font-size: 9.6px;
+      font-family: Arial, Helvetica, sans-serif;
+      width: 90px;
+      height: 16px;
+      text-align: left;
+      padding-left: 2.6999999999999997px;
+      border-bottom: 1px solid black;
+      border-radius: 0px;
+      background-color: transparent;
+      overflow: hidden;
+    }
+    .line {
+      border-left: 1px solid black; 
+    }
+  </style>
+</head>
+<body onLoad="loadDisplay()">
+<div class="container">
+  <h1><a href="../"> Home </a></h1>
+  <h2> Madrid 2021 </h2>
+  <nav class="navbar navbar-default border-primary">
+    <ul class = "nav navbar-nav">
+      <li class="active"><a href="./"> Cuadros </a></li>
+      <li><a href="./table.html"> Tabla de posiciones </a></li>
+      <li><a href="./submit.html"> Crear cuadro </a></li>
+      <li><a href="./inputResults.html"> Reportar resultados </a></li>
+    </ul>
+  </nav>
+  <div class="bracket_container" style="position:relative;height:1024.0px">
+      <div id="bracket-size" style="display: none"> 64 </div>
+    <div class="line" style="position: absolute; left:90px;top:16.0px;height: 33px"> </div>
+    <div class="player" id="p0" style="position: absolute;left:0px;top:0.0px"> </div>
+    <div class="player" id="p1" style="position: absolute;left:0px;top:32.0px"> </div>
+    <div class="line" style="position: absolute; left:90px;top:80.0px;height: 33px"> </div>
+    <div class="player" id="p2" style="position: absolute;left:0px;top:64.0px"> </div>
+    <div class="player" id="p3" style="position: absolute;left:0px;top:96.0px"> </div>
+    <div class="line" style="position: absolute; left:90px;top:144.0px;height: 33px"> </div>
+    <div class="player" id="p4" style="position: absolute;left:0px;top:128.0px"> </div>
+    <div class="player" id="p5" style="position: absolute;left:0px;top:160.0px"> </div>
+    <div class="line" style="position: absolute; left:90px;top:208.0px;height: 33px"> </div>
+    <div class="player" id="p6" style="position: absolute;left:0px;top:192.0px"> </div>
+    <div class="player" id="p7" style="position: absolute;left:0px;top:224.0px"> </div>
+    <div class="line" style="position: absolute; left:90px;top:272.0px;height: 33px"> </div>
+    <div class="player" id="p8" style="position: absolute;left:0px;top:256.0px"> </div>
+    <div class="player" id="p9" style="position: absolute;left:0px;top:288.0px"> </div>
+    <div class="line" style="position: absolute; left:90px;top:336.0px;height: 33px"> </div>
+    <div class="player" id="p10" style="position: absolute;left:0px;top:320.0px"> </div>
+    <div class="player" id="p11" style="position: absolute;left:0px;top:352.0px"> </div>
+    <div class="line" style="position: absolute; left:90px;top:400.0px;height: 33px"> </div>
+    <div class="player" id="p12" style="position: absolute;left:0px;top:384.0px"> </div>
+    <div class="player" id="p13" style="position: absolute;left:0px;top:416.0px"> </div>
+    <div class="line" style="position: absolute; left:90px;top:464.0px;height: 33px"> </div>
+    <div class="player" id="p14" style="position: absolute;left:0px;top:448.0px"> </div>
+    <div class="player" id="p15" style="position: absolute;left:0px;top:480.0px"> </div>
+    <div class="line" style="position: absolute; left:90px;top:528.0px;height: 33px"> </div>
+    <div class="player" id="p16" style="position: absolute;left:0px;top:512.0px"> </div>
+    <div class="player" id="p17" style="position: absolute;left:0px;top:544.0px"> </div>
+    <div class="line" style="position: absolute; left:90px;top:592.0px;height: 33px"> </div>
+    <div class="player" id="p18" style="position: absolute;left:0px;top:576.0px"> </div>
+    <div class="player" id="p19" style="position: absolute;left:0px;top:608.0px"> </div>
+    <div class="line" style="position: absolute; left:90px;top:656.0px;height: 33px"> </div>
+    <div class="player" id="p20" style="position: absolute;left:0px;top:640.0px"> </div>
+    <div class="player" id="p21" style="position: absolute;left:0px;top:672.0px"> </div>
+    <div class="line" style="position: absolute; left:90px;top:720.0px;height: 33px"> </div>
+    <div class="player" id="p22" style="position: absolute;left:0px;top:704.0px"> </div>
+    <div class="player" id="p23" style="position: absolute;left:0px;top:736.0px"> </div>
+    <div class="line" style="position: absolute; left:90px;top:784.0px;height: 33px"> </div>
+    <div class="player" id="p24" style="position: absolute;left:0px;top:768.0px"> </div>
+    <div class="player" id="p25" style="position: absolute;left:0px;top:800.0px"> </div>
+    <div class="line" style="position: absolute; left:90px;top:848.0px;height: 33px"> </div>
+    <div class="player" id="p26" style="position: absolute;left:0px;top:832.0px"> </div>
+    <div class="player" id="p27" style="position: absolute;left:0px;top:864.0px"> </div>
+    <div class="line" style="position: absolute; left:90px;top:912.0px;height: 33px"> </div>
+    <div class="player" id="p28" style="position: absolute;left:0px;top:896.0px"> </div>
+    <div class="player" id="p29" style="position: absolute;left:0px;top:928.0px"> </div>
+    <div class="line" style="position: absolute; left:90px;top:976.0px;height: 33px"> </div>
+    <div class="player" id="p30" style="position: absolute;left:0px;top:960.0px"> </div>
+    <div class="player" id="p31" style="position: absolute;left:0px;top:992.0px"> </div>
+    <div class="line" style="position: absolute; left:1080px;top:16.0px;height: 33px"> </div>
+    <div class="player" id="p32" style="position: absolute;left:1080px;top:0.0px"> </div>
+    <div class="player" id="p33" style="position: absolute;left:1080px;top:32.0px"> </div>
+    <div class="line" style="position: absolute; left:1080px;top:80.0px;height: 33px"> </div>
+    <div class="player" id="p34" style="position: absolute;left:1080px;top:64.0px"> </div>
+    <div class="player" id="p35" style="position: absolute;left:1080px;top:96.0px"> </div>
+    <div class="line" style="position: absolute; left:1080px;top:144.0px;height: 33px"> </div>
+    <div class="player" id="p36" style="position: absolute;left:1080px;top:128.0px"> </div>
+    <div class="player" id="p37" style="position: absolute;left:1080px;top:160.0px"> </div>
+    <div class="line" style="position: absolute; left:1080px;top:208.0px;height: 33px"> </div>
+    <div class="player" id="p38" style="position: absolute;left:1080px;top:192.0px"> </div>
+    <div class="player" id="p39" style="position: absolute;left:1080px;top:224.0px"> </div>
+    <div class="line" style="position: absolute; left:1080px;top:272.0px;height: 33px"> </div>
+    <div class="player" id="p40" style="position: absolute;left:1080px;top:256.0px"> </div>
+    <div class="player" id="p41" style="position: absolute;left:1080px;top:288.0px"> </div>
+    <div class="line" style="position: absolute; left:1080px;top:336.0px;height: 33px"> </div>
+    <div class="player" id="p42" style="position: absolute;left:1080px;top:320.0px"> </div>
+    <div class="player" id="p43" style="position: absolute;left:1080px;top:352.0px"> </div>
+    <div class="line" style="position: absolute; left:1080px;top:400.0px;height: 33px"> </div>
+    <div class="player" id="p44" style="position: absolute;left:1080px;top:384.0px"> </div>
+    <div class="player" id="p45" style="position: absolute;left:1080px;top:416.0px"> </div>
+    <div class="line" style="position: absolute; left:1080px;top:464.0px;height: 33px"> </div>
+    <div class="player" id="p46" style="position: absolute;left:1080px;top:448.0px"> </div>
+    <div class="player" id="p47" style="position: absolute;left:1080px;top:480.0px"> </div>
+    <div class="line" style="position: absolute; left:1080px;top:528.0px;height: 33px"> </div>
+    <div class="player" id="p48" style="position: absolute;left:1080px;top:512.0px"> </div>
+    <div class="player" id="p49" style="position: absolute;left:1080px;top:544.0px"> </div>
+    <div class="line" style="position: absolute; left:1080px;top:592.0px;height: 33px"> </div>
+    <div class="player" id="p50" style="position: absolute;left:1080px;top:576.0px"> </div>
+    <div class="player" id="p51" style="position: absolute;left:1080px;top:608.0px"> </div>
+    <div class="line" style="position: absolute; left:1080px;top:656.0px;height: 33px"> </div>
+    <div class="player" id="p52" style="position: absolute;left:1080px;top:640.0px"> </div>
+    <div class="player" id="p53" style="position: absolute;left:1080px;top:672.0px"> </div>
+    <div class="line" style="position: absolute; left:1080px;top:720.0px;height: 33px"> </div>
+    <div class="player" id="p54" style="position: absolute;left:1080px;top:704.0px"> </div>
+    <div class="player" id="p55" style="position: absolute;left:1080px;top:736.0px"> </div>
+    <div class="line" style="position: absolute; left:1080px;top:784.0px;height: 33px"> </div>
+    <div class="player" id="p56" style="position: absolute;left:1080px;top:768.0px"> </div>
+    <div class="player" id="p57" style="position: absolute;left:1080px;top:800.0px"> </div>
+    <div class="line" style="position: absolute; left:1080px;top:848.0px;height: 33px"> </div>
+    <div class="player" id="p58" style="position: absolute;left:1080px;top:832.0px"> </div>
+    <div class="player" id="p59" style="position: absolute;left:1080px;top:864.0px"> </div>
+    <div class="line" style="position: absolute; left:1080px;top:912.0px;height: 33px"> </div>
+    <div class="player" id="p60" style="position: absolute;left:1080px;top:896.0px"> </div>
+    <div class="player" id="p61" style="position: absolute;left:1080px;top:928.0px"> </div>
+    <div class="line" style="position: absolute; left:1080px;top:976.0px;height: 33px"> </div>
+    <div class="player" id="p62" style="position: absolute;left:1080px;top:960.0px"> </div>
+    <div class="player" id="p63" style="position: absolute;left:1080px;top:992.0px"> </div>
+    <div class="line" style="position: absolute; left:180px;top:32.0px;height: 65px"> </div>
+    <div class="player" id="p64" style="position: absolute;left:90px;top:16.0px"> </div>
+    <div class="player" id="p65" style="position: absolute;left:90px;top:80.0px"> </div>
+    <div class="line" style="position: absolute; left:180px;top:160.0px;height: 65px"> </div>
+    <div class="player" id="p66" style="position: absolute;left:90px;top:144.0px"> </div>
+    <div class="player" id="p67" style="position: absolute;left:90px;top:208.0px"> </div>
+    <div class="line" style="position: absolute; left:180px;top:288.0px;height: 65px"> </div>
+    <div class="player" id="p68" style="position: absolute;left:90px;top:272.0px"> </div>
+    <div class="player" id="p69" style="position: absolute;left:90px;top:336.0px"> </div>
+    <div class="line" style="position: absolute; left:180px;top:416.0px;height: 65px"> </div>
+    <div class="player" id="p70" style="position: absolute;left:90px;top:400.0px"> </div>
+    <div class="player" id="p71" style="position: absolute;left:90px;top:464.0px"> </div>
+    <div class="line" style="position: absolute; left:180px;top:544.0px;height: 65px"> </div>
+    <div class="player" id="p72" style="position: absolute;left:90px;top:528.0px"> </div>
+    <div class="player" id="p73" style="position: absolute;left:90px;top:592.0px"> </div>
+    <div class="line" style="position: absolute; left:180px;top:672.0px;height: 65px"> </div>
+    <div class="player" id="p74" style="position: absolute;left:90px;top:656.0px"> </div>
+    <div class="player" id="p75" style="position: absolute;left:90px;top:720.0px"> </div>
+    <div class="line" style="position: absolute; left:180px;top:800.0px;height: 65px"> </div>
+    <div class="player" id="p76" style="position: absolute;left:90px;top:784.0px"> </div>
+    <div class="player" id="p77" style="position: absolute;left:90px;top:848.0px"> </div>
+    <div class="line" style="position: absolute; left:180px;top:928.0px;height: 65px"> </div>
+    <div class="player" id="p78" style="position: absolute;left:90px;top:912.0px"> </div>
+    <div class="player" id="p79" style="position: absolute;left:90px;top:976.0px"> </div>
+    <div class="line" style="position: absolute; left:990px;top:32.0px;height: 65px"> </div>
+    <div class="player" id="p80" style="position: absolute;left:990px;top:16.0px"> </div>
+    <div class="player" id="p81" style="position: absolute;left:990px;top:80.0px"> </div>
+    <div class="line" style="position: absolute; left:990px;top:160.0px;height: 65px"> </div>
+    <div class="player" id="p82" style="position: absolute;left:990px;top:144.0px"> </div>
+    <div class="player" id="p83" style="position: absolute;left:990px;top:208.0px"> </div>
+    <div class="line" style="position: absolute; left:990px;top:288.0px;height: 65px"> </div>
+    <div class="player" id="p84" style="position: absolute;left:990px;top:272.0px"> </div>
+    <div class="player" id="p85" style="position: absolute;left:990px;top:336.0px"> </div>
+    <div class="line" style="position: absolute; left:990px;top:416.0px;height: 65px"> </div>
+    <div class="player" id="p86" style="position: absolute;left:990px;top:400.0px"> </div>
+    <div class="player" id="p87" style="position: absolute;left:990px;top:464.0px"> </div>
+    <div class="line" style="position: absolute; left:990px;top:544.0px;height: 65px"> </div>
+    <div class="player" id="p88" style="position: absolute;left:990px;top:528.0px"> </div>
+    <div class="player" id="p89" style="position: absolute;left:990px;top:592.0px"> </div>
+    <div class="line" style="position: absolute; left:990px;top:672.0px;height: 65px"> </div>
+    <div class="player" id="p90" style="position: absolute;left:990px;top:656.0px"> </div>
+    <div class="player" id="p91" style="position: absolute;left:990px;top:720.0px"> </div>
+    <div class="line" style="position: absolute; left:990px;top:800.0px;height: 65px"> </div>
+    <div class="player" id="p92" style="position: absolute;left:990px;top:784.0px"> </div>
+    <div class="player" id="p93" style="position: absolute;left:990px;top:848.0px"> </div>
+    <div class="line" style="position: absolute; left:990px;top:928.0px;height: 65px"> </div>
+    <div class="player" id="p94" style="position: absolute;left:990px;top:912.0px"> </div>
+    <div class="player" id="p95" style="position: absolute;left:990px;top:976.0px"> </div>
+    <div class="line" style="position: absolute; left:270px;top:64.0px;height: 129px"> </div>
+    <div class="player" id="p96" style="position: absolute;left:180px;top:48.0px"> </div>
+    <div class="player" id="p97" style="position: absolute;left:180px;top:176.0px"> </div>
+    <div class="line" style="position: absolute; left:270px;top:320.0px;height: 129px"> </div>
+    <div class="player" id="p98" style="position: absolute;left:180px;top:304.0px"> </div>
+    <div class="player" id="p99" style="position: absolute;left:180px;top:432.0px"> </div>
+    <div class="line" style="position: absolute; left:270px;top:576.0px;height: 129px"> </div>
+    <div class="player" id="p100" style="position: absolute;left:180px;top:560.0px"> </div>
+    <div class="player" id="p101" style="position: absolute;left:180px;top:688.0px"> </div>
+    <div class="line" style="position: absolute; left:270px;top:832.0px;height: 129px"> </div>
+    <div class="player" id="p102" style="position: absolute;left:180px;top:816.0px"> </div>
+    <div class="player" id="p103" style="position: absolute;left:180px;top:944.0px"> </div>
+    <div class="line" style="position: absolute; left:900px;top:64.0px;height: 129px"> </div>
+    <div class="player" id="p104" style="position: absolute;left:900px;top:48.0px"> </div>
+    <div class="player" id="p105" style="position: absolute;left:900px;top:176.0px"> </div>
+    <div class="line" style="position: absolute; left:900px;top:320.0px;height: 129px"> </div>
+    <div class="player" id="p106" style="position: absolute;left:900px;top:304.0px"> </div>
+    <div class="player" id="p107" style="position: absolute;left:900px;top:432.0px"> </div>
+    <div class="line" style="position: absolute; left:900px;top:576.0px;height: 129px"> </div>
+    <div class="player" id="p108" style="position: absolute;left:900px;top:560.0px"> </div>
+    <div class="player" id="p109" style="position: absolute;left:900px;top:688.0px"> </div>
+    <div class="line" style="position: absolute; left:900px;top:832.0px;height: 129px"> </div>
+    <div class="player" id="p110" style="position: absolute;left:900px;top:816.0px"> </div>
+    <div class="player" id="p111" style="position: absolute;left:900px;top:944.0px"> </div>
+    <div class="line" style="position: absolute; left:360px;top:128.0px;height: 257px"> </div>
+    <div class="player" id="p112" style="position: absolute;left:270px;top:112.0px"> </div>
+    <div class="player" id="p113" style="position: absolute;left:270px;top:368.0px"> </div>
+    <div class="line" style="position: absolute; left:360px;top:640.0px;height: 257px"> </div>
+    <div class="player" id="p114" style="position: absolute;left:270px;top:624.0px"> </div>
+    <div class="player" id="p115" style="position: absolute;left:270px;top:880.0px"> </div>
+    <div class="line" style="position: absolute; left:810px;top:128.0px;height: 257px"> </div>
+    <div class="player" id="p116" style="position: absolute;left:810px;top:112.0px"> </div>
+    <div class="player" id="p117" style="position: absolute;left:810px;top:368.0px"> </div>
+    <div class="line" style="position: absolute; left:810px;top:640.0px;height: 257px"> </div>
+    <div class="player" id="p118" style="position: absolute;left:810px;top:624.0px"> </div>
+    <div class="player" id="p119" style="position: absolute;left:810px;top:880.0px"> </div>
+    <div class="line" style="position: absolute; left:450px;top:256.0px;height: 513px"> </div>
+    <div class="player" id="p120" style="position: absolute;left:360px;top:240.0px"> </div>
+    <div class="player" id="p121" style="position: absolute;left:360px;top:752.0px"> </div>
+    <div class="line" style="position: absolute; left:720px;top:256.0px;height: 513px"> </div>
+    <div class="player" id="p122" style="position: absolute;left:720px;top:240.0px"> </div>
+    <div class="player" id="p123" style="position: absolute;left:720px;top:752.0px"> </div>
+    <div class="player" id="p124" style="position: absolute;left:450px;top:496.0px"> </div>
+    <div class="player" id="p125" style="position: absolute;left:630px;top:496.0px"> </div>
+    <div class="line" style="position: absolute; left:540px;top: 464px;height: 49.0px"> </div>
+    <div class="line" style="position: absolute; left:630px;top:464px;height: 49.0px"> </div>
+    <div class="player" id="p126" style="position: absolute;left:540px;top:448px;text-align: center"> </div>
+    
+    <div id="userinfo-container" style="position: absolute; left: 450px; top: 32px;width: 270px; height: 32px; text-align: center"> 
+      <label for="user"> Usuario </label>
+      <select id="user" name="user" onchange="display_bracket()">
+        <option></option>
+      </select>
+      <div id="user-info"> </div>
+    </div>
+  </div>
+</body>
+</html>
+
