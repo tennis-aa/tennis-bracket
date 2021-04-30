@@ -15,7 +15,7 @@
 
 .navbar-nav li.active a {
   color: black !important;
-  background-color: gray !important;
+  background-color: #66b3ff !important;
 }
 
 footer {
@@ -27,11 +27,16 @@ p, ul {
   font-size: 14pt;
 }
 
+h1 a {
+  color: #66b3ff;
+}
 
 /* table of positions */
 #table-positions {
   border-collapse: collapse;
   text-align: center;
+  margin-left: auto;
+  margin-right: auto;
 }
 #table-positions td {
   font-size: 12pt;
@@ -40,10 +45,14 @@ p, ul {
   font-size: 14pt;
   color: Black;
   background-color: white;
+  text-align: center;
 }
 #table-positions tr:nth-child(even) {
-  background-color: lightgray;
+  background-color: #cce6ff;
 }
 #table-positions tr:nth-child(odd) {
-  background-color: white;
+  background-color: #66b3ff;
+}
+#table-positions a {
+  color: black;
 }

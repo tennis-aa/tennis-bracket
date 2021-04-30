@@ -5,6 +5,7 @@ let option_blank = document.createElement("option");
 let players;
 let brackets;
 let results;
+let scores;
 let points_per_round
 let monkeys;
 let monkeys_save = false;
@@ -29,13 +30,23 @@ function loadResults() {
       document.getElementById(id).innerHTML = players[i];
     }
   });
-  let promise2 = fetch("brackets.json").then((response)=>response.json()
-  ).then(function (response){
-    brackets = response;
+  let promise2 = fetch("brackets.json").then(function(response) {
+    if (response.ok) {
+      response.json().then(function (response){
+      brackets = response;
+      })
+    }
   });
-  let promise3 = fetch("results.json").then((response)=>response.json()
-  ).then(function(response){
-    results = response;
+  let promise3 = fetch("results.json").then(function(response) {
+    if (response.ok){
+      response.json().then(function(response) {
+        results = response["results"];
+        scores = response["scores"];
+      })
+    } else {
+      results = new Array(bracketSize-1).fill("");
+      scores = new Array(bracketSize-1).fill("");
+    }
   })
   let promise4 = fetch("config.json").then((response)=>response.json()
   ).then(function(response) {
@@ -54,7 +65,7 @@ function loadResults() {
   let promise6 = fetch("bots.json").then(function(response) {
     if (response.ok){
       response.json().then(function(response) {
-        bots = response;
+      bots = response;
       })
     } else {
       promise1.then(generatebots);
@@ -181,7 +192,6 @@ function save_results(){
   monkey_points.sort(function(a,b) {
     return b - a;
   })
-  console.log(monkey_points)
   for (let i=0;i<nr_users;i++) {
     if (table_results.points[i] < monkey_points[monkey_points.length-1]) {
       table_results.monkey_rank.push(100);
@@ -203,7 +213,6 @@ function save_results(){
   bot_points.sort(function(a,b) {
     return b - a;
   })
-  console.log(bot_points)
   for (let i=0;i<nr_users;i++) {
     if (table_results.points[i] < bot_points[bot_points.length-1]) {
       table_results.bot_rank.push(100);
@@ -217,7 +226,7 @@ function save_results(){
     }
   }
 
-  let blob = new Blob([JSON.stringify(results)],{type : "application:json"});
+  let blob = new Blob([JSON.stringify({results: results,scores: scores})],{type : "application:json"});
   url = URL.createObjectURL(blob);
   let link = document.createElement('a');
   link.href = url;

@@ -1,6 +1,7 @@
 let players;
 let brackets;
 let results;
+let scores;
 let table_results
 let bracketSize;
 // Put players in the bracket
@@ -30,7 +31,8 @@ function loadDisplay() {
 
   promise3 = fetch("./results.json").then((response)=>response.json()
   ).then(function(p){
-    results = p;
+    results = p["results"];
+    scores = p["scores"];
     for (let i = 0; i < results.length; i++) {
       let id = "p" + (i+bracketSize);
       document.getElementById(id).innerHTML = results[i];

@@ -3,8 +3,15 @@ import jinja2
 import sys
 import math
 
-def bracketRenderer(bracketSize):
-    tournament = "Barcelona 2021"
+def bracketRenderer():
+    # Parameters
+    tournament = "tournament"
+    bracketSize = 64
+    cellheight = 16 #pixels
+    vspace = 2*cellheight
+    hspace = 90 #pixels
+    linewidth = 1 #pixels
+
 
     rounds = math.log(bracketSize,2)
     if not rounds.is_integer():
@@ -17,15 +24,18 @@ def bracketRenderer(bracketSize):
         counter[j+1] = counter[j] + int(bracketSize/(2**j))
     # print(counter)
 
-    render_vars = {"bracketSize" : bracketSize, "rounds" : rounds, "counter" : counter, "tournament": tournament}
+    render_vars = {"bracketSize" : bracketSize, "rounds" : rounds, "counter" : counter, "tournament": tournament,
+    "cellheight": cellheight, "vspace": vspace, "hspace": hspace, "linewidth": linewidth}
 
     script_path = os.path.dirname(os.path.abspath(__file__))
-    # template_file_path = os.path.join(script_path, template_filename)
+    target_file_path = os.path.join(script_path, "docs" , tournament)
+    if not os.path.exists(target_file_path):
+        os.mkdir(target_file_path)
     
     # Display bracket
     template_filename = "./templateBracketDisplay.jinja"
     fileName="index.html"
-    rendered_file_path = os.path.join(script_path, fileName)
+    rendered_file_path = os.path.join(target_file_path, fileName)
 
     environment = jinja2.Environment(loader=jinja2.FileSystemLoader(script_path))
     environment.trim_blocks = True
@@ -37,7 +47,19 @@ def bracketRenderer(bracketSize):
     # Fillout bracket
     template_filename = "./templateBracketFillout.jinja"
     fileName="submit.html"
-    rendered_file_path = os.path.join(script_path, fileName)
+    rendered_file_path = os.path.join(target_file_path, fileName)
+
+    environment = jinja2.Environment(loader=jinja2.FileSystemLoader(script_path))
+    environment.trim_blocks = True
+    environment.lstrip_blocks = True
+    output_text = environment.get_template(template_filename).render(render_vars)
+    with open(rendered_file_path, "w") as result_file:
+        result_file.write(output_text)
+
+    # table of positions
+    template_filename = "./templateTablePositions.jinja"
+    fileName="table.html"
+    rendered_file_path = os.path.join(target_file_path, fileName)
 
     environment = jinja2.Environment(loader=jinja2.FileSystemLoader(script_path))
     environment.trim_blocks = True
@@ -49,7 +71,7 @@ def bracketRenderer(bracketSize):
     # Results bracket
     template_filename = "./templateBracketResults.jinja"
     fileName="inputResults.html"
-    rendered_file_path = os.path.join(script_path, fileName)
+    rendered_file_path = os.path.join(target_file_path, fileName)
 
     environment = jinja2.Environment(loader=jinja2.FileSystemLoader(script_path))
     environment.trim_blocks = True
@@ -58,10 +80,9 @@ def bracketRenderer(bracketSize):
     with open(rendered_file_path, "w") as result_file:
         result_file.write(output_text)
 
+    # Create config.json and players.json templates
+
 
 if __name__ == "__main__":
-    if len(sys.argv) == 2:
-        bracketSize = int(sys.argv[1])
-        bracketRenderer(bracketSize)
-    else:
-        print("You need to inputs the size of the bracket")
+    bracketRenderer()
+
