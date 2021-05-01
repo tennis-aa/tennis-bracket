@@ -15,7 +15,7 @@ function computePoints(bracket,results,players,points_per_round) {
             points += points_per_round[round];
         }
     }
-    for (let i=0; i<players.length; i++) { // reove points from byes
+    for (let i=0; i<players.length; i++) { // remove points from byes
         if (players[i]=="Bye") {
             points -= points_per_round[0];
         }

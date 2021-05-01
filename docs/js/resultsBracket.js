@@ -7,7 +7,7 @@ let brackets;
 let results;
 let scores;
 let losers;
-let points_per_round
+let points_per_round;
 let monkeys;
 let monkeys_save = false;
 let bots;
@@ -185,7 +185,7 @@ function save_results(){
   }
 
   // Define the object that contains the standings
-  let table_results = {user: [],points: [], position: [], rank: [], monkey_rank: [], bot_rank: []};
+  let table_results = {user: [],points: [],potential: [], position: [], rank: [], monkey_rank: [], bot_rank: []};
   // compute points and positions for all participants
   let entries = [];
   for (let key in brackets) {
@@ -198,7 +198,7 @@ function save_results(){
   let nr_users = entries.length;
   for (let i=1;i<nr_users;i++) {
     if (entries[i].points == entries[i-1].points) {
-      entries[i].position = entries[i-1].position
+      entries[i].position = entries[i-1].position;
     } else {
       entries[i].position = i + 1;
     }
@@ -211,10 +211,31 @@ function save_results(){
     } else {
       entries[i].rank = "bot " + Math.round((nr_users - entries[i].position + 1)/nr_users*100) + "%";
     }
-    table_results.user.push(entries[i].user)
-    table_results.points.push(entries[i].points)
-    table_results.position.push(entries[i].position)
-    table_results.rank.push(entries[i].rank)
+    table_results.user.push(entries[i].user);
+    table_results.points.push(entries[i].points);
+    table_results.position.push(entries[i].position);
+    table_results.rank.push(entries[i].rank);
+  }
+
+  // compute potential points
+  for (let i=0;i<nr_users;i++) {
+    let potential = 0;
+    let bracket = brackets[table_results.user[i]];
+    let round = 0;
+    for (let j=0;j<bracket.length;j++) {
+      if (j+bracketSize >= counter[round+2]) {round += 1;}
+      if (results[j]==bracket[j]) {
+        potential += points_per_round[round];
+      } else if (results[j]=="" && !losers.includes(bracket[j])){
+        potential += points_per_round[round];
+      }
+    }
+    for (let j=0; j<players.length; j++) { // remove points from byes
+      if (players[j]=="Bye") {
+          potential -= points_per_round[0];
+      }
+    }
+    table_results.potential.push(potential);
   }
 
   // Compute rank among monkeys

@@ -28,6 +28,11 @@ function loadTable() {
       table_entry.appendChild(document.createTextNode(table_results.points[i]));
       table_row.appendChild(table_entry);
 
+      // Add potential points
+      table_entry = document.createElement("td");
+      table_entry.appendChild(document.createTextNode(table_results.potential[i]));
+      table_row.appendChild(table_entry);
+
       // Add rank
       table_entry = document.createElement("td");
       table_entry.appendChild(document.createTextNode(table_results.rank[i]));
