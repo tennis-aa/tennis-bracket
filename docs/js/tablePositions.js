@@ -3,9 +3,9 @@ let results;
 let table_results;
 
 function loadTable() {
-  promise3 = fetch("table_results.json").then((response)=>response.json()
+  promise3 = fetch("results.json").then((response)=>response.json()
   ).then(function(p) {
-    table_results = p;
+    table_results = p["table_results"];
   }).then(function() {
     let nr_users = table_results.user.length;
     for (let i=0; i<nr_users; i++) {

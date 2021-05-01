@@ -6,6 +6,7 @@ let players;
 let brackets;
 let results;
 let scores;
+let losers;
 let points_per_round
 let monkeys;
 let monkeys_save = false;
@@ -42,10 +43,12 @@ function loadResults() {
       response.json().then(function(response) {
         results = response["results"];
         scores = response["scores"];
+        losers = response["losers"];
       })
     } else {
       results = new Array(bracketSize-1).fill("");
       scores = new Array(bracketSize-1).fill("");
+      losers = [];
     }
   })
   let promise4 = fetch("config.json").then((response)=>response.json()
@@ -68,7 +71,7 @@ function loadResults() {
       bots = response;
       })
     } else {
-      promise1.then(generatebots);
+      promise1.then(generateBots);
       bots_save = true;
     }
   })
@@ -158,6 +161,29 @@ function save_results(){
     }
   }
 
+  // Gather losers
+  losers = [];
+  for (let i = 0; i < bracketSize/2; i++) {
+    if (results[i] != "") {
+      if (results[i] == players[2*i] && players[2*i+1]!="Bye") {
+        losers.push(players[2*i+1])
+      } else if (results[i] == players[2*i+1] && players[2*i]!="Bye") {
+        losers.push(players[2*i])
+      }
+    }
+  }
+  for (let j = 2; j <= rounds; j++){
+    for (let i = 0; i < bracketSize/(2**j); i++) {
+      if (results[counter[j]+i-bracketSize] != "") {
+        if (results[counter[j]+i-bracketSize] == results[counter[j-1]+2*i-bracketSize]) {
+          losers.push(results[counter[j-1]+2*i+1-bracketSize])
+        } else if (results[counter[j]+i-bracketSize] == results[counter[j-1]+2*i+1-bracketSize]) {
+          losers.push(results[counter[j-1]+2*i-bracketSize])
+        }
+      }
+    }
+  }
+
   // Define the object that contains the standings
   let table_results = {user: [],points: [], position: [], rank: [], monkey_rank: [], bot_rank: []};
   // compute points and positions for all participants
@@ -233,19 +259,19 @@ function save_results(){
     }
   }
 
-  let blob = new Blob([JSON.stringify({results: results,scores: scores})],{type : "application:json"});
+  let blob = new Blob([JSON.stringify({results: results,scores: scores,losers: losers,table_results: table_results})],{type : "application:json"});
   url = URL.createObjectURL(blob);
   let link = document.createElement('a');
   link.href = url;
   link.setAttribute("download","results.json");
   link.click();
 
-  blob = new Blob([JSON.stringify(table_results)],{type : "application:json"});
-  url = URL.createObjectURL(blob);
-  link = document.createElement('a');
-  link.href = url;
-  link.setAttribute("download","table_results.json");
-  link.click();
+  // blob = new Blob([JSON.stringify(table_results)],{type : "application:json"});
+  // url = URL.createObjectURL(blob);
+  // link = document.createElement('a');
+  // link.href = url;
+  // link.setAttribute("download","table_results.json");
+  // link.click();
 
   if (monkeys_save) {
     blob = new Blob([JSON.stringify(monkeys)],{type : "application:json"});
@@ -298,7 +324,7 @@ function generateMonkeys() {
   }
 }
 
-function generatebots() {
+function generateBots() {
   number_bots = 10000;
   bots = {};
   for (let k=0; k<number_bots; k++){
@@ -344,4 +370,47 @@ function generatebots() {
     // Save bracket to bots
     bots["bot"+k] = bracket;
   }
+}
+
+function generateElo() {
+  let bracket=[];
+  let bracket_elo = [];
+  // Picks for the second round
+  for (let i = 0; i < bracketSize/2; i++){
+    if (players[2*i]=="Bye") {
+      bracket.push(players[2*i+1]);
+      bracket_elo.push(elo[2*i+1]);
+      continue;
+    } else if (players[2*i+1]=="Bye") {
+      bracket.push(players[2*i]);
+      bracket_elo.push(elo[2*i]);
+      continue
+    }
+    if (elo[2*i]>elo[2*i+1]) {
+      bracket.push(players[2*i]);
+      bracket_elo.push(elo[2*i])
+    } else {
+      bracket.push(players[2*i+1]);
+      bracket_elo.push(elo[2*i+1]);
+    } 
+  }
+  // picks for the third round onwards
+  for (let j = 2; j <= rounds; j++){
+    for (let i = 0; i < bracketSize/(2**j); i++) {
+      if (bracket_elo[counter[j-1]-bracketSize+2*i]>bracket_elo[counter[j-1]-bracketSize+2*i+1]) {
+        bracket.push(bracket[counter[j-1]-bracketSize+2*i]);
+        bracket_elo.push(bracket_elo[counter[j-1]-bracketSize+2*i]);
+      } else {
+        bracket.push(bracket[counter[j-1]-bracketSize+2*i+1]);
+        bracket_elo.push(bracket_elo[counter[j-1]-bracketSize+2*i+1]);
+      }
+    }
+  }
+
+  let blob = new Blob([JSON.stringify({Elo: bracket})],{type : "application:json"});
+  url = URL.createObjectURL(blob);
+  link = document.createElement('a');
+  link.href = url;
+  link.setAttribute("download","Elo.json");
+  link.click();
 }

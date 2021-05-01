@@ -2,6 +2,7 @@ let players;
 let brackets;
 let results;
 let scores;
+let losers;
 let table_results
 let bracketSize;
 // Put players in the bracket
@@ -33,18 +34,20 @@ function loadDisplay() {
   ).then(function(p){
     results = p["results"];
     scores = p["scores"];
+    losers = p["losers"];
+    table_results = p["table_results"];
     for (let i = 0; i < results.length; i++) {
       let id = "p" + (i+bracketSize);
       document.getElementById(id).innerHTML = results[i];
   }
   });
 
-  promise4 = fetch("./table_results.json").then((response)=> response.json()
-  ).then(function(response) {
-    table_results = response;
-  });
+  // promise4 = fetch("./table_results.json").then((response)=> response.json()
+  // ).then(function(response) {
+  //   table_results = response;
+  // });
 
-  Promise.all([promise2,promise3,promise4]).then(function() {
+  Promise.all([promise2,promise3]).then(function() {
     let params = new URLSearchParams(location.search);
     let sel = document.getElementById("user");
     sel.value = params.get("user");
@@ -56,7 +59,6 @@ function display_bracket() {
   let user = document.getElementById("user").value;
   let user_info = document.getElementById("user-info");
   if (user==""){
-    console.log()
     user_info.innerHTML = "";
     for (let i = 0; i < results.length; i++) {
       let player = document.getElementById("p" + (i+bracketSize));
@@ -73,7 +75,7 @@ function display_bracket() {
       player.innerHTML = bracket[i];
       if (results[i]!="" && bracket[i]==results[i]) {
         player.style.color = "green";
-      } else if (results[i]!="" && bracket[i]!=results[i]){
+      } else if (losers.includes(bracket[i])){
         player.style.color = "red";
       } 
     }
