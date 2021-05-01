@@ -76,6 +76,13 @@ function loadResults() {
   Promise.all([promise1,promise2,promise3,promise4]).then(function (){ // options in each select element
     for (let i = 0; i < bracketSize/2; i++){
       let sel = document.getElementById("select"+ (counter[1] + i))
+      if (players[2*i]=="Bye") { // auto select Byes
+        sel.options[0].innerHTML = players[2*i+1];
+        continue;
+      } else if (players[2*i+1]=="Bye") {
+        sel.options[0].innerHTML = players[2*i];
+        continue;
+      }
       let option1 = document.createElement("option");
       let option2 = document.createElement("option");
       option1.innerHTML = players[2*i];
@@ -156,7 +163,7 @@ function save_results(){
   // compute points and positions for all participants
   let entries = [];
   for (let key in brackets) {
-    let points = computePoints(brackets[key],results,points_per_round);
+    let points = computePoints(brackets[key],results,players,points_per_round);
     entries.push({user: key, points: points,position: 1,rank: ""});
   }
   entries.sort(function(a,b) {
@@ -187,7 +194,7 @@ function save_results(){
   // Compute rank among monkeys
   let monkey_points = [];
   for (let key in monkeys) {
-    monkey_points.push(computePoints(monkeys[key],results,points_per_round));
+    monkey_points.push(computePoints(monkeys[key],results,players,points_per_round));
   }
   monkey_points.sort(function(a,b) {
     return b - a;
@@ -208,7 +215,7 @@ function save_results(){
   // Compute rank among bots
   let bot_points = [];
   for (let key in bots) {
-    bot_points.push(computePoints(bots[key],results,points_per_round));
+    bot_points.push(computePoints(bots[key],results,players,points_per_round));
   }
   bot_points.sort(function(a,b) {
     return b - a;

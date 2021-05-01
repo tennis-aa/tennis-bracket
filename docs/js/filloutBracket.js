@@ -21,14 +21,14 @@ function loadFillout() {
     }
   }).then(function (){ // Put select elements to pick winners in the first round
     for (let i = 0; i < bracketSize/2; i++){
-      let sel = document.getElementById("select"+ (counter[1] + i))
+      let sel = document.getElementById("select"+ (counter[1] + i));
       let option1 = document.createElement("option");
       let option2 = document.createElement("option");
       option1.innerHTML = players[2*i];
       option2.innerHTML = players[2*i+1];
       sel.appendChild(option1)
       sel.appendChild(option2)
-    }
+    } // Put select elements to pick winners in other rounds
     for (let j=2; j<=rounds; j++) {
       for (let i=0; i<bracketSize/(2**j); i++) {
         let sel = document.getElementById("select"+ (counter[j] + i));
@@ -36,7 +36,24 @@ function loadFillout() {
         sel.appendChild(option_blank.cloneNode(true));
       }
     }
-    let sel = document.getElementById("select"+ (192));
+    for (let i = 0; i < bracketSize/2; i++){ // auto select byes
+      let sel = document.getElementById("select"+ (counter[1] + i));
+      if (players[2*i]=="Bye") {
+        sel.innerHTML = "";
+        let opt = document.createElement("option");
+        opt.innerHTML = players[2*i+1];
+        sel.appendChild(opt);
+        update_options(counter[1] + i);
+        continue;
+      } else if (players[2*i+1]=="Bye") {
+        sel.innerHTML = "";
+        let opt = document.createElement("option");
+        opt.innerHTML = players[2*i];
+        sel.appendChild(opt);
+        update_options(counter[1] + i);
+        continue;
+      }
+    }
   });
 }
 
