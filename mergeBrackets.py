@@ -9,4 +9,4 @@ for filename in os.listdir(directory):
         brackets.update(bracket)
 
 with open(os.path.join(directory,"brackets.json"),"w") as f:
-    f.write(json.dumps(brackets,sort_keys=True, indent=4, separators=(',', ': ')))
+    f.write(json.dumps(brackets,sort_keys=True))
