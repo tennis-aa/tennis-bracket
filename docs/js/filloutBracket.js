@@ -95,6 +95,8 @@ function update_options(player){
 function save_bracket(){
   let bracket = [];
   let username = document.getElementById("user-name").value;
+  username = username.replace(/\s{2,}/g, ' '); // remove double spaces in username
+  username = username.trim(); // remove leading and trailing spaces
   for (let j = 1; j <= rounds; j++){
     for (let i = 0; i < bracketSize/(2**j); i++) {
       let selectNode = document.getElementById("select"+ (counter[j]+i));
