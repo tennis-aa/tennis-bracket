@@ -206,10 +206,10 @@ function save_results(){
 
   // compute rank
   for (let i=0;i<nr_users;i++) {
-    if (entries[i].position <= nr_users/2) {
-      entries[i].rank = "top " + Math.round(entries[i].position/nr_users*100) + "%";
+    if (entries[i].position <= Math.ceil(nr_users/2)) {
+      entries[i].rank = "top " + Math.round((entries[i].position-1/2)/nr_users*100) + "%";
     } else {
-      entries[i].rank = "bot " + Math.round((nr_users - entries[i].position + 1)/nr_users*100) + "%";
+      entries[i].rank = "bot " + Math.round((nr_users - entries[i].position + 1/2)/nr_users*100) + "%";
     }
     table_results.user.push(entries[i].user);
     table_results.points.push(entries[i].points);

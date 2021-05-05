@@ -73,11 +73,16 @@ function display_bracket() {
     for (let i = 0; i < bracket.length; i++) {
       let player = document.getElementById("p" + (i+bracketSize));
       player.innerHTML = bracket[i];
-      if (results[i]!="" && bracket[i]==results[i]) {
+      if (i<bracketSize/2 && (players[2*i]=="Bye" || players[2*i+1]=="Bye")) {
+        console.log(i)
+        player.style.color = "black";
+      } else if (results[i]!="" && bracket[i]==results[i]) {
         player.style.color = "green";
       } else if (losers.includes(bracket[i])){
         player.style.color = "red";
-      } 
+      } else {
+        player.style.color = "black";
+      }
     }
   }
 }
