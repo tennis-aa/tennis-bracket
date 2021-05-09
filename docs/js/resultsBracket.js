@@ -343,6 +343,7 @@ function generateMonkeys() {
     // Save bracket to monkeys
     monkeys["monkey"+k] = bracket;
   }
+  // generateElo()
 }
 
 function generateBots() {
