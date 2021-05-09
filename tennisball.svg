@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="142.49702mm"
+   height="142.49702mm"
+   viewBox="0 0 142.49702 142.49702"
+   version="1.1"
+   id="svg8"
+   inkscape:export-filename="C:\Users\andre\Documents\repos_personal\tennis-bracket\tennisball.png"
+   inkscape:export-xdpi="300"
+   inkscape:export-ydpi="300"
+   sodipodi:docname="tennisball.svg"
+   inkscape:version="0.92.4 (5da689c313, 2019-01-14)">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.7"
+     inkscape:cx="-78.037143"
+     inkscape:cy="178.02709"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1920"
+     inkscape:window-height="986"
+     inkscape:window-x="-11"
+     inkscape:window-y="-11"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-29.104164,-50.181541)">
+    <circle
+       style="fill:#000000;stroke-width:0.26458332"
+       id="path3713"
+       cx="100.35268"
+       cy="121.43005"
+       r="71.248512"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <path
+       style="fill:#ffffff;stroke-width:1.42857146"
+       d="m 138.145,577.79103 c -6.84535,-13.93089 -16.73663,-39.0169 -16.73663,-42.447 0,-0.62816 5.30357,-4.13422 11.78571,-7.79123 31.8295,-17.9572 65.29984,-53.09332 94.35398,-99.04984 12.81156,-20.26478 34.52861,-64.50349 44.35855,-90.36062 14.53922,-38.24463 26.65193,-85.8777 31.05994,-122.14286 0.95505,-7.85714 2.13102,-14.74657 2.61328,-15.30985 1.50694,-1.76011 33.12924,-8.05433 45.11425,-8.9797 6.28572,-0.48533 12.95332,-1.19705 14.81687,-1.58161 3.37385,-0.69621 3.38413,-0.65773 2.41009,9.01456 -6.61523,65.68981 -27.44299,134.41479 -62.25691,205.42803 -42.34515,86.3754 -99.85576,157.04689 -149.68098,183.9344 l -9.93812,5.36297 z"
+       id="path3772"
+       inkscape:connector-curvature="0"
+       transform="scale(0.26458333)" />
+    <path
+       style="fill:#ffffff;stroke-width:1.42857146"
+       d="m 408.55123,725.44523 c 0,-4.26485 6.74598,-36.97986 11.32086,-54.90117 30.36489,-118.9492 104.26785,-245.3637 174.05168,-297.72358 13.40156,-10.0554 31.4883,-21.15063 32.62516,-20.01377 0.41821,0.41822 3.29232,8.09927 6.38692,17.06901 6.55109,18.98851 12.1279,43.00054 10.14075,43.66293 -3.29855,1.09951 -21.71416,12.78506 -29.52537,18.73519 -63.92028,48.69078 -123.87197,158.6397 -144.18636,264.43179 l -3.15621,16.43671 -9.2562,3.12879 c -14.13583,4.77821 -48.40123,11.27297 -48.40123,9.1741 z"
+       id="path3774"
+       inkscape:connector-curvature="0"
+       transform="scale(0.26458333)" />
+  </g>
+</svg>
