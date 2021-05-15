@@ -189,7 +189,7 @@ function save_results(){
   // compute points and positions for all participants
   let entries = [];
   for (let key in brackets) {
-    let points = computePoints(brackets[key],results,players,points_per_round);
+    let points = computePoints(brackets[key],results,players,counter,points_per_round);
     entries.push({user: key, points: points,position: 1,rank: ""});
   }
   entries.sort(function(a,b) {
@@ -219,29 +219,14 @@ function save_results(){
 
   // compute potential points
   for (let i=0;i<nr_users;i++) {
-    let potential = 0;
-    let bracket = brackets[table_results.user[i]];
-    let round = 0;
-    for (let j=0;j<bracket.length;j++) {
-      if (j+bracketSize >= counter[round+2]) {round += 1;}
-      if (results[j]==bracket[j]) {
-        potential += points_per_round[round];
-      } else if (results[j]=="" && !losers.includes(bracket[j])){
-        potential += points_per_round[round];
-      }
-    }
-    for (let j=0; j<players.length; j++) { // remove points from byes
-      if (players[j]=="Bye") {
-          potential -= points_per_round[0];
-      }
-    }
+    let potential = computePotential(brackets[table_results.user[i]],results,losers,players,counter,points_per_round);
     table_results.potential.push(potential);
   }
 
   // Compute rank among monkeys
   let monkey_points = [];
   for (let key in monkeys) {
-    monkey_points.push(computePoints(monkeys[key],results,players,points_per_round));
+    monkey_points.push(computePoints(monkeys[key],results,players,counter,points_per_round));
   }
   monkey_points.sort(function(a,b) {
     return b - a;
@@ -262,7 +247,7 @@ function save_results(){
   // Compute rank among bots
   let bot_points = [];
   for (let key in bots) {
-    bot_points.push(computePoints(bots[key],results,players,points_per_round));
+    bot_points.push(computePoints(bots[key],results,players,counter,points_per_round));
   }
   bot_points.sort(function(a,b) {
     return b - a;
