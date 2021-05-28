@@ -1,17 +1,25 @@
+'''
+This script creates a new folder for a new tournament
+The parameters at the beginning of function bracketrender contain
+the information of the tournament (name and draw size)
+'''
+# To do: create config.json with points per round automatically
+
+
 import os
 import jinja2
 import sys
 import math
 
 def bracketRenderer():
-    # Parameters
+    # Parameters for creating the tournament folder
     tournament = "tournament"
     bracketSize = 64
     cellheight = 16 #pixels
     vspace = 2*cellheight
     hspace = 90 #pixels
     linewidth = 1 #pixels
-
+    # Do not change anything below here
 
     rounds = math.log(bracketSize,2)
     if not rounds.is_integer():

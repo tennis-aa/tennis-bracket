@@ -1,0 +1,1458 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title> Roland Garros 2021 </title>
+  <link rel="shortcut icon" type="image/png" href="../favicon.png"/>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="../css/main.css">
+  <script src="../js/resultsBracket.js"></script>
+  <script src="../js/computePoints.js"></script>
+  <style>
+    .player {
+      font-size: 9.6px;
+      font-family: Arial, Helvetica, sans-serif;
+      width: 90px;
+      height: 16px;
+      text-align: left;
+      padding-left: 0px;
+      border-bottom: 1px solid black;
+      border-radius: 0px;
+      background-color: transparent;
+      overflow: hidden;
+    }
+    .line {
+      border-left: 1px solid black; 
+    }
+    select {
+      height: 16px;
+      width: 90px;
+      font-size: 9.6px;
+    }
+  </style>
+</head>
+<body onLoad="loadResults()">
+  <div class="container">
+    <h1><a href="../"> Home </a></h1>
+    <h2> Roland Garros 2021</h2>
+    <nav class="navbar navbar-default border-primary">
+      <ul class = "nav navbar-nav">
+        <li><a href="./"> Cuadros </a></li>
+        <li><a href="./table.html"> Tabla de posiciones </a></li>
+        <li><a href="./submit.html"> Crear cuadro </a></li>
+        <li class="active"><a href="./inputResults.html"> Reportar resultados </a></li>
+      </ul>
+    </nav>
+
+    <div class="bracket_container" style="position:relative;height:2048.0px">
+      <div id="bracket-size" style="display: none"> 128 </div>
+      <div class="line" style="position: absolute; left:90px;top:16.0px;height: 33px"> </div>
+      <div class="player" id="p0" style="position: absolute;left:0px;top:0.0px"> 
+        <select id = "select0" onchange="update_options(0)">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p1" style="position: absolute;left:0px;top:32.0px"> 
+        <select id = "select1" onchange="update_options(1)">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:90px;top:80.0px;height: 33px"> </div>
+      <div class="player" id="p2" style="position: absolute;left:0px;top:64.0px"> 
+        <select id = "select2" onchange="update_options(2)">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p3" style="position: absolute;left:0px;top:96.0px"> 
+        <select id = "select3" onchange="update_options(3)">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:90px;top:144.0px;height: 33px"> </div>
+      <div class="player" id="p4" style="position: absolute;left:0px;top:128.0px"> 
+        <select id = "select4" onchange="update_options(4)">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p5" style="position: absolute;left:0px;top:160.0px"> 
+        <select id = "select5" onchange="update_options(5)">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:90px;top:208.0px;height: 33px"> </div>
+      <div class="player" id="p6" style="position: absolute;left:0px;top:192.0px"> 
+        <select id = "select6" onchange="update_options(6)">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p7" style="position: absolute;left:0px;top:224.0px"> 
+        <select id = "select7" onchange="update_options(7)">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:90px;top:272.0px;height: 33px"> </div>
+      <div class="player" id="p8" style="position: absolute;left:0px;top:256.0px"> 
+        <select id = "select8" onchange="update_options(8)">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p9" style="position: absolute;left:0px;top:288.0px"> 
+        <select id = "select9" onchange="update_options(9)">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:90px;top:336.0px;height: 33px"> </div>
+      <div class="player" id="p10" style="position: absolute;left:0px;top:320.0px"> 
+        <select id = "select10" onchange="update_options(10)">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p11" style="position: absolute;left:0px;top:352.0px"> 
+        <select id = "select11" onchange="update_options(11)">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:90px;top:400.0px;height: 33px"> </div>
+      <div class="player" id="p12" style="position: absolute;left:0px;top:384.0px"> 
+        <select id = "select12" onchange="update_options(12)">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p13" style="position: absolute;left:0px;top:416.0px"> 
+        <select id = "select13" onchange="update_options(13)">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:90px;top:464.0px;height: 33px"> </div>
+      <div class="player" id="p14" style="position: absolute;left:0px;top:448.0px"> 
+        <select id = "select14" onchange="update_options(14)">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p15" style="position: absolute;left:0px;top:480.0px"> 
+        <select id = "select15" onchange="update_options(15)">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:90px;top:528.0px;height: 33px"> </div>
+      <div class="player" id="p16" style="position: absolute;left:0px;top:512.0px"> 
+        <select id = "select16" onchange="update_options(16)">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p17" style="position: absolute;left:0px;top:544.0px"> 
+        <select id = "select17" onchange="update_options(17)">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:90px;top:592.0px;height: 33px"> </div>
+      <div class="player" id="p18" style="position: absolute;left:0px;top:576.0px"> 
+        <select id = "select18" onchange="update_options(18)">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p19" style="position: absolute;left:0px;top:608.0px"> 
+        <select id = "select19" onchange="update_options(19)">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:90px;top:656.0px;height: 33px"> </div>
+      <div class="player" id="p20" style="position: absolute;left:0px;top:640.0px"> 
+        <select id = "select20" onchange="update_options(20)">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p21" style="position: absolute;left:0px;top:672.0px"> 
+        <select id = "select21" onchange="update_options(21)">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:90px;top:720.0px;height: 33px"> </div>
+      <div class="player" id="p22" style="position: absolute;left:0px;top:704.0px"> 
+        <select id = "select22" onchange="update_options(22)">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p23" style="position: absolute;left:0px;top:736.0px"> 
+        <select id = "select23" onchange="update_options(23)">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:90px;top:784.0px;height: 33px"> </div>
+      <div class="player" id="p24" style="position: absolute;left:0px;top:768.0px"> 
+        <select id = "select24" onchange="update_options(24)">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p25" style="position: absolute;left:0px;top:800.0px"> 
+        <select id = "select25" onchange="update_options(25)">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:90px;top:848.0px;height: 33px"> </div>
+      <div class="player" id="p26" style="position: absolute;left:0px;top:832.0px"> 
+        <select id = "select26" onchange="update_options(26)">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p27" style="position: absolute;left:0px;top:864.0px"> 
+        <select id = "select27" onchange="update_options(27)">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:90px;top:912.0px;height: 33px"> </div>
+      <div class="player" id="p28" style="position: absolute;left:0px;top:896.0px"> 
+        <select id = "select28" onchange="update_options(28)">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p29" style="position: absolute;left:0px;top:928.0px"> 
+        <select id = "select29" onchange="update_options(29)">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:90px;top:976.0px;height: 33px"> </div>
+      <div class="player" id="p30" style="position: absolute;left:0px;top:960.0px"> 
+        <select id = "select30" onchange="update_options(30)">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p31" style="position: absolute;left:0px;top:992.0px"> 
+        <select id = "select31" onchange="update_options(31)">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:90px;top:1040.0px;height: 33px"> </div>
+      <div class="player" id="p32" style="position: absolute;left:0px;top:1024.0px"> 
+        <select id = "select32" onchange="update_options(32)">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p33" style="position: absolute;left:0px;top:1056.0px"> 
+        <select id = "select33" onchange="update_options(33)">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:90px;top:1104.0px;height: 33px"> </div>
+      <div class="player" id="p34" style="position: absolute;left:0px;top:1088.0px"> 
+        <select id = "select34" onchange="update_options(34)">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p35" style="position: absolute;left:0px;top:1120.0px"> 
+        <select id = "select35" onchange="update_options(35)">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:90px;top:1168.0px;height: 33px"> </div>
+      <div class="player" id="p36" style="position: absolute;left:0px;top:1152.0px"> 
+        <select id = "select36" onchange="update_options(36)">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p37" style="position: absolute;left:0px;top:1184.0px"> 
+        <select id = "select37" onchange="update_options(37)">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:90px;top:1232.0px;height: 33px"> </div>
+      <div class="player" id="p38" style="position: absolute;left:0px;top:1216.0px"> 
+        <select id = "select38" onchange="update_options(38)">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p39" style="position: absolute;left:0px;top:1248.0px"> 
+        <select id = "select39" onchange="update_options(39)">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:90px;top:1296.0px;height: 33px"> </div>
+      <div class="player" id="p40" style="position: absolute;left:0px;top:1280.0px"> 
+        <select id = "select40" onchange="update_options(40)">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p41" style="position: absolute;left:0px;top:1312.0px"> 
+        <select id = "select41" onchange="update_options(41)">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:90px;top:1360.0px;height: 33px"> </div>
+      <div class="player" id="p42" style="position: absolute;left:0px;top:1344.0px"> 
+        <select id = "select42" onchange="update_options(42)">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p43" style="position: absolute;left:0px;top:1376.0px"> 
+        <select id = "select43" onchange="update_options(43)">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:90px;top:1424.0px;height: 33px"> </div>
+      <div class="player" id="p44" style="position: absolute;left:0px;top:1408.0px"> 
+        <select id = "select44" onchange="update_options(44)">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p45" style="position: absolute;left:0px;top:1440.0px"> 
+        <select id = "select45" onchange="update_options(45)">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:90px;top:1488.0px;height: 33px"> </div>
+      <div class="player" id="p46" style="position: absolute;left:0px;top:1472.0px"> 
+        <select id = "select46" onchange="update_options(46)">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p47" style="position: absolute;left:0px;top:1504.0px"> 
+        <select id = "select47" onchange="update_options(47)">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:90px;top:1552.0px;height: 33px"> </div>
+      <div class="player" id="p48" style="position: absolute;left:0px;top:1536.0px"> 
+        <select id = "select48" onchange="update_options(48)">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p49" style="position: absolute;left:0px;top:1568.0px"> 
+        <select id = "select49" onchange="update_options(49)">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:90px;top:1616.0px;height: 33px"> </div>
+      <div class="player" id="p50" style="position: absolute;left:0px;top:1600.0px"> 
+        <select id = "select50" onchange="update_options(50)">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p51" style="position: absolute;left:0px;top:1632.0px"> 
+        <select id = "select51" onchange="update_options(51)">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:90px;top:1680.0px;height: 33px"> </div>
+      <div class="player" id="p52" style="position: absolute;left:0px;top:1664.0px"> 
+        <select id = "select52" onchange="update_options(52)">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p53" style="position: absolute;left:0px;top:1696.0px"> 
+        <select id = "select53" onchange="update_options(53)">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:90px;top:1744.0px;height: 33px"> </div>
+      <div class="player" id="p54" style="position: absolute;left:0px;top:1728.0px"> 
+        <select id = "select54" onchange="update_options(54)">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p55" style="position: absolute;left:0px;top:1760.0px"> 
+        <select id = "select55" onchange="update_options(55)">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:90px;top:1808.0px;height: 33px"> </div>
+      <div class="player" id="p56" style="position: absolute;left:0px;top:1792.0px"> 
+        <select id = "select56" onchange="update_options(56)">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p57" style="position: absolute;left:0px;top:1824.0px"> 
+        <select id = "select57" onchange="update_options(57)">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:90px;top:1872.0px;height: 33px"> </div>
+      <div class="player" id="p58" style="position: absolute;left:0px;top:1856.0px"> 
+        <select id = "select58" onchange="update_options(58)">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p59" style="position: absolute;left:0px;top:1888.0px"> 
+        <select id = "select59" onchange="update_options(59)">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:90px;top:1936.0px;height: 33px"> </div>
+      <div class="player" id="p60" style="position: absolute;left:0px;top:1920.0px"> 
+        <select id = "select60" onchange="update_options(60)">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p61" style="position: absolute;left:0px;top:1952.0px"> 
+        <select id = "select61" onchange="update_options(61)">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:90px;top:2000.0px;height: 33px"> </div>
+      <div class="player" id="p62" style="position: absolute;left:0px;top:1984.0px"> 
+        <select id = "select62" onchange="update_options(62)">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p63" style="position: absolute;left:0px;top:2016.0px"> 
+        <select id = "select63" onchange="update_options(63)">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:1260px;top:16.0px;height: 33px"> </div>
+      <div class="player" id="p64" style="position: absolute;left:1260px;top:0.0px"> 
+        <select id = "select64" onchange="update_options(64)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p65" style="position: absolute;left:1260px;top:32.0px"> 
+        <select id = "select65" onchange="update_options(65)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:1260px;top:80.0px;height: 33px"> </div>
+      <div class="player" id="p66" style="position: absolute;left:1260px;top:64.0px"> 
+        <select id = "select66" onchange="update_options(66)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p67" style="position: absolute;left:1260px;top:96.0px"> 
+        <select id = "select67" onchange="update_options(67)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:1260px;top:144.0px;height: 33px"> </div>
+      <div class="player" id="p68" style="position: absolute;left:1260px;top:128.0px"> 
+        <select id = "select68" onchange="update_options(68)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p69" style="position: absolute;left:1260px;top:160.0px"> 
+        <select id = "select69" onchange="update_options(69)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:1260px;top:208.0px;height: 33px"> </div>
+      <div class="player" id="p70" style="position: absolute;left:1260px;top:192.0px"> 
+        <select id = "select70" onchange="update_options(70)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p71" style="position: absolute;left:1260px;top:224.0px"> 
+        <select id = "select71" onchange="update_options(71)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:1260px;top:272.0px;height: 33px"> </div>
+      <div class="player" id="p72" style="position: absolute;left:1260px;top:256.0px"> 
+        <select id = "select72" onchange="update_options(72)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p73" style="position: absolute;left:1260px;top:288.0px"> 
+        <select id = "select73" onchange="update_options(73)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:1260px;top:336.0px;height: 33px"> </div>
+      <div class="player" id="p74" style="position: absolute;left:1260px;top:320.0px"> 
+        <select id = "select74" onchange="update_options(74)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p75" style="position: absolute;left:1260px;top:352.0px"> 
+        <select id = "select75" onchange="update_options(75)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:1260px;top:400.0px;height: 33px"> </div>
+      <div class="player" id="p76" style="position: absolute;left:1260px;top:384.0px"> 
+        <select id = "select76" onchange="update_options(76)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p77" style="position: absolute;left:1260px;top:416.0px"> 
+        <select id = "select77" onchange="update_options(77)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:1260px;top:464.0px;height: 33px"> </div>
+      <div class="player" id="p78" style="position: absolute;left:1260px;top:448.0px"> 
+        <select id = "select78" onchange="update_options(78)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p79" style="position: absolute;left:1260px;top:480.0px"> 
+        <select id = "select79" onchange="update_options(79)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:1260px;top:528.0px;height: 33px"> </div>
+      <div class="player" id="p80" style="position: absolute;left:1260px;top:512.0px"> 
+        <select id = "select80" onchange="update_options(80)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p81" style="position: absolute;left:1260px;top:544.0px"> 
+        <select id = "select81" onchange="update_options(81)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:1260px;top:592.0px;height: 33px"> </div>
+      <div class="player" id="p82" style="position: absolute;left:1260px;top:576.0px"> 
+        <select id = "select82" onchange="update_options(82)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p83" style="position: absolute;left:1260px;top:608.0px"> 
+        <select id = "select83" onchange="update_options(83)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:1260px;top:656.0px;height: 33px"> </div>
+      <div class="player" id="p84" style="position: absolute;left:1260px;top:640.0px"> 
+        <select id = "select84" onchange="update_options(84)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p85" style="position: absolute;left:1260px;top:672.0px"> 
+        <select id = "select85" onchange="update_options(85)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:1260px;top:720.0px;height: 33px"> </div>
+      <div class="player" id="p86" style="position: absolute;left:1260px;top:704.0px"> 
+        <select id = "select86" onchange="update_options(86)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p87" style="position: absolute;left:1260px;top:736.0px"> 
+        <select id = "select87" onchange="update_options(87)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:1260px;top:784.0px;height: 33px"> </div>
+      <div class="player" id="p88" style="position: absolute;left:1260px;top:768.0px"> 
+        <select id = "select88" onchange="update_options(88)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p89" style="position: absolute;left:1260px;top:800.0px"> 
+        <select id = "select89" onchange="update_options(89)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:1260px;top:848.0px;height: 33px"> </div>
+      <div class="player" id="p90" style="position: absolute;left:1260px;top:832.0px"> 
+        <select id = "select90" onchange="update_options(90)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p91" style="position: absolute;left:1260px;top:864.0px"> 
+        <select id = "select91" onchange="update_options(91)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:1260px;top:912.0px;height: 33px"> </div>
+      <div class="player" id="p92" style="position: absolute;left:1260px;top:896.0px"> 
+        <select id = "select92" onchange="update_options(92)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p93" style="position: absolute;left:1260px;top:928.0px"> 
+        <select id = "select93" onchange="update_options(93)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:1260px;top:976.0px;height: 33px"> </div>
+      <div class="player" id="p94" style="position: absolute;left:1260px;top:960.0px"> 
+        <select id = "select94" onchange="update_options(94)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p95" style="position: absolute;left:1260px;top:992.0px"> 
+        <select id = "select95" onchange="update_options(95)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:1260px;top:1040.0px;height: 33px"> </div>
+      <div class="player" id="p96" style="position: absolute;left:1260px;top:1024.0px"> 
+        <select id = "select96" onchange="update_options(96)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p97" style="position: absolute;left:1260px;top:1056.0px"> 
+        <select id = "select97" onchange="update_options(97)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:1260px;top:1104.0px;height: 33px"> </div>
+      <div class="player" id="p98" style="position: absolute;left:1260px;top:1088.0px"> 
+        <select id = "select98" onchange="update_options(98)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p99" style="position: absolute;left:1260px;top:1120.0px"> 
+        <select id = "select99" onchange="update_options(99)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:1260px;top:1168.0px;height: 33px"> </div>
+      <div class="player" id="p100" style="position: absolute;left:1260px;top:1152.0px"> 
+        <select id = "select100" onchange="update_options(100)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p101" style="position: absolute;left:1260px;top:1184.0px"> 
+        <select id = "select101" onchange="update_options(101)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:1260px;top:1232.0px;height: 33px"> </div>
+      <div class="player" id="p102" style="position: absolute;left:1260px;top:1216.0px"> 
+        <select id = "select102" onchange="update_options(102)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p103" style="position: absolute;left:1260px;top:1248.0px"> 
+        <select id = "select103" onchange="update_options(103)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:1260px;top:1296.0px;height: 33px"> </div>
+      <div class="player" id="p104" style="position: absolute;left:1260px;top:1280.0px"> 
+        <select id = "select104" onchange="update_options(104)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p105" style="position: absolute;left:1260px;top:1312.0px"> 
+        <select id = "select105" onchange="update_options(105)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:1260px;top:1360.0px;height: 33px"> </div>
+      <div class="player" id="p106" style="position: absolute;left:1260px;top:1344.0px"> 
+        <select id = "select106" onchange="update_options(106)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p107" style="position: absolute;left:1260px;top:1376.0px"> 
+        <select id = "select107" onchange="update_options(107)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:1260px;top:1424.0px;height: 33px"> </div>
+      <div class="player" id="p108" style="position: absolute;left:1260px;top:1408.0px"> 
+        <select id = "select108" onchange="update_options(108)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p109" style="position: absolute;left:1260px;top:1440.0px"> 
+        <select id = "select109" onchange="update_options(109)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:1260px;top:1488.0px;height: 33px"> </div>
+      <div class="player" id="p110" style="position: absolute;left:1260px;top:1472.0px"> 
+        <select id = "select110" onchange="update_options(110)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p111" style="position: absolute;left:1260px;top:1504.0px"> 
+        <select id = "select111" onchange="update_options(111)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:1260px;top:1552.0px;height: 33px"> </div>
+      <div class="player" id="p112" style="position: absolute;left:1260px;top:1536.0px"> 
+        <select id = "select112" onchange="update_options(112)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p113" style="position: absolute;left:1260px;top:1568.0px"> 
+        <select id = "select113" onchange="update_options(113)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:1260px;top:1616.0px;height: 33px"> </div>
+      <div class="player" id="p114" style="position: absolute;left:1260px;top:1600.0px"> 
+        <select id = "select114" onchange="update_options(114)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p115" style="position: absolute;left:1260px;top:1632.0px"> 
+        <select id = "select115" onchange="update_options(115)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:1260px;top:1680.0px;height: 33px"> </div>
+      <div class="player" id="p116" style="position: absolute;left:1260px;top:1664.0px"> 
+        <select id = "select116" onchange="update_options(116)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p117" style="position: absolute;left:1260px;top:1696.0px"> 
+        <select id = "select117" onchange="update_options(117)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:1260px;top:1744.0px;height: 33px"> </div>
+      <div class="player" id="p118" style="position: absolute;left:1260px;top:1728.0px"> 
+        <select id = "select118" onchange="update_options(118)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p119" style="position: absolute;left:1260px;top:1760.0px"> 
+        <select id = "select119" onchange="update_options(119)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:1260px;top:1808.0px;height: 33px"> </div>
+      <div class="player" id="p120" style="position: absolute;left:1260px;top:1792.0px"> 
+        <select id = "select120" onchange="update_options(120)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p121" style="position: absolute;left:1260px;top:1824.0px"> 
+        <select id = "select121" onchange="update_options(121)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:1260px;top:1872.0px;height: 33px"> </div>
+      <div class="player" id="p122" style="position: absolute;left:1260px;top:1856.0px"> 
+        <select id = "select122" onchange="update_options(122)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p123" style="position: absolute;left:1260px;top:1888.0px"> 
+        <select id = "select123" onchange="update_options(123)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:1260px;top:1936.0px;height: 33px"> </div>
+      <div class="player" id="p124" style="position: absolute;left:1260px;top:1920.0px"> 
+        <select id = "select124" onchange="update_options(124)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p125" style="position: absolute;left:1260px;top:1952.0px"> 
+        <select id = "select125" onchange="update_options(125)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:1260px;top:2000.0px;height: 33px"> </div>
+      <div class="player" id="p126" style="position: absolute;left:1260px;top:1984.0px"> 
+        <select id = "select126" onchange="update_options(126)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p127" style="position: absolute;left:1260px;top:2016.0px"> 
+        <select id = "select127" onchange="update_options(127)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:180px;top:32.0px;height: 65px"> </div>
+      <div class="player" id="p128" style="position: absolute;left:90px;top:16.0px"> 
+        <select id = "select128" onchange="update_options(128)">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p129" style="position: absolute;left:90px;top:80.0px"> 
+        <select id = "select129" onchange="update_options(129)">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:180px;top:160.0px;height: 65px"> </div>
+      <div class="player" id="p130" style="position: absolute;left:90px;top:144.0px"> 
+        <select id = "select130" onchange="update_options(130)">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p131" style="position: absolute;left:90px;top:208.0px"> 
+        <select id = "select131" onchange="update_options(131)">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:180px;top:288.0px;height: 65px"> </div>
+      <div class="player" id="p132" style="position: absolute;left:90px;top:272.0px"> 
+        <select id = "select132" onchange="update_options(132)">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p133" style="position: absolute;left:90px;top:336.0px"> 
+        <select id = "select133" onchange="update_options(133)">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:180px;top:416.0px;height: 65px"> </div>
+      <div class="player" id="p134" style="position: absolute;left:90px;top:400.0px"> 
+        <select id = "select134" onchange="update_options(134)">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p135" style="position: absolute;left:90px;top:464.0px"> 
+        <select id = "select135" onchange="update_options(135)">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:180px;top:544.0px;height: 65px"> </div>
+      <div class="player" id="p136" style="position: absolute;left:90px;top:528.0px"> 
+        <select id = "select136" onchange="update_options(136)">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p137" style="position: absolute;left:90px;top:592.0px"> 
+        <select id = "select137" onchange="update_options(137)">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:180px;top:672.0px;height: 65px"> </div>
+      <div class="player" id="p138" style="position: absolute;left:90px;top:656.0px"> 
+        <select id = "select138" onchange="update_options(138)">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p139" style="position: absolute;left:90px;top:720.0px"> 
+        <select id = "select139" onchange="update_options(139)">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:180px;top:800.0px;height: 65px"> </div>
+      <div class="player" id="p140" style="position: absolute;left:90px;top:784.0px"> 
+        <select id = "select140" onchange="update_options(140)">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p141" style="position: absolute;left:90px;top:848.0px"> 
+        <select id = "select141" onchange="update_options(141)">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:180px;top:928.0px;height: 65px"> </div>
+      <div class="player" id="p142" style="position: absolute;left:90px;top:912.0px"> 
+        <select id = "select142" onchange="update_options(142)">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p143" style="position: absolute;left:90px;top:976.0px"> 
+        <select id = "select143" onchange="update_options(143)">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:180px;top:1056.0px;height: 65px"> </div>
+      <div class="player" id="p144" style="position: absolute;left:90px;top:1040.0px"> 
+        <select id = "select144" onchange="update_options(144)">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p145" style="position: absolute;left:90px;top:1104.0px"> 
+        <select id = "select145" onchange="update_options(145)">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:180px;top:1184.0px;height: 65px"> </div>
+      <div class="player" id="p146" style="position: absolute;left:90px;top:1168.0px"> 
+        <select id = "select146" onchange="update_options(146)">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p147" style="position: absolute;left:90px;top:1232.0px"> 
+        <select id = "select147" onchange="update_options(147)">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:180px;top:1312.0px;height: 65px"> </div>
+      <div class="player" id="p148" style="position: absolute;left:90px;top:1296.0px"> 
+        <select id = "select148" onchange="update_options(148)">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p149" style="position: absolute;left:90px;top:1360.0px"> 
+        <select id = "select149" onchange="update_options(149)">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:180px;top:1440.0px;height: 65px"> </div>
+      <div class="player" id="p150" style="position: absolute;left:90px;top:1424.0px"> 
+        <select id = "select150" onchange="update_options(150)">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p151" style="position: absolute;left:90px;top:1488.0px"> 
+        <select id = "select151" onchange="update_options(151)">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:180px;top:1568.0px;height: 65px"> </div>
+      <div class="player" id="p152" style="position: absolute;left:90px;top:1552.0px"> 
+        <select id = "select152" onchange="update_options(152)">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p153" style="position: absolute;left:90px;top:1616.0px"> 
+        <select id = "select153" onchange="update_options(153)">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:180px;top:1696.0px;height: 65px"> </div>
+      <div class="player" id="p154" style="position: absolute;left:90px;top:1680.0px"> 
+        <select id = "select154" onchange="update_options(154)">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p155" style="position: absolute;left:90px;top:1744.0px"> 
+        <select id = "select155" onchange="update_options(155)">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:180px;top:1824.0px;height: 65px"> </div>
+      <div class="player" id="p156" style="position: absolute;left:90px;top:1808.0px"> 
+        <select id = "select156" onchange="update_options(156)">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p157" style="position: absolute;left:90px;top:1872.0px"> 
+        <select id = "select157" onchange="update_options(157)">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:180px;top:1952.0px;height: 65px"> </div>
+      <div class="player" id="p158" style="position: absolute;left:90px;top:1936.0px"> 
+        <select id = "select158" onchange="update_options(158)">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p159" style="position: absolute;left:90px;top:2000.0px"> 
+        <select id = "select159" onchange="update_options(159)">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:1170px;top:32.0px;height: 65px"> </div>
+      <div class="player" id="p160" style="position: absolute;left:1170px;top:16.0px"> 
+        <select id = "select160" onchange="update_options(160)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p161" style="position: absolute;left:1170px;top:80.0px"> 
+        <select id = "select161" onchange="update_options(161)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:1170px;top:160.0px;height: 65px"> </div>
+      <div class="player" id="p162" style="position: absolute;left:1170px;top:144.0px"> 
+        <select id = "select162" onchange="update_options(162)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p163" style="position: absolute;left:1170px;top:208.0px"> 
+        <select id = "select163" onchange="update_options(163)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:1170px;top:288.0px;height: 65px"> </div>
+      <div class="player" id="p164" style="position: absolute;left:1170px;top:272.0px"> 
+        <select id = "select164" onchange="update_options(164)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p165" style="position: absolute;left:1170px;top:336.0px"> 
+        <select id = "select165" onchange="update_options(165)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:1170px;top:416.0px;height: 65px"> </div>
+      <div class="player" id="p166" style="position: absolute;left:1170px;top:400.0px"> 
+        <select id = "select166" onchange="update_options(166)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p167" style="position: absolute;left:1170px;top:464.0px"> 
+        <select id = "select167" onchange="update_options(167)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:1170px;top:544.0px;height: 65px"> </div>
+      <div class="player" id="p168" style="position: absolute;left:1170px;top:528.0px"> 
+        <select id = "select168" onchange="update_options(168)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p169" style="position: absolute;left:1170px;top:592.0px"> 
+        <select id = "select169" onchange="update_options(169)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:1170px;top:672.0px;height: 65px"> </div>
+      <div class="player" id="p170" style="position: absolute;left:1170px;top:656.0px"> 
+        <select id = "select170" onchange="update_options(170)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p171" style="position: absolute;left:1170px;top:720.0px"> 
+        <select id = "select171" onchange="update_options(171)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:1170px;top:800.0px;height: 65px"> </div>
+      <div class="player" id="p172" style="position: absolute;left:1170px;top:784.0px"> 
+        <select id = "select172" onchange="update_options(172)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p173" style="position: absolute;left:1170px;top:848.0px"> 
+        <select id = "select173" onchange="update_options(173)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:1170px;top:928.0px;height: 65px"> </div>
+      <div class="player" id="p174" style="position: absolute;left:1170px;top:912.0px"> 
+        <select id = "select174" onchange="update_options(174)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p175" style="position: absolute;left:1170px;top:976.0px"> 
+        <select id = "select175" onchange="update_options(175)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:1170px;top:1056.0px;height: 65px"> </div>
+      <div class="player" id="p176" style="position: absolute;left:1170px;top:1040.0px"> 
+        <select id = "select176" onchange="update_options(176)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p177" style="position: absolute;left:1170px;top:1104.0px"> 
+        <select id = "select177" onchange="update_options(177)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:1170px;top:1184.0px;height: 65px"> </div>
+      <div class="player" id="p178" style="position: absolute;left:1170px;top:1168.0px"> 
+        <select id = "select178" onchange="update_options(178)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p179" style="position: absolute;left:1170px;top:1232.0px"> 
+        <select id = "select179" onchange="update_options(179)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:1170px;top:1312.0px;height: 65px"> </div>
+      <div class="player" id="p180" style="position: absolute;left:1170px;top:1296.0px"> 
+        <select id = "select180" onchange="update_options(180)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p181" style="position: absolute;left:1170px;top:1360.0px"> 
+        <select id = "select181" onchange="update_options(181)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:1170px;top:1440.0px;height: 65px"> </div>
+      <div class="player" id="p182" style="position: absolute;left:1170px;top:1424.0px"> 
+        <select id = "select182" onchange="update_options(182)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p183" style="position: absolute;left:1170px;top:1488.0px"> 
+        <select id = "select183" onchange="update_options(183)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:1170px;top:1568.0px;height: 65px"> </div>
+      <div class="player" id="p184" style="position: absolute;left:1170px;top:1552.0px"> 
+        <select id = "select184" onchange="update_options(184)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p185" style="position: absolute;left:1170px;top:1616.0px"> 
+        <select id = "select185" onchange="update_options(185)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:1170px;top:1696.0px;height: 65px"> </div>
+      <div class="player" id="p186" style="position: absolute;left:1170px;top:1680.0px"> 
+        <select id = "select186" onchange="update_options(186)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p187" style="position: absolute;left:1170px;top:1744.0px"> 
+        <select id = "select187" onchange="update_options(187)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:1170px;top:1824.0px;height: 65px"> </div>
+      <div class="player" id="p188" style="position: absolute;left:1170px;top:1808.0px"> 
+        <select id = "select188" onchange="update_options(188)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p189" style="position: absolute;left:1170px;top:1872.0px"> 
+        <select id = "select189" onchange="update_options(189)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:1170px;top:1952.0px;height: 65px"> </div>
+      <div class="player" id="p190" style="position: absolute;left:1170px;top:1936.0px"> 
+        <select id = "select190" onchange="update_options(190)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p191" style="position: absolute;left:1170px;top:2000.0px"> 
+        <select id = "select191" onchange="update_options(191)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:270px;top:64.0px;height: 129px"> </div>
+      <div class="player" id="p192" style="position: absolute;left:180px;top:48.0px"> 
+        <select id = "select192" onchange="update_options(192)">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p193" style="position: absolute;left:180px;top:176.0px"> 
+        <select id = "select193" onchange="update_options(193)">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:270px;top:320.0px;height: 129px"> </div>
+      <div class="player" id="p194" style="position: absolute;left:180px;top:304.0px"> 
+        <select id = "select194" onchange="update_options(194)">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p195" style="position: absolute;left:180px;top:432.0px"> 
+        <select id = "select195" onchange="update_options(195)">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:270px;top:576.0px;height: 129px"> </div>
+      <div class="player" id="p196" style="position: absolute;left:180px;top:560.0px"> 
+        <select id = "select196" onchange="update_options(196)">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p197" style="position: absolute;left:180px;top:688.0px"> 
+        <select id = "select197" onchange="update_options(197)">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:270px;top:832.0px;height: 129px"> </div>
+      <div class="player" id="p198" style="position: absolute;left:180px;top:816.0px"> 
+        <select id = "select198" onchange="update_options(198)">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p199" style="position: absolute;left:180px;top:944.0px"> 
+        <select id = "select199" onchange="update_options(199)">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:270px;top:1088.0px;height: 129px"> </div>
+      <div class="player" id="p200" style="position: absolute;left:180px;top:1072.0px"> 
+        <select id = "select200" onchange="update_options(200)">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p201" style="position: absolute;left:180px;top:1200.0px"> 
+        <select id = "select201" onchange="update_options(201)">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:270px;top:1344.0px;height: 129px"> </div>
+      <div class="player" id="p202" style="position: absolute;left:180px;top:1328.0px"> 
+        <select id = "select202" onchange="update_options(202)">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p203" style="position: absolute;left:180px;top:1456.0px"> 
+        <select id = "select203" onchange="update_options(203)">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:270px;top:1600.0px;height: 129px"> </div>
+      <div class="player" id="p204" style="position: absolute;left:180px;top:1584.0px"> 
+        <select id = "select204" onchange="update_options(204)">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p205" style="position: absolute;left:180px;top:1712.0px"> 
+        <select id = "select205" onchange="update_options(205)">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:270px;top:1856.0px;height: 129px"> </div>
+      <div class="player" id="p206" style="position: absolute;left:180px;top:1840.0px"> 
+        <select id = "select206" onchange="update_options(206)">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p207" style="position: absolute;left:180px;top:1968.0px"> 
+        <select id = "select207" onchange="update_options(207)">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:1080px;top:64.0px;height: 129px"> </div>
+      <div class="player" id="p208" style="position: absolute;left:1080px;top:48.0px"> 
+        <select id = "select208" onchange="update_options(208)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p209" style="position: absolute;left:1080px;top:176.0px"> 
+        <select id = "select209" onchange="update_options(209)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:1080px;top:320.0px;height: 129px"> </div>
+      <div class="player" id="p210" style="position: absolute;left:1080px;top:304.0px"> 
+        <select id = "select210" onchange="update_options(210)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p211" style="position: absolute;left:1080px;top:432.0px"> 
+        <select id = "select211" onchange="update_options(211)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:1080px;top:576.0px;height: 129px"> </div>
+      <div class="player" id="p212" style="position: absolute;left:1080px;top:560.0px"> 
+        <select id = "select212" onchange="update_options(212)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p213" style="position: absolute;left:1080px;top:688.0px"> 
+        <select id = "select213" onchange="update_options(213)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:1080px;top:832.0px;height: 129px"> </div>
+      <div class="player" id="p214" style="position: absolute;left:1080px;top:816.0px"> 
+        <select id = "select214" onchange="update_options(214)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p215" style="position: absolute;left:1080px;top:944.0px"> 
+        <select id = "select215" onchange="update_options(215)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:1080px;top:1088.0px;height: 129px"> </div>
+      <div class="player" id="p216" style="position: absolute;left:1080px;top:1072.0px"> 
+        <select id = "select216" onchange="update_options(216)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p217" style="position: absolute;left:1080px;top:1200.0px"> 
+        <select id = "select217" onchange="update_options(217)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:1080px;top:1344.0px;height: 129px"> </div>
+      <div class="player" id="p218" style="position: absolute;left:1080px;top:1328.0px"> 
+        <select id = "select218" onchange="update_options(218)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p219" style="position: absolute;left:1080px;top:1456.0px"> 
+        <select id = "select219" onchange="update_options(219)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:1080px;top:1600.0px;height: 129px"> </div>
+      <div class="player" id="p220" style="position: absolute;left:1080px;top:1584.0px"> 
+        <select id = "select220" onchange="update_options(220)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p221" style="position: absolute;left:1080px;top:1712.0px"> 
+        <select id = "select221" onchange="update_options(221)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:1080px;top:1856.0px;height: 129px"> </div>
+      <div class="player" id="p222" style="position: absolute;left:1080px;top:1840.0px"> 
+        <select id = "select222" onchange="update_options(222)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p223" style="position: absolute;left:1080px;top:1968.0px"> 
+        <select id = "select223" onchange="update_options(223)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:360px;top:128.0px;height: 257px"> </div>
+      <div class="player" id="p224" style="position: absolute;left:270px;top:112.0px"> 
+        <select id = "select224" onchange="update_options(224)">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p225" style="position: absolute;left:270px;top:368.0px"> 
+        <select id = "select225" onchange="update_options(225)">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:360px;top:640.0px;height: 257px"> </div>
+      <div class="player" id="p226" style="position: absolute;left:270px;top:624.0px"> 
+        <select id = "select226" onchange="update_options(226)">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p227" style="position: absolute;left:270px;top:880.0px"> 
+        <select id = "select227" onchange="update_options(227)">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:360px;top:1152.0px;height: 257px"> </div>
+      <div class="player" id="p228" style="position: absolute;left:270px;top:1136.0px"> 
+        <select id = "select228" onchange="update_options(228)">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p229" style="position: absolute;left:270px;top:1392.0px"> 
+        <select id = "select229" onchange="update_options(229)">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:360px;top:1664.0px;height: 257px"> </div>
+      <div class="player" id="p230" style="position: absolute;left:270px;top:1648.0px"> 
+        <select id = "select230" onchange="update_options(230)">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p231" style="position: absolute;left:270px;top:1904.0px"> 
+        <select id = "select231" onchange="update_options(231)">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:990px;top:128.0px;height: 257px"> </div>
+      <div class="player" id="p232" style="position: absolute;left:990px;top:112.0px"> 
+        <select id = "select232" onchange="update_options(232)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p233" style="position: absolute;left:990px;top:368.0px"> 
+        <select id = "select233" onchange="update_options(233)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:990px;top:640.0px;height: 257px"> </div>
+      <div class="player" id="p234" style="position: absolute;left:990px;top:624.0px"> 
+        <select id = "select234" onchange="update_options(234)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p235" style="position: absolute;left:990px;top:880.0px"> 
+        <select id = "select235" onchange="update_options(235)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:990px;top:1152.0px;height: 257px"> </div>
+      <div class="player" id="p236" style="position: absolute;left:990px;top:1136.0px"> 
+        <select id = "select236" onchange="update_options(236)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p237" style="position: absolute;left:990px;top:1392.0px"> 
+        <select id = "select237" onchange="update_options(237)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:990px;top:1664.0px;height: 257px"> </div>
+      <div class="player" id="p238" style="position: absolute;left:990px;top:1648.0px"> 
+        <select id = "select238" onchange="update_options(238)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p239" style="position: absolute;left:990px;top:1904.0px"> 
+        <select id = "select239" onchange="update_options(239)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:450px;top:256.0px;height: 513px"> </div>
+      <div class="player" id="p240" style="position: absolute;left:360px;top:240.0px"> 
+        <select id = "select240" onchange="update_options(240)">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p241" style="position: absolute;left:360px;top:752.0px"> 
+        <select id = "select241" onchange="update_options(241)">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:450px;top:1280.0px;height: 513px"> </div>
+      <div class="player" id="p242" style="position: absolute;left:360px;top:1264.0px"> 
+        <select id = "select242" onchange="update_options(242)">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p243" style="position: absolute;left:360px;top:1776.0px"> 
+        <select id = "select243" onchange="update_options(243)">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:900px;top:256.0px;height: 513px"> </div>
+      <div class="player" id="p244" style="position: absolute;left:900px;top:240.0px"> 
+        <select id = "select244" onchange="update_options(244)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p245" style="position: absolute;left:900px;top:752.0px"> 
+        <select id = "select245" onchange="update_options(245)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:900px;top:1280.0px;height: 513px"> </div>
+      <div class="player" id="p246" style="position: absolute;left:900px;top:1264.0px"> 
+        <select id = "select246" onchange="update_options(246)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p247" style="position: absolute;left:900px;top:1776.0px"> 
+        <select id = "select247" onchange="update_options(247)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:540px;top:512.0px;height: 1025px"> </div>
+      <div class="player" id="p248" style="position: absolute;left:450px;top:496.0px"> 
+        <select id = "select248" onchange="update_options(248)">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p249" style="position: absolute;left:450px;top:1520.0px"> 
+        <select id = "select249" onchange="update_options(249)">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:810px;top:512.0px;height: 1025px"> </div>
+      <div class="player" id="p250" style="position: absolute;left:810px;top:496.0px"> 
+        <select id = "select250" onchange="update_options(250)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p251" style="position: absolute;left:810px;top:1520.0px"> 
+        <select id = "select251" onchange="update_options(251)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p252" style="position: absolute;left:540px;top:1008.0px"> 
+        <select id = "select252" onchange="update_options(252)">
+          <option></option>
+        </select>
+      </div>
+      <div class="player" id="p253" style="position: absolute;left:720px;top:1008.0px"> 
+        <select id = "select253" onchange="update_options(253)"">
+          <option></option>
+        </select>
+      </div>
+      <div class="line" style="position: absolute; left:630px;top: 976px;height: 49.0px"> </div>
+      <div class="line" style="position: absolute; left:720px;top:976px;height: 49.0px"> </div>
+      <div class="player" id="p254" style="position: absolute;left:630px;top:960px;text-align: center"> 
+        <select id = "select254">
+          <option></option>
+        </select>
+      </div>
+      <div id="userinfo-container" style="position: absolute; left: 540px; top: 864px;width: 270px; height: 32px; text-align: center"> 
+        <button onclick="save_results()"> Descargar </button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+
