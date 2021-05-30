@@ -1,7 +1,7 @@
 import os
 import json
 
-directory = "./temp_brackets"
+directory = "temp_brackets"
 brackets = {}
 for filename in os.listdir(directory):
     with open(os.path.join(directory,filename),"r") as f:

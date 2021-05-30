@@ -296,6 +296,7 @@ function save_results(){
     link.setAttribute("download","bots.json");
     link.click();
   }
+  // generateElo()
 }
 
 function generateMonkeys() {
@@ -328,7 +329,6 @@ function generateMonkeys() {
     // Save bracket to monkeys
     monkeys["monkey"+k] = bracket;
   }
-  // generateElo()
 }
 
 function generateBots() {
