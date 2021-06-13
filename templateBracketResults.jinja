@@ -20,6 +20,16 @@
       background-color: transparent;
       overflow: hidden;
     }
+    .score {
+      font-size: {{ cellheight*0.6 }}px;
+      font-family: Arial, Helvetica, sans-serif;
+      width: {{ hspace }}px;
+      height: {{ cellheight }}px;
+      text-align: left;
+      padding-left: {{ hspace*0.03 }}px;
+      background-color: transparent;
+      overflow: hidden;
+    }
     .line {
       border-left: {{ linewidth }}px solid black; 
     }
@@ -56,16 +66,26 @@
           <option></option>
         </select>
       </div>
-          {% else %}
-            {% if i%2 == 0 and j<rounds-1 %}{# draw the lines between players in a match #}
+          {% if j>0 %}
+      <div class="score" id="score{{ counter[j] + i }}" style="position: absolute;left:{{ j*hspace }}px;top:{{ i*vspace*(2**j) + vspace*(2**(j-1) - 1/2) + cellheight }}px"> 
+        <input type="text" id="scoretext{{ counter[j] + i }}">
+      </div>
+          {% endif %}
+        {% else %}
+          {% if i%2 == 0 and j<rounds-1 %}{# draw the lines between players in a match #}
       <div class="line" style="position: absolute; left:{{ hspace * (2*rounds - j) }}px;top:{{ (i-bracketSize/(2**(j+1)))*vspace*(2**j) + vspace*(2**(j-1) - 1/2) + cellheight }}px;height: {{ vspace*(2**j) + linewidth }}px"> </div>
-            {% endif %}
+          {% endif %}
       <div class="player" id="p{{ counter[j] + i }}" style="position: absolute;left:{{ hspace * (2*rounds - j) }}px;top:{{ (i-bracketSize/(2**(j+1)))*vspace*(2**j)  + vspace*(2**(j-1) - 1/2) }}px"> 
-        <select id = "select{{ counter[j] + i }}" onchange="update_options({{ counter[j] + i }})"">
+        <select id = "select{{ counter[j] + i }}" onchange="update_options({{ counter[j] + i }})">
           <option></option>
         </select>
       </div>
+          {% if j>0 %}
+      <div class="score" id="score{{ counter[j] + i }}" style="position: absolute;left:{{ hspace * (2*rounds - j) }}px;top:{{ (i-bracketSize/(2**(j+1)))*vspace*(2**j)  + vspace*(2**(j-1) - 1/2) + cellheight }}px"> 
+        <input type="text" id="scoretext{{ counter[j] + i }}">
+      </div>
           {% endif %}
+        {% endif %}
       {% endfor %}
     {% endfor %}
       <div class="line" style="position: absolute; left:{{ rounds*hspace }}px;top: {{ vspace*(2**(rounds-2) - 2) + cellheight }}px;height: {{ 1.5*vspace+linewidth }}px"> </div>
@@ -74,6 +94,9 @@
         <select id = "select{{ counter[rounds] }}">
           <option></option>
         </select>
+      </div>
+      <div class="score" id="score{{ counter[rounds] }}" style="position: absolute;left:{{ (rounds)*hspace }}px;top:{{ vspace*(2**(rounds-2) - 2) + cellheight }}px;text-align: center"> 
+        <input type="text" id="scoretext{{ counter[rounds] }}">
       </div>
       <div id="userinfo-container" style="position: absolute; left: {{ (rounds-1)*hspace }}px; top: {{ vspace*(2**(rounds-2) - 5) }}px;width: {{ 3*hspace }}px; height: {{ vspace }}px; text-align: center"> 
         <button onclick="save_results()"> Descargar </button>

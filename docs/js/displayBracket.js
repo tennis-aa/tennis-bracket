@@ -62,8 +62,10 @@ function display_bracket() {
     user_info.innerHTML = "";
     for (let i = 0; i < results.length; i++) {
       let player = document.getElementById("p" + (i+bracketSize));
+      let score = document.getElementById("score"+ (i+bracketSize));
       player.innerHTML = results[i];
       player.style.color = "black";
+      score.innerHTML = scores[i];
     }
   } else {
     let bracket = brackets[user];
@@ -72,7 +74,9 @@ function display_bracket() {
     user_info.innerHTML =  table_results.points[user_loc] + " puntos" + "<br>" + "Posicion " + table_results.position[user_loc] + "/" + nr_users + " (" + table_results.rank[user_loc] + ")";
     for (let i = 0; i < bracket.length; i++) {
       let player = document.getElementById("p" + (i+bracketSize));
+      let score = document.getElementById("score"+ (i+bracketSize));
       player.innerHTML = bracket[i];
+      score.innerHTML = ""
       if (i<bracketSize/2 && (players[2*i]=="Bye" || players[2*i+1]=="Bye")) {
         console.log(i)
         player.style.color = "black";

@@ -97,6 +97,8 @@ function loadResults() {
       } else if (results[counter[1]+i-bracketSize] == players[2*i+1]) {
         sel.value = option2.value;
       }
+      let score_text = document.getElementById("scoretext" + (counter[1] + i))
+      score_text.value = scores[i]
     }
 
     for (let j = 2; j <= rounds; j++){
@@ -113,6 +115,8 @@ function loadResults() {
         } else if (results[counter[j]+i-bracketSize] == sel.options[2].value) {
           sel.value = sel.options[2].value;
         }
+        let score_text = document.getElementById("scoretext" + (counter[j] + i))
+        score_text.value = scores[counter[j]+i-bracketSize]
       }
     }
   });
@@ -158,6 +162,8 @@ function save_results(){
     for (let i = 0; i < bracketSize/(2**j); i++) {
       let sel = document.getElementById("select"+ (counter[j]+i));
       results[counter[j]+i-bracketSize] = sel.value;
+      let score_text = document.getElementById("scoretext"+ (counter[j]+i));
+      scores[counter[j]+i-bracketSize] = score_text.value
     }
   }
 
@@ -317,12 +323,12 @@ function generateMonkeys() {
       }
     }
     // picks for the third round onwards
-    for (let j = 2; j <= rounds; j++){
-      for (let i = 0; i < bracketSize/(2**j); i++) {
+    for (let j = 1; j < rounds; j++){
+      for (let i = 0; i < bracketSize/(2**(j+1)); i++) {
         if (Math.random()<0.5) {
-          bracket.push(bracket[counter[j-1]-bracketSize+2*i]);
+          bracket.push(bracket[counter[j]-bracketSize+2*i]);
         } else {
-          bracket.push(bracket[counter[j-1]-bracketSize+2*i+1]);
+          bracket.push(bracket[counter[j]-bracketSize+2*i+1]);
         }
       }
     }
@@ -360,17 +366,17 @@ function generateBots() {
       } 
     }
     // picks for the third round onwards
-    for (let j = 2; j <= rounds; j++){
-      for (let i = 0; i < bracketSize/(2**j); i++) {
-        let Q1 = 10**(bracket_elo[counter[j-1]-bracketSize+2*i]/400);
-        let Q2 = 10**(bracket_elo[counter[j-1]-bracketSize+2*i+1]/400);
+    for (let j = 1; j < rounds; j++){
+      for (let i = 0; i < bracketSize/(2**(j+1)); i++) {
+        let Q1 = 10**(bracket_elo[counter[j]-bracketSize+2*i]/400);
+        let Q2 = 10**(bracket_elo[counter[j]-bracketSize+2*i+1]/400);
         let probability = Q1/(Q1+Q2);
         if (Math.random()<probability) {
-          bracket.push(bracket[counter[j-1]-bracketSize+2*i]);
-          bracket_elo.push(bracket_elo[counter[j-1]-bracketSize+2*i]);
+          bracket.push(bracket[counter[j]-bracketSize+2*i]);
+          bracket_elo.push(bracket_elo[counter[j]-bracketSize+2*i]);
         } else {
-          bracket.push(bracket[counter[j-1]-bracketSize+2*i+1]);
-          bracket_elo.push(bracket_elo[counter[j-1]-bracketSize+2*i+1]);
+          bracket.push(bracket[counter[j]-bracketSize+2*i+1]);
+          bracket_elo.push(bracket_elo[counter[j]-bracketSize+2*i+1]);
         }
       }
     }
@@ -402,14 +408,14 @@ function generateElo() {
     } 
   }
   // picks for the third round onwards
-  for (let j = 2; j <= rounds; j++){
-    for (let i = 0; i < bracketSize/(2**j); i++) {
-      if (bracket_elo[counter[j-1]-bracketSize+2*i]>bracket_elo[counter[j-1]-bracketSize+2*i+1]) {
-        bracket.push(bracket[counter[j-1]-bracketSize+2*i]);
-        bracket_elo.push(bracket_elo[counter[j-1]-bracketSize+2*i]);
+  for (let j = 1; j < rounds; j++){
+    for (let i = 0; i < bracketSize/(2**(j+1)); i++) {
+      if (bracket_elo[counter[j]-bracketSize+2*i]>bracket_elo[counter[j]-bracketSize+2*i+1]) {
+        bracket.push(bracket[counter[j]-bracketSize+2*i]);
+        bracket_elo.push(bracket_elo[counter[j]-bracketSize+2*i]);
       } else {
-        bracket.push(bracket[counter[j-1]-bracketSize+2*i+1]);
-        bracket_elo.push(bracket_elo[counter[j-1]-bracketSize+2*i+1]);
+        bracket.push(bracket[counter[j]-bracketSize+2*i+1]);
+        bracket_elo.push(bracket_elo[counter[j]-bracketSize+2*i+1]);
       }
     }
   }

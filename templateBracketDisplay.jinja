@@ -19,6 +19,16 @@
       background-color: transparent;
       overflow: hidden;
     }
+    .score {
+      font-size: {{ cellheight*0.6 }}px;
+      font-family: Arial, Helvetica, sans-serif;
+      width: {{ hspace }}px;
+      height: {{ cellheight }}px;
+      text-align: left;
+      padding-left: {{ hspace*0.03 }}px;
+      background-color: transparent;
+      overflow: visible;
+    }
     .line {
       border-left: {{ linewidth }}px solid black; 
     }
@@ -37,25 +47,32 @@
     </ul>
   </nav>
   <div class="bracket_container" style="position:relative;height:{{bracketSize/2*vspace}}px">
-      <div id="bracket-size" style="display: none"> {{ bracketSize }} </div>
+    <div id="bracket-size" style="display: none"> {{ bracketSize }} </div>
   {% for j in range(rounds) %}
     {% for i in range((bracketSize/(2**j)) | int) %}
       {%- if i < bracketSize/(2**(j+1)) %}
         {%- if i%2 == 0 and j<rounds-1 %}{# draw the lines between players in a match #}
-    <div class="line" style="position: absolute; left:{{ (j+1)*hspace }}px;top:{{ i*vspace*(2**j) + vspace*(2**(j-1) - 1/2) + cellheight }}px;height: {{ vspace*(2**j) + linewidth }}px"> </div>
+    <div class="line" style="position: absolute; left:{{ (j+1)*hspace }}px;top:{{ i*vspace*(2**j) + vspace*(2**(j-1) - 1/2) + cellheight - linewidth }}px;height: {{ vspace*(2**j) + linewidth }}px"> </div>
         {% endif %}
     <div class="player" id="p{{ counter[j] + i }}" style="position: absolute;left:{{ j*hspace }}px;top:{{ i*vspace*(2**j) + vspace*(2**(j-1) - 1/2) }}px"> </div>
-        {% else %}
-          {% if i%2 == 0 and j<rounds-1 %}{# draw the lines between players in a match #}
-    <div class="line" style="position: absolute; left:{{ hspace * (2*rounds - j) }}px;top:{{ (i-bracketSize/(2**(j+1)))*vspace*(2**j) + vspace*(2**(j-1) - 1/2) + cellheight }}px;height: {{ vspace*(2**j) + linewidth }}px"> </div>
-          {% endif %}
-    <div class="player" id="p{{ counter[j] + i }}" style="position: absolute;left:{{ hspace * (2*rounds - j) }}px;top:{{ (i-bracketSize/(2**(j+1)))*vspace*(2**j)  + vspace*(2**(j-1) - 1/2) }}px"> </div>
+        {% if j>0 %}
+    <div class="score" id="score{{ counter[j] + i }}" style="position: absolute;left:{{ j*hspace }}px;top:{{ i*vspace*(2**j) + vspace*(2**(j-1) - 1/2) + cellheight }}px"> </div>
+        {% endif%}
+      {% else %}
+        {% if i%2 == 0 and j<rounds-1 %}{# draw the lines between players in a match #}
+    <div class="line" style="position: absolute; left:{{ hspace * (2*rounds - j) }}px;top:{{ (i-bracketSize/(2**(j+1)))*vspace*(2**j) + vspace*(2**(j-1) - 1/2) + cellheight - linewidth }}px;height: {{ vspace*(2**j) + linewidth }}px"> </div>
         {% endif %}
+    <div class="player" id="p{{ counter[j] + i }}" style="position: absolute;left:{{ hspace * (2*rounds - j) }}px;top:{{ (i-bracketSize/(2**(j+1)))*vspace*(2**j)  + vspace*(2**(j-1) - 1/2) }}px"> </div>
+        {% if j>0 %}
+    <div class="score" id="score{{ counter[j] + i }}" style="position: absolute;left:{{ hspace * (2*rounds - j) }}px;top:{{ (i-bracketSize/(2**(j+1)))*vspace*(2**j)  + vspace*(2**(j-1) - 1/2) + cellheight }}px"> </div>
+        {% endif %}
+      {% endif %}
     {% endfor %}
   {% endfor %}
     <div class="line" style="position: absolute; left:{{ rounds*hspace }}px;top: {{ vspace*(2**(rounds-2) - 2) + cellheight }}px;height: {{ 1.5*vspace+linewidth }}px"> </div>
     <div class="line" style="position: absolute; left:{{ (rounds+1)*hspace }}px;top:{{ vspace*(2**(rounds-2) - 2) + cellheight }}px;height: {{ 1.5*vspace+linewidth }}px"> </div>
     <div class="player" id="p{{ counter[rounds] }}" style="position: absolute;left:{{ (rounds)*hspace }}px;top:{{ vspace*(2**(rounds-2) - 2) }}px;text-align: center"> </div>
+    <div class="score" id="score{{ counter[rounds] }}" style="position: absolute;left:{{ (rounds)*hspace }}px;top:{{ vspace*(2**(rounds-2) - 2) + cellheight }}px;text-align: center"> </div>
     
     <div id="userinfo-container" style="position: absolute; left: {{ (rounds-1)*hspace }}px; top: {{ vspace }}px;width: {{ 3*hspace }}px; height: {{ vspace }}px; text-align: center"> 
       <label for="user"> Usuario </label>

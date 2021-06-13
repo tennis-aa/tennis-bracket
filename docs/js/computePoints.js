@@ -22,16 +22,19 @@ function computePotential(bracket,results,losers,players,counter,points_per_roun
   let bracketSize = players.length;
   let potential = 0;
   let round = 0;
-  for (let j=0;j<bracket.length;j++) {
-    if (j+bracketSize >= counter[round+2]) {round += 1;}
-    if (results[j]==bracket[j]) {
+  for (let i=0;i<bracket.length;i++) {
+    if (i+bracketSize >= counter[round+2]) {round += 1;}
+    if (bracket[i]=="") {
+      continue
+    }
+    if (results[i]==bracket[i]) {
       potential += points_per_round[round];
-    } else if (results[j]=="" && !losers.includes(bracket[j])){
+    } else if (results[i]=="" && !losers.includes(bracket[i])){
       potential += points_per_round[round];
     }
   }
-  for (let j=0; j<players.length; j++) { // remove points from byes
-    if (players[j]=="Bye") {
+  for (let i=0; i<players.length; i++) { // remove points from byes
+    if (players[i]=="Bye") {
         potential -= points_per_round[0];
     }
   }
