@@ -1,9 +1,9 @@
 import os
 import math
 import json
-import playerScrape
-import eloScrape
-import basicBrackets
+from . import playerScrape 
+from . import eloScrape
+from . import basicBrackets
 
 class Bracket:
     def __init__(self,players=[],elo=[],results=[],scores=[],losers=[],table_results={"user": [],"points":[],"potential":[],"position":[],"rank":[],"monkey_rank":[],"bot_rank":[]},brackets={},monkeys={},bots={},tournament="",path="",points_per_round=[1,2,3,5,7,10,15],atplink="",surface="all"):
@@ -128,6 +128,9 @@ class Bracket:
             
             # players.json
             self.players = players
+            
+            # results.json
+            self.results = playerUpdate(self.results, conflicts_old, conflicts_new)
             
             # brackets.json
             for key in self.brackets:

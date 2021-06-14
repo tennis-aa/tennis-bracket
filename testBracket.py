@@ -1,11 +1,13 @@
-from bracketClass import Bracket
+from pybracket import Bracket
 
 bracket1 = Bracket(path="docs/RGtest")
 bracket1.loadFromFolder()
 
 bracket2 = Bracket()
+bracket2.loadFromFolder("docs/RGtest")
 bracket2.loadFromFolder(path="docs/RGtest")
 
+bracket1 == bracket2
 bracket1.players == bracket2.players
 
 bracket1.results
@@ -27,6 +29,6 @@ bracket1.updateBots()
 bracket1.bots["bot1"]
 bracket2.bots["bot1"]
 
-bracket1.updateMonkeys()
+bracket1.updateMonkeys(3)
 
 bracket1.save()
