@@ -98,7 +98,7 @@ function loadResults() {
         sel.value = option2.value;
       }
       let score_text = document.getElementById("scoretext" + (counter[1] + i))
-      score_text.value = scores[i]
+      if (score_text) {score_text.value = scores[i];}
     }
 
     for (let j = 2; j <= rounds; j++){
@@ -116,7 +116,7 @@ function loadResults() {
           sel.value = sel.options[2].value;
         }
         let score_text = document.getElementById("scoretext" + (counter[j] + i))
-        score_text.value = scores[counter[j]+i-bracketSize]
+        if (score_text) {score_text.value = scores[counter[j]+i-bracketSize];}
       }
     }
   });

@@ -145,7 +145,8 @@ class Bracket:
                 self.bots[key] = playerUpdate(self.bots[key], conflicts_old, conflicts_new)
             
             print("You can run method Bracket.updateElo() to update the elo ratings and Bracket.updateBots() to update the bot brackets with the updated Elo ratings.")
-        
+        else:
+            print("Players are up-to-date.")
         return
     
     def updateElo(self):
@@ -226,9 +227,7 @@ class Bracket:
             table_results["potential"].append(potential)
 
         # compute rank among monkeys
-        monkey_points = []
-        for key in self.monkeys:
-            monkey_points.append(self.computePoints(self.monkeys[key]))
+        monkey_points = self.monkey_points()
 
         monkey_points.sort(reverse=True)
         for i in range(nr_users):
@@ -241,9 +240,7 @@ class Bracket:
                     break
 
         # compute rank among bots
-        bot_points = []
-        for key in self.bots:
-            bot_points.append(self.computePoints(self.bots[key]))
+        bot_points = self.bot_points()
 
         bot_points.sort(reverse=True)
         for i in range(nr_users):
@@ -258,6 +255,17 @@ class Bracket:
         self.table_results = table_results
         return
 
+    def monkey_points(self):
+        monkey_points = []
+        for key in self.monkeys:
+            monkey_points.append(self.computePoints(self.monkeys[key]))
+        return monkey_points
+
+    def bot_points(self):
+        bot_points = []
+        for key in self.bots:
+            bot_points.append(self.computePoints(self.bots[key]))
+        return bot_points
 
     def save(self):
         with open(os.path.join(self.path, "config.json"),"w") as f:

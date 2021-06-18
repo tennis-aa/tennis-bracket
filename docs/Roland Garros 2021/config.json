@@ -1,3 +1,7 @@
 {
-  "points_per_round": [1,2,3,5,7,10,15,20]
+  "points_per_round": [1,2,3,5,7,10,15,20],
+  "tournament": "Roland Garros 2021",
+  "atplink": "https://www.atptour.com/en/scores/archive/roland-garros/520/2021/draws",
+  "bracketSize": 128,
+  "surface": "clay"
 }

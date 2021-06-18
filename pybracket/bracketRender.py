@@ -14,7 +14,7 @@ from . import playerScrape
 from . import eloScrape
 from . import basicBrackets
 
-def bracketRender(tournament,atplink,bracketSize,surface="all",points_per_round=[1,2,3,5,7,10,15],cellheight=16,vspace=32,hspace=90,linewidth=1):
+def bracketRender(tournament,atplink,bracketSize,path=None,surface="all",points_per_round=[1,2,3,5,7,10,15],cellheight=16,vspace=32,hspace=90,linewidth=1):
     # Parameters for creating the tournament folder
     # tournament = "RGtest"
     # surface = "clay" # "all", "hard", "clay", or "grass" used for scraping the elos
@@ -42,8 +42,13 @@ def bracketRender(tournament,atplink,bracketSize,surface="all",points_per_round=
     render_vars = {"bracketSize" : bracketSize, "rounds" : rounds, "counter" : counter, "tournament": tournament,
     "cellheight": cellheight, "vspace": vspace, "hspace": hspace, "linewidth": linewidth}
 
+    
     script_path = os.getcwd()
-    target_file_path = os.path.join(script_path, "docs" , tournament)
+    if path is None:
+        target_file_path = os.path.join(script_path, "docs" , tournament)
+    else:
+        target_file_path = os.path.join(path,tournament)
+
     if not os.path.exists(target_file_path):
         os.mkdir(target_file_path)
     

@@ -65,7 +65,7 @@ function display_bracket() {
       let score = document.getElementById("score"+ (i+bracketSize));
       player.innerHTML = results[i];
       player.style.color = "black";
-      score.innerHTML = scores[i];
+      if (score) {score.innerHTML = scores[i];}
     }
   } else {
     let bracket = brackets[user];
@@ -76,7 +76,7 @@ function display_bracket() {
       let player = document.getElementById("p" + (i+bracketSize));
       let score = document.getElementById("score"+ (i+bracketSize));
       player.innerHTML = bracket[i];
-      score.innerHTML = ""
+      if (score) score.innerHTML = "";
       if (i<bracketSize/2 && (players[2*i]=="Bye" || players[2*i+1]=="Bye")) {
         console.log(i)
         player.style.color = "black";
