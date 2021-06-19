@@ -39,7 +39,7 @@ def eloScrape(players,surface):
     elif surface=="grass":
         EloSurface = EloGrass
     elif surface=="all":
-        EloSurface==Elo
+        EloSurface = Elo
     else:
         raise ValueError("surface needs to be one of 'clay', 'hard', 'grass' or 'all' but surface=" + str(surface) + " is not supported.")
 

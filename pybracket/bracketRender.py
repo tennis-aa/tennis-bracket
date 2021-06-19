@@ -137,6 +137,7 @@ def bracketRender(tournament,atplink,bracketSize,path=None,surface="all",points_
     except:
         traceback.print_exc()
         print("The players and Elo ratings could not be loaded from the website. You need to fill out players.json, monkeys.json, bots.json, and Elo.json")
-        
+    
+    return
 
 

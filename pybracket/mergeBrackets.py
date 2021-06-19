@@ -11,6 +11,8 @@ def mergeBrackets(inFolder,outFolder=None):
         brackets = {}
 
     for filename in os.listdir(inFolder):
+        if not filename.endswith(".json"):
+            continue
         if filename in ["bots.json","brackets.json","config.json","monkeys.json","players.json","results.json"]:
             continue
         with open(os.path.join(inFolder,filename),"r") as f:
