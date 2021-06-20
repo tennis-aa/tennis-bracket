@@ -52,6 +52,7 @@ def generateBots(players,elo,n):
 
     # generate brackets based on probabilities from elo
     bots = {}
+    probabilities = []
     for k in range(n):
         bracket = []
         bracket_elo = []
@@ -68,6 +69,7 @@ def generateBots(players,elo,n):
             Q1 = 10**(elo[2*i]/400)
             Q2 = 10**(elo[2*i+1]/400)
             probability = Q1/(Q1+Q2)
+            probabilities.append(probability)
             if random() < probability:
                 bracket.append(players[2*i])
                 bracket_elo.append(elo[2*i])
@@ -77,9 +79,10 @@ def generateBots(players,elo,n):
         
         for j in range(1,rounds):
             for i in range(int(bracketSize/(2**(j+1)))):
-                Q1 = 10**(elo[counter[j]-bracketSize+2*i]/400)
-                Q2 = 10**(elo[counter[j]-bracketSize+2*i+1]/400)
+                Q1 = 10**(bracket_elo[counter[j]-bracketSize+2*i]/400)
+                Q2 = 10**(bracket_elo[counter[j]-bracketSize+2*i+1]/400)
                 probability = Q1/(Q1+Q2)
+                probabilities.append(probability)
                 if random() < probability:
                     bracket.append(bracket[counter[j]-bracketSize+2*i])
                     bracket_elo.append(bracket_elo[counter[j]-bracketSize+2*i])

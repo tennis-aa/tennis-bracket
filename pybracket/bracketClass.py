@@ -6,7 +6,7 @@ from . import eloScrape
 from . import basicBrackets
 
 class Bracket:
-    def __init__(self,players=[],elo=[],results=[],scores=[],losers=[],table_results={"user": [],"points":[],"potential":[],"position":[],"rank":[],"monkey_rank":[],"bot_rank":[]},brackets={},monkeys={},bots={},tournament="",path="",points_per_round=[1,2,3,5,7,10,15],atplink="",surface="all"):
+    def __init__(self,players=[],elo=[],results=[],scores=[],losers=[],table_results={"user": [],"points":[],"potential":[],"position":[],"rank":[],"monkey_rank":[],"bot_rank":[]},brackets={},tournament="",path="",points_per_round=[1,2,3,5,7,10,15],atplink="",surface="all"):
         self.players = players
         self.bracketSize = len(players)
         self.elo = elo
@@ -19,8 +19,6 @@ class Bracket:
         else:
             self.rounds = int(math.log2(self.bracketSize))
         self.brackets = brackets
-        self.monkeys = monkeys
-        self.bots = bots
         self.tournament = tournament
         self.path = path
         self.points_per_round = points_per_round
@@ -58,10 +56,6 @@ class Bracket:
         with open(os.path.join(self.path, "brackets.json"),"r") as f:
             self.brackets = json.load(f)
 
-        with open(os.path.join(self.path, "monkeys.json"),"r") as f:
-            self.monkeys = json.load(f)
-        with open(os.path.join(self.path, "bots.json"),"r") as f:
-            self.bots = json.load(f)
         with open(os.path.join(self.path, "results.json"),"r") as f:
             results_json = json.load(f)
         self.results = results_json["results"]
@@ -136,15 +130,7 @@ class Bracket:
             for key in self.brackets:
                 self.brackets[key] = playerUpdate(self.brackets[key], conflicts_old, conflicts_new)
 
-            # monkeys.json
-            for key in self.monkeys:
-                self.monkeys[key] = playerUpdate(self.monkeys[key], conflicts_old, conflicts_new)
-
-            # bots.json
-            for key in self.bots:
-                self.bots[key] = playerUpdate(self.bots[key], conflicts_old, conflicts_new)
-            
-            print("You can run method Bracket.updateElo() to update the elo ratings and Bracket.updateBots() to update the bot brackets with the updated Elo ratings.")
+            print("You can run method Bracket.updateElo() to update the elo ratings.")
         else:
             print("Players are up-to-date.")
         return
@@ -154,22 +140,21 @@ class Bracket:
         self.elo = elos
         return
 
-    def updateBots(self,n=10000):
-        self.bots = basicBrackets.generateBots(self.players, self.elo, n)
-        return
-
-    def updateMonkeys(self,n=10000):
-        self.monkeys = basicBrackets.generateMonkeys(self.players, n)
-
     def updateBrackets(self,user,bracket):
         self.brackets[user] = bracket
         return
 
-    def updateResults(self):
-        ATPData = playerScrape.ATPdrawScrape(self.atplink) # players, results, scores
-        players = ATPData["players"]
-        results = ATPData["results"]
-        scores = ATPData["scores"]
+    def updateResults(self,scrape=True):
+        if scrape:
+            ATPData = playerScrape.ATPdrawScrape(self.atplink) # players, results, scores
+            players = ATPData["players"]
+            results = ATPData["results"]
+            scores = ATPData["scores"]
+            print("Data successfully downloaded...")
+        else:
+            players = self.players
+            results = self.results
+            scores = self.scores
 
         for i in range(len(self.players)):
             if self.players[i] != players[i]:
@@ -227,8 +212,7 @@ class Bracket:
             table_results["potential"].append(potential)
 
         # compute rank among monkeys
-        monkey_points = self.monkey_points()
-
+        monkey_points = self.monkey_points(10000)
         monkey_points.sort(reverse=True)
         for i in range(nr_users):
             if table_results["points"][i] < monkey_points[-1]:
@@ -240,8 +224,7 @@ class Bracket:
                     break
 
         # compute rank among bots
-        bot_points = self.bot_points()
-
+        bot_points = self.bot_points(10000)
         bot_points.sort(reverse=True)
         for i in range(nr_users):
             if table_results["points"][i] < bot_points[-1]:
@@ -255,16 +238,18 @@ class Bracket:
         self.table_results = table_results
         return
 
-    def monkey_points(self):
+    def monkey_points(self,n):
+        monkeys = basicBrackets.generateMonkeys(self.players, n)
         monkey_points = []
-        for key in self.monkeys:
-            monkey_points.append(self.computePoints(self.monkeys[key]))
+        for key in monkeys:
+            monkey_points.append(self.computePoints(monkeys[key]))
         return monkey_points
 
-    def bot_points(self):
+    def bot_points(self,n):
+        bots = basicBrackets.generateBots(self.players, self.elo, n)
         bot_points = []
-        for key in self.bots:
-            bot_points.append(self.computePoints(self.bots[key]))
+        for key in bots:
+            bot_points.append(self.computePoints(bots[key]))
         return bot_points
 
     def save(self):
@@ -276,10 +261,6 @@ class Bracket:
             f.write(json.dumps(self.brackets))
         with open(os.path.join(self.path, "results.json"),"w") as f:
             f.write(json.dumps({"results":self.results,"scores":self.scores,"losers":self.losers,"table_results":self.table_results}))
-        with open(os.path.join(self.path, "monkeys.json"),"w") as f:
-            f.write(json.dumps(self.monkeys))
-        with open(os.path.join(self.path, "bots.json"),"w") as f:
-            f.write(json.dumps(self.bots))
         
 
 # END OF CLASS

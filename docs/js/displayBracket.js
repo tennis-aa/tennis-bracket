@@ -60,25 +60,34 @@ function display_bracket() {
   let user_info = document.getElementById("user-info");
   if (user==""){
     user_info.innerHTML = "";
-    for (let i = 0; i < results.length; i++) {
+    for (let i = 0; i < bracketSize-1; i++) {
       let player = document.getElementById("p" + (i+bracketSize));
       let score = document.getElementById("score"+ (i+bracketSize));
-      player.innerHTML = results[i];
+      if (results) {
+        player.innerHTML = results[i];
+      } else {
+        player.innerHTML = "";
+      }
       player.style.color = "black";
-      if (score) {score.innerHTML = scores[i];}
+      if (score && scores) {score.innerHTML = scores[i];}
     }
   } else {
     let bracket = brackets[user];
+    if (table_results) {
     let user_loc = table_results.user.findIndex(element=> element==user);
     let nr_users = table_results.user.length;
     user_info.innerHTML =  table_results.points[user_loc] + " puntos" + "<br>" + "Posicion " + table_results.position[user_loc] + "/" + nr_users + " (" + table_results.rank[user_loc] + ")";
+    }
     for (let i = 0; i < bracket.length; i++) {
       let player = document.getElementById("p" + (i+bracketSize));
       let score = document.getElementById("score"+ (i+bracketSize));
       player.innerHTML = bracket[i];
       if (score) score.innerHTML = "";
+      if (!results) {
+        player.style.color = "black";
+        continue;
+      }
       if (i<bracketSize/2 && (players[2*i]=="Bye" || players[2*i+1]=="Bye")) {
-        console.log(i)
         player.style.color = "black";
       } else if (results[i]!="" && bracket[i]==results[i]) {
         player.style.color = "green";

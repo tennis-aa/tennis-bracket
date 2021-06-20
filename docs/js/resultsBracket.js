@@ -9,9 +9,7 @@ let scores;
 let losers;
 let points_per_round;
 let monkeys;
-let monkeys_save = false;
 let bots;
-let bots_save = false;
 let elo;
 function loadResults() {
   bracketSize = Number(document.getElementById("bracket-size").innerHTML);
@@ -55,26 +53,6 @@ function loadResults() {
   ).then(function(response) {
     points_per_round = response["points_per_round"];
   });
-  let promise5 = fetch("monkeys.json").then(function(response) {
-    if (response.ok){
-      response.json().then(function(response) {
-        monkeys = response;
-      })
-    } else {
-      promise1.then(generateMonkeys);
-      monkeys_save = true;
-    }
-  })
-  let promise6 = fetch("bots.json").then(function(response) {
-    if (response.ok){
-      response.json().then(function(response) {
-      bots = response;
-      })
-    } else {
-      promise1.then(generateBots);
-      bots_save = true;
-    }
-  })
 
   Promise.all([promise1,promise2,promise3,promise4]).then(function (){ // options in each select element
     for (let i = 0; i < bracketSize/2; i++){
@@ -143,16 +121,6 @@ function update_options(player){
   let sel = document.getElementById("select"+player)
   let selNew = document.getElementById("select"+playerNew)
   selNew.options[place].innerHTML = sel.value; 
-  // for (let j = 1; j <= rounds-1; j++){
-  //   for (let i = 0; i < bracketSize/(2**j); i++) {
-  //     let selectNode = document.getElementById("select"+ (counter[j]+i));
-  //     let selectchildNodes = selectNode.childNodes;
-  //     len = selectchildNodes.length;
-  //     for (let k=0; k<len;k++){
-  //       selectNode.removeChild(selectchildNodes[0]);
-  //     }
-  //   }
-  // }
 }
 
 // The following function allows the organizer to save the results of the bracket in json format
@@ -163,7 +131,7 @@ function save_results(){
       let sel = document.getElementById("select"+ (counter[j]+i));
       results[counter[j]+i-bracketSize] = sel.value;
       let score_text = document.getElementById("scoretext"+ (counter[j]+i));
-      scores[counter[j]+i-bracketSize] = score_text.value
+      if (score_text) scores[counter[j]+i-bracketSize] = score_text.value;
     }
   }
 
@@ -230,6 +198,7 @@ function save_results(){
   }
 
   // Compute rank among monkeys
+  generateMonkeys(10000);
   let monkey_points = [];
   for (let key in monkeys) {
     monkey_points.push(computePoints(monkeys[key],results,players,counter,points_per_round));
@@ -251,6 +220,7 @@ function save_results(){
   }
 
   // Compute rank among bots
+  generateBots(10000);
   let bot_points = [];
   for (let key in bots) {
     bot_points.push(computePoints(bots[key],results,players,counter,points_per_round));
@@ -277,36 +247,9 @@ function save_results(){
   link.href = url;
   link.setAttribute("download","results.json");
   link.click();
-
-  // blob = new Blob([JSON.stringify(table_results)],{type : "application:json"});
-  // url = URL.createObjectURL(blob);
-  // link = document.createElement('a');
-  // link.href = url;
-  // link.setAttribute("download","table_results.json");
-  // link.click();
-
-  if (monkeys_save) {
-    blob = new Blob([JSON.stringify(monkeys)],{type : "application:json"});
-    url = URL.createObjectURL(blob);
-    link = document.createElement('a');
-    link.href = url;
-    link.setAttribute("download","monkeys.json");
-    link.click();
-  }
-
-  if (bots_save) {
-    blob = new Blob([JSON.stringify(bots)],{type : "application:json"});
-    url = URL.createObjectURL(blob);
-    link = document.createElement('a');
-    link.href = url;
-    link.setAttribute("download","bots.json");
-    link.click();
-  }
-  // generateElo()
 }
 
-function generateMonkeys() {
-  number_monkeys = 10000;
+function generateMonkeys(number_monkeys) {
   monkeys = {};
   for (let k=0; k<number_monkeys; k++){
     let bracket=[];
@@ -337,8 +280,7 @@ function generateMonkeys() {
   }
 }
 
-function generateBots() {
-  number_bots = 10000;
+function generateBots(number_bots) {
   bots = {};
   for (let k=0; k<number_bots; k++){
     let bracket=[];

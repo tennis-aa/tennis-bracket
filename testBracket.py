@@ -1,11 +1,11 @@
 from pybracket import Bracket
 
-bracket1 = Bracket(path="docs/RGtest")
+bracket1 = Bracket(path="docs/Roland Garros 2021")
 bracket1.loadFromFolder()
 
 bracket2 = Bracket()
-bracket2.loadFromFolder("docs/RGtest")
-bracket2.loadFromFolder(path="docs/RGtest")
+bracket2.loadFromFolder("docs/Roland Garros 2021")
+bracket2.loadFromFolder(path="docs/Roland Garros 2021")
 
 bracket1 == bracket2
 bracket1.players == bracket2.players
@@ -14,6 +14,7 @@ bracket1.results
 
 bracket1.players[0] = "pepito"
 bracket1.players
+bracket1.updateResults(scrape=False)
 bracket1.updateResults()
 bracket1.updatePlayers()
 
