@@ -13,7 +13,7 @@ The [docs/js](docs/js) folder contains the javascript functions that read the da
 
 To make the challenge for an upcoming tournament I follow these steps:
 
-1. Create website: I create a new folder with the html files to display the brackets and standings, and json files that contain the information about the tournament's players and results. I use the [bracket1_create.py](./bracket1_create.py) script.
+1. Create website: I create a new folder with the html files to display the brackets and standings, and json files that contain the information about the tournament's players and results using the [bracket1_create.py](./bracket1_create.py) script. I then add a link to this folder in [docs/index.html](./docs/index.html).
 
 2. Fill out brackets: I put the website online and ask participants to fill out their bracket. Because so far this project is a static website, the participants download a json file that needs to be emailed to me. I save all the json files in the same folder where I created the website for the tournament. I merge the brackets into a single file with the appropriate name for the website to work with the [bracket2_merge.py](./bracket2_merge.py) script.
 

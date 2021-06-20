@@ -29,10 +29,13 @@ function loadTable() {
       table_row.appendChild(table_entry);
 
       // Add potential points
+      try {
       table_entry = document.createElement("td");
       table_entry.appendChild(document.createTextNode(table_results.potential[i]));
       table_row.appendChild(table_entry);
-
+      } catch (error) {
+        console.log(error);
+      }
       // Add rank
       table_entry = document.createElement("td");
       table_entry.appendChild(document.createTextNode(table_results.rank[i]));
@@ -44,7 +47,7 @@ function loadTable() {
       table_entry.appendChild(document.createTextNode(table_results.monkey_rank[i] + "%"));
       table_row.appendChild(table_entry);
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
 
       // Add rank among bots
@@ -53,7 +56,7 @@ function loadTable() {
       table_entry.appendChild(document.createTextNode(table_results.bot_rank[i] + "%"));
       table_row.appendChild(table_entry);
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
 
       // Add row to table
