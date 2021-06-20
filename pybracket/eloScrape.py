@@ -75,7 +75,7 @@ def eloScrape(players,surface):
     print("Elo stats: min=",min(elos_found),"; Q1=",quartiles[0],"; median=",quartiles[1],"; avg=",mean(elos_found),"; Q3=",quartiles[2],"; max=",max(elos_found))
     manually = input("Do you want to input missing Elo ratings manually? (if not, missing elo ratings are imputed with the median) [y/n]: ")
     for i in range(len(conflicts)):
-        if manually == "y":
+        if manually == ("y","yes"):
             elo = input("Enter Elo rating for " + conflicts[i] + ": ")
             elos[conflicts_indices[i]] = float(elo)
         else:

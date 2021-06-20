@@ -1,6 +1,6 @@
 # tennis-bracket
 
-I created this project to play tennis bracket challenges. Some websites provided this service but I never found a reliable provider. So, I decided to create my own. This project allows to create static websites that display the results of tennis bracket challenges.
+I created this project to play tennis bracket challenges. It allows to create static websites that display the results of tennis bracket challenges.
 
 To make the standings and results available to all participants, I am using the github page of this repository to display the results and allow participants to create their bracket. You can check out some of the challenges I have played with my family at <https://tennis-aa.github.io/tennis-bracket/>. The source code of the website is in the [docs](./docs) folder.
 
