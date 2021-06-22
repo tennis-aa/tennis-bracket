@@ -3,6 +3,7 @@ let rounds;
 let counter;
 let option_blank = document.createElement("option");
 let players;
+let elo;
 function loadFillout() {
   bracketSize = Number(document.getElementById("bracket-size").innerHTML);
   rounds = Math.log2(bracketSize);
@@ -15,11 +16,13 @@ function loadFillout() {
   fetch("./players.json").then((response)=>response.json()
   ).then(function (p){
     players = p["players"];
+    elo = p["elo"];
     for (let i = 0; i < players.length; i++) {
       let id = "p" + i;
       document.getElementById(id).innerHTML = players[i];
     }
-  }).then(function (){ // Put select elements to pick winners in the first round
+  }).then(function (){ 
+    // Put select elements to pick winners in the first round
     for (let i = 0; i < bracketSize/2; i++){
       let sel = document.getElementById("select"+ (counter[1] + i));
       let option1 = document.createElement("option");
@@ -28,7 +31,18 @@ function loadFillout() {
       option2.innerHTML = players[2*i+1];
       sel.appendChild(option1)
       sel.appendChild(option2)
-    } // Put select elements to pick winners in other rounds
+      // Add info to tooltips from elo ratings
+      let tip = document.getElementById("tip"+(counter[1]+i));
+      if (tip) {
+        let tds = tip.querySelectorAll("td");
+        let prob = 10**(elo[2*i]/400)/(10**(elo[2*i]/400) + 10**(elo[2*i+1]/400));
+        tds[0].innerHTML = players[2*i];
+        tds[1].innerHTML = Math.round(prob*100) + "%";
+        tds[2].innerHTML = players[2*i+1];
+        tds[3].innerHTML = Math.round((1-prob)*100) + "%";
+      }
+    } 
+    // Put select elements to pick winners in other rounds
     for (let j=2; j<=rounds; j++) {
       for (let i=0; i<bracketSize/(2**j); i++) {
         let sel = document.getElementById("select"+ (counter[j] + i));
@@ -36,7 +50,8 @@ function loadFillout() {
         sel.appendChild(option_blank.cloneNode(true));
       }
     }
-    for (let i = 0; i < bracketSize/2; i++){ // auto select byes
+    // auto select byes
+    for (let i = 0; i < bracketSize/2; i++){ 
       let sel = document.getElementById("select"+ (counter[1] + i));
       if (players[2*i]=="Bye") {
         sel.innerHTML = "";
@@ -72,23 +87,33 @@ function update_options(player){
   if (i % 2) { // odd
     playerNew = counter[round+1] + (i-1)/2;
     place = 2;
-  } else {
+  } else { // even
     playerNew = counter[round+1] + i/2;
     place = 1;
   }
-  let sel = document.getElementById("select"+player)
-  let selNew = document.getElementById("select"+playerNew)
-  selNew.options[place].innerHTML = sel.value; 
-  // for (let j = 1; j <= rounds-1; j++){
-  //   for (let i = 0; i < bracketSize/(2**j); i++) {
-  //     let selectNode = document.getElementById("select"+ (counter[j]+i));
-  //     let selectchildNodes = selectNode.childNodes;
-  //     len = selectchildNodes.length;
-  //     for (let k=0; k<len;k++){
-  //       selectNode.removeChild(selectchildNodes[0]);
-  //     }
-  //   }
-  // }
+  let sel = document.getElementById("select"+player);
+  let selNew = document.getElementById("select"+playerNew);
+  selNew.options[place].innerHTML = sel.value;
+
+  // Add info to tooltips from elo ratings
+  let tip = document.getElementById("tip"+playerNew);
+    if (tip) {
+    let p1 = selNew.options[1].value;
+    let p2 = selNew.options[2].value;
+    let elo1 = elo[players.findIndex(element => element == p1)];
+    let elo2 = elo[players.findIndex(element => element == p2)];
+    let prob = 10**(elo1/400)/(10**(elo1/400) + 10**(elo2/400));
+    let tds = tip.querySelectorAll("td");
+    tds[0].innerHTML = p1;
+    tds[2].innerHTML = p2;
+    if (isNaN(prob)) {
+      tds[1].innerHTML = "";
+      tds[3].innerHTML = "";
+    } else {
+    tds[1].innerHTML = Math.round(prob*100) + "%";
+    tds[3].innerHTML = Math.round((1-prob)*100) + "%";
+    }
+  }
 }
 
 // The following function allows the user to save the bracket in json format

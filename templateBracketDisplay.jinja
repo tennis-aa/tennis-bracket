@@ -17,7 +17,7 @@
       border-bottom: {{ linewidth }}px solid black;
       border-radius: 0px;
       background-color: transparent;
-      overflow: hidden;
+      overflow: visible;
     }
     .score {
       font-size: {{ cellheight*0.6 }}px;
@@ -46,7 +46,7 @@
       <li><a href="./inputResults.html"> Reportar resultados </a></li>
     </ul>
   </nav>
-  <div class="bracket_container" style="position:relative;height:{{bracketSize/2*vspace}}px">
+  <div class="bracket_container" style="position:relative;height:{{bracketSize/2*vspace}}px;width:{{ (rounds+1)*2*hspace }}px;">
     <div id="bracket-size" style="display: none"> {{ bracketSize }} </div>
   {% for j in range(rounds) %}
     {% for i in range((bracketSize/(2**j)) | int) %}
@@ -69,8 +69,8 @@
       {% endif %}
     {% endfor %}
   {% endfor %}
-    <div class="line" style="position: absolute; left:{{ rounds*hspace }}px;top: {{ vspace*(2**(rounds-2) - 2) + cellheight }}px;height: {{ 1.5*vspace+linewidth }}px"> </div>
-    <div class="line" style="position: absolute; left:{{ (rounds+1)*hspace }}px;top:{{ vspace*(2**(rounds-2) - 2) + cellheight }}px;height: {{ 1.5*vspace+linewidth }}px"> </div>
+    <div class="line" style="position: absolute; left:{{ rounds*hspace }}px;top: {{ vspace*(2**(rounds-2) - 2) + cellheight - linewidth }}px;height: {{ 1.5*vspace+linewidth }}px"> </div>
+    <div class="line" style="position: absolute; left:{{ (rounds+1)*hspace }}px;top:{{ vspace*(2**(rounds-2) - 2) + cellheight - linewidth }}px;height: {{ 1.5*vspace+linewidth }}px"> </div>
     <div class="player" id="p{{ counter[rounds] }}" style="position: absolute;left:{{ (rounds)*hspace }}px;top:{{ vspace*(2**(rounds-2) - 2) }}px;text-align: center"> </div>
     <div class="score" id="score{{ counter[rounds] }}" style="position: absolute;left:{{ (rounds)*hspace }}px;top:{{ vspace*(2**(rounds-2) - 2) + cellheight }}px;text-align: center"> </div>
     

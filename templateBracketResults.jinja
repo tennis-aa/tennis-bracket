@@ -14,7 +14,7 @@
       width: {{ hspace }}px;
       height: {{ cellheight }}px;
       text-align: left;
-      padding-left: {{ hspace*0}}px;
+      padding-left: {{ hspace*0.03 }}px;
       border-bottom: {{ linewidth }}px solid black;
       border-radius: 0px;
       background-color: transparent;
@@ -34,9 +34,13 @@
       border-left: {{ linewidth }}px solid black; 
     }
     select {
-      height: {{ cellheight }}px;
-      width: {{ hspace }}px;
-      font-size: {{ cellheight*0.6 }}px;
+      height: 100%;
+      width: 100%;
+      font-size: {{ cellheight*0.5 }}px;
+    }
+    .scoretext {
+      height: 100%;
+      width: 100%;
     }
   </style>
 </head>
@@ -53,13 +57,13 @@
       </ul>
     </nav>
 
-    <div class="bracket_container" style="position:relative;height:{{bracketSize/2*vspace}}px">
+    <div class="bracket_container" style="position:relative;height:{{bracketSize/2*vspace}}px;width:{{ (rounds+1)*2*hspace }}px;">
       <div id="bracket-size" style="display: none"> {{ bracketSize }} </div>
     {% for j in range(rounds) %}
       {% for i in range((bracketSize/(2**j)) | int) %}
         {%- if i < bracketSize/(2**(j+1)) %}
           {%- if i%2 == 0 and j<rounds-1 %}{# draw the lines between players in a match #}
-      <div class="line" style="position: absolute; left:{{ (j+1)*hspace }}px;top:{{ i*vspace*(2**j) + vspace*(2**(j-1) - 1/2) + cellheight }}px;height: {{ vspace*(2**j) + linewidth }}px"> </div>
+      <div class="line" style="position: absolute; left:{{ (j+1)*hspace }}px;top:{{ i*vspace*(2**j) + vspace*(2**(j-1) - 1/2) + cellheight - linewidth }}px;height: {{ vspace*(2**j) + linewidth }}px"> </div>
           {% endif %}
       <div class="player" id="p{{ counter[j] + i }}" style="position: absolute;left:{{ j*hspace }}px;top:{{ i*vspace*(2**j) + vspace*(2**(j-1) - 1/2) }}px"> 
         <select id = "select{{ counter[j] + i }}" onchange="update_options({{ counter[j] + i }})">
@@ -68,12 +72,12 @@
       </div>
           {% if j>0 %}
       <div class="score" id="score{{ counter[j] + i }}" style="position: absolute;left:{{ j*hspace }}px;top:{{ i*vspace*(2**j) + vspace*(2**(j-1) - 1/2) + cellheight }}px"> 
-        <input type="text" id="scoretext{{ counter[j] + i }}">
+        <input type="text" class="scoretext" id="scoretext{{ counter[j] + i }}">
       </div>
           {% endif %}
         {% else %}
           {% if i%2 == 0 and j<rounds-1 %}{# draw the lines between players in a match #}
-      <div class="line" style="position: absolute; left:{{ hspace * (2*rounds - j) }}px;top:{{ (i-bracketSize/(2**(j+1)))*vspace*(2**j) + vspace*(2**(j-1) - 1/2) + cellheight }}px;height: {{ vspace*(2**j) + linewidth }}px"> </div>
+      <div class="line" style="position: absolute; left:{{ hspace * (2*rounds - j) }}px;top:{{ (i-bracketSize/(2**(j+1)))*vspace*(2**j) + vspace*(2**(j-1) - 1/2) + cellheight - linewidth }}px;height: {{ vspace*(2**j) + linewidth }}px"> </div>
           {% endif %}
       <div class="player" id="p{{ counter[j] + i }}" style="position: absolute;left:{{ hspace * (2*rounds - j) }}px;top:{{ (i-bracketSize/(2**(j+1)))*vspace*(2**j)  + vspace*(2**(j-1) - 1/2) }}px"> 
         <select id = "select{{ counter[j] + i }}" onchange="update_options({{ counter[j] + i }})">
@@ -81,15 +85,15 @@
         </select>
       </div>
           {% if j>0 %}
-      <div class="score" id="score{{ counter[j] + i }}" style="position: absolute;left:{{ hspace * (2*rounds - j) }}px;top:{{ (i-bracketSize/(2**(j+1)))*vspace*(2**j)  + vspace*(2**(j-1) - 1/2) + cellheight }}px"> 
+      <div class="score" class="scoretext" id="score{{ counter[j] + i }}" style="position: absolute;left:{{ hspace * (2*rounds - j) }}px;top:{{ (i-bracketSize/(2**(j+1)))*vspace*(2**j)  + vspace*(2**(j-1) - 1/2) + cellheight }}px"> 
         <input type="text" id="scoretext{{ counter[j] + i }}">
       </div>
           {% endif %}
         {% endif %}
       {% endfor %}
     {% endfor %}
-      <div class="line" style="position: absolute; left:{{ rounds*hspace }}px;top: {{ vspace*(2**(rounds-2) - 2) + cellheight }}px;height: {{ 1.5*vspace+linewidth }}px"> </div>
-      <div class="line" style="position: absolute; left:{{ (rounds+1)*hspace }}px;top:{{ vspace*(2**(rounds-2) - 2) + cellheight }}px;height: {{ 1.5*vspace+linewidth }}px"> </div>
+    <div class="line" style="position: absolute; left:{{ rounds*hspace }}px;top: {{ vspace*(2**(rounds-2) - 2) + cellheight - linewidth }}px;height: {{ 1.5*vspace+linewidth }}px"> </div>
+    <div class="line" style="position: absolute; left:{{ (rounds+1)*hspace }}px;top:{{ vspace*(2**(rounds-2) - 2) + cellheight - linewidth }}px;height: {{ 1.5*vspace+linewidth }}px"> </div>
       <div class="player" id="p{{ counter[rounds] }}" style="position: absolute;left:{{ (rounds)*hspace }}px;top:{{ vspace*(2**(rounds-2) - 2) }}px;text-align: center"> 
         <select id = "select{{ counter[rounds] }}">
           <option></option>
