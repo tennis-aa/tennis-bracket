@@ -1,12 +1,14 @@
 import os
 import math
 import json
+import copy
+from random import random
 from . import playerScrape 
 from . import eloScrape
 from . import basicBrackets
 
 class Bracket:
-    def __init__(self,players=[],elo=[],results=[],scores=[],losers=[],table_results={"user": [],"points":[],"potential":[],"position":[],"rank":[],"monkey_rank":[],"bot_rank":[]},brackets={},tournament="",path="",points_per_round=[1,2,3,5,7,10,15],atplink="",surface="all"):
+    def __init__(self,players=[],elo=[],results=[],scores=[],losers=[],table_results={"user": [],"points":[],"potential":[],"position":[],"rank":[],"monkey_rank":[],"bot_rank":[],"prob_winning":[]},brackets={},tournament="",path="",points_per_round=[1,2,3,5,7,10,15],atplink="",surface="all"):
         self.players = players
         self.bracketSize = len(players)
         self.elo = elo
@@ -53,15 +55,24 @@ class Bracket:
         if len(self.players) != self.bracketSize:
             print("Warning: the number of players and the bracketSize do not match.")
 
-        with open(os.path.join(self.path, "brackets.json"),"r") as f:
-            self.brackets = json.load(f)
-
-        with open(os.path.join(self.path, "results.json"),"r") as f:
-            results_json = json.load(f)
-        self.results = results_json["results"]
-        self.scores = results_json["scores"]
-        self.losers = results_json["losers"]
-        self.table_results = results_json["table_results"]
+        if os.path.exists(os.path.join(self.path, "brackets.json")):
+            with open(os.path.join(self.path, "brackets.json"),"r") as f:
+                self.brackets = json.load(f)
+        else:
+            self.brackets = {}
+        
+        if os.path.exists(os.path.join(self.path, "results.json")):
+            with open(os.path.join(self.path, "results.json"),"r") as f:
+                results_json = json.load(f)
+            self.results = results_json["results"]
+            self.scores = results_json["scores"]
+            self.losers = results_json["losers"]
+            self.table_results = results_json["table_results"]
+        else:
+            self.results = [""]*(self.bracketSize - 1)
+            self.scores = [""]*(self.bracketSize - 1)
+            self.losers = []
+            self.table_results = {"user": [],"points":[],"potential":[],"position":[],"rank":[],"monkey_rank":[],"bot_rank":[]}
 
     def computePoints(self,bracket):
         if len(bracket) != (self.bracketSize - 1):
@@ -235,6 +246,31 @@ class Bracket:
                     table_results["bot_rank"].append(round(j/len(bot_points)*100))
                     break
 
+        # Compute probability of winning
+        reps = 10000
+        outcomes = self.sim_results(reps)
+        prob_winning = [0.0]*len(table_results["user"])
+        for key in outcomes:
+            self.results = outcomes[key] # to compute points, temporarily change the results
+            # compute the points obtained for a given simulated outcome
+            points = []
+            for user in table_results["user"]:
+                points.append(self.computePoints(self.brackets[user]))
+            maxpoints = max(points)
+
+            # who would have won?
+            winners = []
+            for i,p in enumerate(points):
+                if p == maxpoints:
+                    winners.append(i)
+ 
+            # If there are more than one winner "distribute the pot"
+            for i in winners:
+                prob_winning[i] += 1/reps/len(winners)
+
+        self.results = results # change results back to the true results
+        table_results["prob_winning"] = prob_winning
+
         self.table_results = table_results
         return
 
@@ -251,6 +287,62 @@ class Bracket:
         for key in bots:
             bot_points.append(self.computePoints(bots[key]))
         return bot_points
+
+    def sim_results(self,n):
+        # Get the elos of the players in the results list
+        results_elo = []
+        for i in self.results:
+            if i == "":
+                results_elo.append(0)
+            else:
+                results_elo.append(self.elo[self.players.index(i)])
+        
+        # generate a dict of posiible scenarios according to the elos. Similar to generating bot brackets but now we fix the results that have already happened
+        output = {}
+        for k in range(n):
+            bracket = []
+            bracket_elo = []
+            for i in range(int(self.bracketSize/2)):
+                if self.results[i] != "":
+                        bracket.append(self.results[i])
+                        bracket_elo.append(results_elo[i])
+                        continue
+                elif self.players[2*i]=="Bye":
+                    bracket.append(self.players[2*i+1])
+                    bracket_elo.apend(self.elo[2*i+1])
+                    continue
+                elif self.players[2*i+1]=="Bye":
+                    bracket.append(self.players[2*i])
+                    bracket_elo.append(self.elo[2*i])
+                    continue
+
+                Q1 = 10**(self.elo[2*i]/400)
+                Q2 = 10**(self.elo[2*i+1]/400)
+                probability = Q1/(Q1+Q2)
+                if random() < probability:
+                    bracket.append(self.players[2*i])
+                    bracket_elo.append(self.elo[2*i])
+                else:
+                    bracket.append(self.players[2*i+1])
+                    bracket_elo.append(self.elo[2*i+1])
+
+            for j in range(1,self.rounds):
+                for i in range(int(self.bracketSize/(2**(j+1)))):
+                    if self.results[self.counter[j+1]-self.bracketSize+i] != "":
+                        bracket.append(self.results[self.counter[j+1]-self.bracketSize+i])
+                        bracket_elo.append(results_elo[self.counter[j+1]-self.bracketSize+i])
+                        continue
+                    Q1 = 10**(bracket_elo[self.counter[j]-self.bracketSize+2*i]/400)
+                    Q2 = 10**(bracket_elo[self.counter[j]-self.bracketSize+2*i+1]/400)
+                    probability = Q1/(Q1+Q2)
+                    if random() < probability:
+                        bracket.append(bracket[self.counter[j]-self.bracketSize+2*i])
+                        bracket_elo.append(bracket_elo[self.counter[j]-self.bracketSize+2*i])
+                    else:
+                        bracket.append(bracket[self.counter[j]-self.bracketSize+2*i+1])
+                        bracket_elo.append(bracket_elo[self.counter[j]-self.bracketSize+2*i+1])
+            output["res"+str(k)] = bracket
+        return output
 
     def save(self):
         with open(os.path.join(self.path, "config.json"),"w") as f:

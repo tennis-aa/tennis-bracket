@@ -7,9 +7,11 @@ let brackets;
 let results;
 let scores;
 let losers;
+let table_results
 let points_per_round;
 let monkeys;
 let bots;
+let res;
 let elo;
 function loadResults() {
   bracketSize = Number(document.getElementById("bracket-size").innerHTML);
@@ -159,7 +161,7 @@ function save_results(){
   }
 
   // Define the object that contains the standings
-  let table_results = {user: [],points: [],potential: [], position: [], rank: [], monkey_rank: [], bot_rank: []};
+  table_results = {user: [],points: [],potential: [], position: [], rank: [], monkey_rank: [], bot_rank: []};
   // compute points and positions for all participants
   let entries = [];
   for (let key in brackets) {
@@ -241,6 +243,31 @@ function save_results(){
     }
   }
 
+  // compute probability of winning
+  let reps = 10000;
+  sim_results(reps);
+  let prob_winning = new Array(table_results["user"].length).fill(0);
+  for (let key in res) {
+      // compute the points obtained for a given simulated outcome
+      let points = [];
+      for (let i=0; i<table_results["user"].length; i++) {
+          points.push(computePoints(brackets[table_results["user"][i]],res[key],players,counter,points_per_round));
+      }
+      let maxpoints = Math.max(...points);
+      // who would have won?
+      let winners = [];
+      for (let i=0; i<points.length; i++) {
+          if (points[i] == maxpoints)
+              winners.push(i);
+      }
+      // If there are more than one winner "distribute the pot"
+      for (let i=0; i<winners.length; i++) {
+          prob_winning[winners[i]] += 1/reps/winners.length;
+      }
+  }
+  table_results["prob_winning"] = prob_winning;
+
+
   let blob = new Blob([JSON.stringify({results: results,scores: scores,losers: losers,table_results: table_results})],{type : "application:json"});
   url = URL.createObjectURL(blob);
   let link = document.createElement('a');
@@ -248,6 +275,76 @@ function save_results(){
   link.setAttribute("download","results.json");
   link.click();
 }
+
+
+
+function sim_results(reps) {
+  res = {};
+  let results_elo = [];
+  for (let i=0; i<results.length; i++) {
+    if (results[i] == "") {
+      results_elo.push(0);
+    } else {
+      results_elo.push(elo[players.findIndex(element=> element == results[i])]);
+    }
+  }
+  for (let k=0; k<reps; k++){
+    let bracket=[];
+    let bracket_elo = [];
+    // Picks for the second round
+    for (let i = 0; i < bracketSize/2; i++){
+      if (results[i] != "") {
+        bracket.push(results[i])
+        bracket_elo.push(results_elo[i])
+        continue
+      } else if (players[2*i]=="Bye") {
+        bracket.push(players[2*i+1]);
+        bracket_elo.push(elo[2*i+1]);
+        continue;
+      } else if (players[2*i+1]=="Bye") {
+        bracket.push(players[2*i]);
+        bracket_elo.push(elo[2*i]);
+        continue
+      }
+      let Q1 = 10**(elo[2*i]/400);
+      let Q2 = 10**(elo[2*i+1]/400);
+      let probability = Q1/(Q1+Q2);
+      if (Math.random()<probability) {
+        bracket.push(players[2*i]);
+        bracket_elo.push(elo[2*i])
+      } else {
+        bracket.push(players[2*i+1]);
+        bracket_elo.push(elo[2*i+1]);
+      } 
+    }
+    // picks for the third round onwards
+    for (let j = 1; j < rounds; j++){
+      for (let i = 0; i < bracketSize/(2**(j+1)); i++) {
+        if (results[counter[j+1]-bracketSize+i] != "") {
+          bracket.push(results[counter[j+1]-bracketSize+i])
+          bracket_elo.push(results_elo[counter[j+1]-bracketSize+i])
+          continue
+        }
+        let Q1 = 10**(bracket_elo[counter[j]-bracketSize+2*i]/400);
+        let Q2 = 10**(bracket_elo[counter[j]-bracketSize+2*i+1]/400);
+        let probability = Q1/(Q1+Q2);
+        if (Math.random()<probability) {
+          bracket.push(bracket[counter[j]-bracketSize+2*i]);
+          bracket_elo.push(bracket_elo[counter[j]-bracketSize+2*i]);
+        } else {
+          bracket.push(bracket[counter[j]-bracketSize+2*i+1]);
+          bracket_elo.push(bracket_elo[counter[j]-bracketSize+2*i+1]);
+        }
+      }
+    }
+    // Save bracket to bots
+    res["res"+k] = bracket;
+  }
+}
+
+
+
+
 
 function generateMonkeys(number_monkeys) {
   monkeys = {};
