@@ -17,18 +17,23 @@ function loadDisplay() {
     }
   });
 
-  promise2 = fetch("./brackets.json").then((response)=>response.json() 
-  ).then(function (response){
-    brackets = response;
-    let sel = document.getElementById("user");
-    let users = Object.keys(brackets);
-    users.sort();
-    for (let i=0; i<users.length; i++) {
-      let opt = document.createElement("option");
-      opt.innerHTML = users[i];
-      sel.appendChild(opt)
+  promise2 = fetch("./brackets.json").then(function (response) {
+    if (response.ok) {
+      response.json().then(function (response){
+        brackets = response;
+        let sel = document.getElementById("user");
+        let users = Object.keys(brackets);
+        users.sort();
+        for (let i=0; i<users.length; i++) {
+          let opt = document.createElement("option");
+          opt.textContent = users[i];
+          sel.appendChild(opt)
+        }
+      })
+    } else {
+      brackets = {};
     }
-  });
+  })
 
   promise3 = fetch("./results.json").then((response)=>response.json()
   ).then(function(p){
@@ -69,7 +74,7 @@ function display_bracket() {
         player.innerHTML = "";
       }
       player.style.color = "black";
-      if (score && scores) {score.innerHTML = scores[i];}
+      if (score && scores) {score.textContent = scores[i];}
     }
   } else {
     let bracket = brackets[user];
