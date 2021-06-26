@@ -5,7 +5,7 @@ I created this project to play tennis bracket challenges. It allows to create st
 To make the standings and results available to all participants, I am using the github page of this repository to display the results and allow participants to create their bracket. You can check out some of the challenges I have played with my family at <https://tennis-aa.github.io/tennis-bracket/>. The source code of the website is in the [docs](./docs) folder.
 
 ## Installation
-I created a python package (pybracket) to help me render the html from jinja templates and scrape the ATP website to obtain players and results. The python dependencies are listed in [requirements.txt](./requirements.txt). It also requires to have [geckodriver](https://github.com/mozilla/geckodriver/releases) installed to be able to scrape some information.
+I created a python package (pybracket) to help me render the html from jinja templates and scrape the ATP website to obtain players and results. The python dependencies are listed in [requirements.txt](./requirements.txt). It also requires to have [geckodriver](https://github.com/mozilla/geckodriver/releases) installed and in the path to be able to scrape some information.
 
 The [docs/js](docs/js) folder contains the javascript functions that read the data in the json files to be displayed in the website.
 
