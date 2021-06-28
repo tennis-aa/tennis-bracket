@@ -59,7 +59,7 @@ def bracketRender(tournament,atplink,bracketSize,path=None,surface="all",points_
     environment.trim_blocks = True
     environment.lstrip_blocks = True
     output_text = environment.get_template(template_filename).render(render_vars)
-    with open(rendered_file_path, "w") as result_file:
+    with open(rendered_file_path, "w", encoding="utf-8") as result_file:
         result_file.write(output_text)
 
     # Fillout bracket
@@ -71,7 +71,7 @@ def bracketRender(tournament,atplink,bracketSize,path=None,surface="all",points_
     environment.trim_blocks = True
     environment.lstrip_blocks = True
     output_text = environment.get_template(template_filename).render(render_vars)
-    with open(rendered_file_path, "w") as result_file:
+    with open(rendered_file_path, "w", encoding="utf-8") as result_file:
         result_file.write(output_text)
 
     # table of positions
@@ -83,7 +83,7 @@ def bracketRender(tournament,atplink,bracketSize,path=None,surface="all",points_
     environment.trim_blocks = True
     environment.lstrip_blocks = True
     output_text = environment.get_template(template_filename).render(render_vars)
-    with open(rendered_file_path, "w") as result_file:
+    with open(rendered_file_path, "w", encoding="utf-8") as result_file:
         result_file.write(output_text)
 
     # Results bracket
@@ -95,11 +95,11 @@ def bracketRender(tournament,atplink,bracketSize,path=None,surface="all",points_
     environment.trim_blocks = True
     environment.lstrip_blocks = True
     output_text = environment.get_template(template_filename).render(render_vars)
-    with open(rendered_file_path, "w") as result_file:
+    with open(rendered_file_path, "w", encoding="utf-8") as result_file:
         result_file.write(output_text)
 
     # json files
-    with open(os.path.join(target_file_path, "config.json"),"w") as f:
+    with open(os.path.join(target_file_path, "config.json"),"w", encoding="utf-8") as f:
         f.write(json.dumps({"tournament":tournament,"points_per_round": points_per_round,"atplink":atplink,"bracketSize":bracketSize,"surface":surface},indent=4))
     
     
@@ -108,7 +108,7 @@ def bracketRender(tournament,atplink,bracketSize,path=None,surface="all",points_
             ATPData = playerScrape.ATPdrawScrape(atplink)
             elos = eloScrape.eloScrape(ATPData["players"],surface)
 
-            with open(os.path.join(target_file_path, "players.json"),"w") as f:
+            with open(os.path.join(target_file_path, "players.json"),"w", encoding="utf-8") as f:
                 f.write(json.dumps({"players": ATPData["players"], "elo": elos}))
 
             # Create monkeys, bots, and Elo brakets
@@ -116,12 +116,12 @@ def bracketRender(tournament,atplink,bracketSize,path=None,surface="all",points_
             bots = basicBrackets.generateBots(ATPData["players"], elos, 10000)
             Elo = basicBrackets.generateElo(ATPData["players"], elos)
 
-            with open(os.path.join(target_file_path, "Elo.json"),"w") as f:
+            with open(os.path.join(target_file_path, "Elo.json"),"w", encoding="utf-8") as f:
                 f.write(json.dumps(Elo))
         except:
             traceback.print_exc()
             print("The players and Elo ratings could not be downloaded. You need to fill out players.json manually")
-            with open(os.path.join(target_file_path, "players.json"),"w") as f:
+            with open(os.path.join(target_file_path, "players.json"),"w", encoding="utf-8") as f:
                 f.write(json.dumps({"players": [""]*bracketSize, "elo": [1500]*bracketSize}))
 
     return

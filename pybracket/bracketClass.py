@@ -34,7 +34,7 @@ class Bracket:
         if path is not None:
             self.path = path
 
-        with open(os.path.join(self.path, "config.json"),"r") as f:
+        with open(os.path.join(self.path, "config.json"),"r", encoding="utf-8") as f:
             config = json.load(f)
         self.tournament = config["tournament"]
         self.points_per_round = config["points_per_round"]
@@ -56,13 +56,13 @@ class Bracket:
             print("Warning: the number of players and the bracketSize do not match.")
 
         if os.path.exists(os.path.join(self.path, "brackets.json")):
-            with open(os.path.join(self.path, "brackets.json"),"r") as f:
+            with open(os.path.join(self.path, "brackets.json"),"r", encoding="utf-8") as f:
                 self.brackets = json.load(f)
         else:
             self.brackets = {}
         
         if os.path.exists(os.path.join(self.path, "results.json")):
-            with open(os.path.join(self.path, "results.json"),"r") as f:
+            with open(os.path.join(self.path, "results.json"),"r", encoding="utf-8") as f:
                 results_json = json.load(f)
             self.results = results_json["results"]
             self.scores = results_json["scores"]
@@ -352,13 +352,13 @@ class Bracket:
         return output
 
     def save(self):
-        with open(os.path.join(self.path, "config.json"),"w") as f:
+        with open(os.path.join(self.path, "config.json"),"w", encoding="utf-8") as f:
             f.write(json.dumps({"tournament":self.tournament,"points_per_round": self.points_per_round,"atplink":self.atplink,"bracketSize":self.bracketSize,"surface":self.surface},indent=4))
-        with open(os.path.join(self.path, "players.json"),"w") as f:
+        with open(os.path.join(self.path, "players.json"),"w", encoding="utf-8") as f:
             f.write(json.dumps({"players": self.players, "elo": self.elo}))
-        with open(os.path.join(self.path, "brackets.json"),"w") as f:
+        with open(os.path.join(self.path, "brackets.json"),"w", encoding="utf-8") as f:
             f.write(json.dumps(self.brackets))
-        with open(os.path.join(self.path, "results.json"),"w") as f:
+        with open(os.path.join(self.path, "results.json"),"w", encoding="utf-8") as f:
             f.write(json.dumps({"results":self.results,"scores":self.scores,"losers":self.losers,"table_results":self.table_results}))
         
 
