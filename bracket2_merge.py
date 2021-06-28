@@ -1,5 +1,5 @@
 import pybracket
 
-tournament = "Roland Garros 21"
+tournament = "Wimbledon 2021"
 path = "docs/" + tournament
 pybracket.mergeBrackets(path)

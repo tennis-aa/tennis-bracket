@@ -146,9 +146,16 @@ class Bracket:
             print("Players are up-to-date.")
         return
     
-    def updateElo(self):
-        elos = eloScrape.eloScrape(self.players,self.surface)
-        self.elo = elos
+    def updateElo(self,player=None,elo=None):
+        if player==None or elo==None:
+            elos = eloScrape.eloScrape(self.players,self.surface)
+            self.elo = elos
+        else:
+            self.elo[self.players.index(player)] = elo
+        return
+
+    def updateElobracket(self):
+        self.brackets.update(basicBrackets.generateElo(self.players, self.elo))
         return
 
     def updateBrackets(self,user,bracket):
