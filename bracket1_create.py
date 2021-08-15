@@ -9,3 +9,5 @@ points_per_round = [1,2,3,5,7,10,15] # The number of points competitors receive 
 # You can control the appearance of the bracket by specifying the cellheight, vspace, hspace, and linewidth in pixels 
 
 pybracket.bracketRender(tournament, atplink, bracketSize, path, surface, points_per_round)
+
+# Remember to add the tournament link to the home page
