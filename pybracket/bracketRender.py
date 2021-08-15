@@ -105,15 +105,15 @@ def bracketRender(tournament,atplink,bracketSize,path=None,surface="all",points_
     
     if not os.path.exists(os.path.join(target_file_path,"players.json")):
         try:
+            print("Obtaining player data...")
             ATPData = playerScrape.ATPdrawScrape(atplink)
+            print("Obtaining elo data...")
             elos = eloScrape.eloScrape(ATPData["players"],surface)
 
             with open(os.path.join(target_file_path, "players.json"),"w", encoding="utf-8") as f:
                 f.write(json.dumps({"players": ATPData["players"], "elo": elos}))
 
             # Create monkeys, bots, and Elo brakets
-            monkeys = basicBrackets.generateMonkeys(ATPData["players"], 10000)
-            bots = basicBrackets.generateBots(ATPData["players"], elos, 10000)
             Elo = basicBrackets.generateElo(ATPData["players"], elos)
 
             with open(os.path.join(target_file_path, "Elo.json"),"w", encoding="utf-8") as f:

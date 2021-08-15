@@ -58,7 +58,7 @@ def generateBots(players,elo,n):
         for i in range(int(bracketSize/2)):
             if players[2*i]=="Bye":
                 bracket.append(players[2*i+1])
-                bracket_elo.apend(elo[2*i+1])
+                bracket_elo.append(elo[2*i+1])
                 continue
             elif players[2*i+1]=="Bye":
                 bracket.append(players[2*i])

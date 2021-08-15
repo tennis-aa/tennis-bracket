@@ -76,7 +76,7 @@ class Bracket:
 
     def computePoints(self,bracket):
         if len(bracket) != (self.bracketSize - 1):
-            raise ValueError("The bracket is not the correct length> The correct is " + str(self.bracketSize-1))
+            raise ValueError("The bracket is not the correct length. The correct length is " + str(self.bracketSize-1))
         points = 0
         rd = 0
         for i in range(len(bracket)):

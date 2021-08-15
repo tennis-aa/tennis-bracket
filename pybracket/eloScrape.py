@@ -51,6 +51,9 @@ def eloScrape(players,surface):
         if p_draw == "Bye":
             elos[i] = 0
             continue
+        if p_draw.startswith("Qualifier"):
+            elos[i] = 1
+            continue
         matches = []
         Player_indices = []
         for j,p_elo in enumerate(Player):
@@ -72,6 +75,11 @@ def eloScrape(players,surface):
     
     # input for elos that were not found
     quartiles = quantiles(elos_found,n=4)
+    # input elos for qualifiers at the first quartile
+    for i in range(len(elos)):
+        if elos[i] == 1:
+            elos[i] = quartiles[0]
+    # Request input from user for other players
     print("Elo stats: min=",min(elos_found),"; Q1=",quartiles[0],"; median=",quartiles[1],"; avg=",mean(elos_found),"; Q3=",quartiles[2],"; max=",max(elos_found))
     manually = input("Do you want to input missing Elo ratings manually? (if not, missing elo ratings are imputed with the median) [y/n]: ")
     for i in range(len(conflicts)):

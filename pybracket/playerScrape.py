@@ -31,9 +31,14 @@ def ATPdrawScrape(atplink):
     
     # player_entries are the combination of player names and seeds, with names only displaying the first letter of the first name
     player_entries = []
+    qualifier_count = 0
     for i in range(len(player_names)):
-        if i == "Bye":
+        if player_names[i] == "Bye":
             player_entries.append("Bye")
+            continue
+        if player_names[i] == "Qualifier":
+            qualifier_count += 1
+            player_entries.append("Qualifier{}".format(qualifier_count))
             continue
         player_name_list = player_names[i].split()
         if re.search("Daniel Elahi",player_names[i]):
