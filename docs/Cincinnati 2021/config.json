@@ -1,0 +1,15 @@
+{
+    "tournament": "Cincinnati 2021",
+    "points_per_round": [
+        1,
+        2,
+        3,
+        5,
+        7,
+        10,
+        15
+    ],
+    "atplink": "https://www.atptour.com/en/scores/current/cincinnati/422/draws",
+    "bracketSize": 64,
+    "surface": "hard"
+}
