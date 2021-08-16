@@ -304,7 +304,7 @@ class Bracket:
             else:
                 results_elo.append(self.elo[self.players.index(i)])
         
-        # generate a dict of posiible scenarios according to the elos. Similar to generating bot brackets but now we fix the results that have already happened
+        # generate a dict of possible scenarios according to the elos. Similar to generating bot brackets but now we fix the results that have already happened
         output = {}
         for k in range(n):
             bracket = []
