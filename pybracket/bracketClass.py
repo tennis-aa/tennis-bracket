@@ -88,7 +88,7 @@ class Bracket:
         # deduct points from byes
         for i in range(len(self.players)):
             if self.players[i] == "Bye":
-                points = self.points-points_per_round[0]
+                points = points-self.points_per_round[0]
         
         return points
 
@@ -316,7 +316,7 @@ class Bracket:
                         continue
                 elif self.players[2*i]=="Bye":
                     bracket.append(self.players[2*i+1])
-                    bracket_elo.apend(self.elo[2*i+1])
+                    bracket_elo.append(self.elo[2*i+1])
                     continue
                 elif self.players[2*i+1]=="Bye":
                     bracket.append(self.players[2*i])
