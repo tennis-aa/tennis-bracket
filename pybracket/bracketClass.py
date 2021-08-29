@@ -8,10 +8,11 @@ from . import eloScrape
 from . import basicBrackets
 
 class Bracket:
-    def __init__(self,players=[],elo=[],results=[],scores=[],losers=[],table_results={"user": [],"points":[],"potential":[],"position":[],"rank":[],"monkey_rank":[],"bot_rank":[],"prob_winning":[]},brackets={},tournament="",path="",points_per_round=[1,2,3,5,7,10,15],atplink="",surface="all"):
+    def __init__(self,players=[],elo=[],sets=3,results=[],scores=[],losers=[],table_results={"user": [],"points":[],"potential":[],"position":[],"rank":[],"monkey_rank":[],"bot_rank":[],"prob_winning":[]},brackets={},tournament="",path="",points_per_round=[1,2,3,5,7,10,15],atplink="",surface="all"):
         self.players = players
         self.bracketSize = len(players)
         self.elo = elo
+        self.sets = sets
         self.results = results
         self.scores = scores
         self.losers = losers
@@ -48,6 +49,10 @@ class Bracket:
         for j in range(self.rounds):
             self.counter[j+1] = self.counter[j] + int(self.bracketSize/(2**j))
         self.surface = config["surface"]
+        try:
+            self.sets = config["sets"]
+        except:
+            self.sets = 3
         with open(os.path.join(self.path, "players.json"),"r") as f:
             players_json = json.load(f)
         self.players = players_json["players"]
@@ -289,7 +294,7 @@ class Bracket:
         return monkey_points
 
     def bot_points(self,n):
-        bots = basicBrackets.generateBots(self.players, self.elo, n)
+        bots = basicBrackets.generateBots(self.players, self.elo, n, sets=self.sets)
         bot_points = []
         for key in bots:
             bot_points.append(self.computePoints(bots[key]))
@@ -326,6 +331,8 @@ class Bracket:
                 Q1 = 10**(self.elo[2*i]/400)
                 Q2 = 10**(self.elo[2*i+1]/400)
                 probability = Q1/(Q1+Q2)
+                if self.sets == 5:
+                    probability = fiveodds(probability)
                 if random() < probability:
                     bracket.append(self.players[2*i])
                     bracket_elo.append(self.elo[2*i])
@@ -342,6 +349,8 @@ class Bracket:
                     Q1 = 10**(bracket_elo[self.counter[j]-self.bracketSize+2*i]/400)
                     Q2 = 10**(bracket_elo[self.counter[j]-self.bracketSize+2*i+1]/400)
                     probability = Q1/(Q1+Q2)
+                    if self.sets == 5:
+                        probability = fiveodds(probability)
                     if random() < probability:
                         bracket.append(bracket[self.counter[j]-self.bracketSize+2*i])
                         bracket_elo.append(bracket_elo[self.counter[j]-self.bracketSize+2*i])
@@ -353,7 +362,7 @@ class Bracket:
 
     def save(self):
         with open(os.path.join(self.path, "config.json"),"w", encoding="utf-8") as f:
-            f.write(json.dumps({"tournament":self.tournament,"points_per_round": self.points_per_round,"atplink":self.atplink,"bracketSize":self.bracketSize,"surface":self.surface},indent=4))
+            f.write(json.dumps({"tournament":self.tournament,"points_per_round": self.points_per_round,"atplink":self.atplink,"bracketSize":self.bracketSize,"surface":self.surface,"sets":self.sets},indent=4))
         with open(os.path.join(self.path, "players.json"),"w", encoding="utf-8") as f:
             f.write(json.dumps({"players": self.players, "elo": self.elo}))
         with open(os.path.join(self.path, "brackets.json"),"w", encoding="utf-8") as f:
@@ -379,3 +388,14 @@ def playerUpdate(player_list,players_old,players_new):
         player_list = [pl if j == "NEWPLAYER"+str(i) else j for j in player_list]
 
     return player_list
+
+
+# The following function computes the probability of winning a 5 set match given the probability of winning a 3 set match.
+# The elo ratings used in this package are for 3 set matches. A conversion is necessary for 5 set matches.
+# This function was taken from https://github.com/JeffSackmann/tennis_misc/blob/master/fiveSetProb.py
+import numpy
+ 
+def fiveodds(p3):
+    p1 = numpy.roots([-2, 3, 0, -1*p3])[1]
+    p5 = (p1**3)*(4 - 3*p1 + (6*(1-p1)*(1-p1)))
+    return p5

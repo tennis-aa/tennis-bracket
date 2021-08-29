@@ -12,7 +12,7 @@ from . import playerScrape
 from . import eloScrape
 from . import basicBrackets
 
-def bracketRender(tournament,atplink,bracketSize,path=None,surface="all",points_per_round=[1,2,3,5,7,10,15],cellheight=16,vspace=32,hspace=90,linewidth=1):
+def bracketRender(tournament,atplink,bracketSize,path=None,surface="all",points_per_round=[1,2,3,5,7,10,15],sets=3,cellheight=16,vspace=32,hspace=100,linewidth=1):
     # Parameters for creating the tournament folder
     # tournament = "RGtest"
     # surface = "clay" # "all", "hard", "clay", or "grass" used for scraping the elos
@@ -100,7 +100,7 @@ def bracketRender(tournament,atplink,bracketSize,path=None,surface="all",points_
 
     # json files
     with open(os.path.join(target_file_path, "config.json"),"w", encoding="utf-8") as f:
-        f.write(json.dumps({"tournament":tournament,"points_per_round": points_per_round,"atplink":atplink,"bracketSize":bracketSize,"surface":surface},indent=4))
+        f.write(json.dumps({"tournament":tournament,"points_per_round": points_per_round,"atplink":atplink,"bracketSize":bracketSize,"surface":surface,"sets":sets},indent=4))
     
     
     if not os.path.exists(os.path.join(target_file_path,"players.json")):
