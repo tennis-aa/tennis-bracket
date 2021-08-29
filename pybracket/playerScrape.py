@@ -47,6 +47,8 @@ def ATPdrawScrape(atplink):
             player_entry = " ".join(["JI"] + player_name_list[2:] + [player_seed[i]]).strip()
         elif re.search("Marcelo Tomas",player_names[i]):
             player_entry = " ".join(["MT"] + player_name_list[2:] + [player_seed[i]]).strip()
+        elif re.search("Holger Vitus Nodskov",player_names[i]):
+            player_entry = " ".join(["HVN"] + player_name_list[3:] + [player_seed[i]]).strip()
         else:
             player_entry = " ".join([player_name_list[0][0]] + player_name_list[1:] + [player_seed[i]]).strip()
         player_entries.append(player_entry)
