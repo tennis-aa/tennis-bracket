@@ -82,7 +82,7 @@ def generateBots(players,elo,n,sets=3):
                 Q1 = 10**(bracket_elo[counter[j]-bracketSize+2*i]/400)
                 Q2 = 10**(bracket_elo[counter[j]-bracketSize+2*i+1]/400)
                 probability = Q1/(Q1+Q2)
-                if self.sets == 5:
+                if sets == 5:
                     probability = fiveodds(probability)
                 if random() < probability:
                     bracket.append(bracket[counter[j]-bracketSize+2*i])
