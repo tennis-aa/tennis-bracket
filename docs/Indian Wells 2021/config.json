@@ -1,0 +1,16 @@
+{
+    "tournament": "Indian Wells 2021",
+    "points_per_round": [
+        1,
+        2,
+        3,
+        5,
+        7,
+        10,
+        15
+    ],
+    "atplink": "https://www.atptour.com/en/scores/current/indian-wells/404/draws",
+    "bracketSize": 128,
+    "surface": "hard",
+    "sets": 3
+}
