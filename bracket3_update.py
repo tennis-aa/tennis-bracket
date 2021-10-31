@@ -1,6 +1,6 @@
 import pybracket
 
-tournament = "Indian Wells 2021"
+tournament = "Paris 2021"
 path = "docs/" + tournament
 b = pybracket.Bracket()
 b.loadFromFolder(path)

@@ -1,4 +1,9 @@
 from pybracket import Bracket
+import pybracket
+
+bracket1 = Bracket(path="docs/Wimbledon 2021")
+bracket1.loadFromFolder()
+pybracket.eloScrape(bracket1.players, 'hard')
 
 bracket1 = Bracket(path="docs/Roland Garros 2021")
 bracket1.loadFromFolder()

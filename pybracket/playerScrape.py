@@ -4,6 +4,7 @@ import json
 import re
 import math
 from selenium import webdriver # requires the installion of geckodriver and its addition to the path
+from .ATP2bracket import exceptions
 
 # scrape players from ATP website
 # This is working great! player_names has all the players by round, so it includes results
@@ -30,28 +31,35 @@ def ATPdrawScrape(atplink):
             player_seed.append(player_info[1].text.strip())
     
     # player_entries are the combination of player names and seeds, with names only displaying the first letter of the first name
+    # Players with more than one first name are displayed with the first letter of each first name by looking for those exceptions in ATP2bracket.py
     player_entries = []
     qualifier_count = 0
     for i in range(len(player_names)):
         if player_names[i] == "Bye":
             player_entries.append("Bye")
             continue
-        if player_names[i] == "Qualifier":
+        if player_names[i].startswith("Qualifier"):
             qualifier_count += 1
             player_entries.append("Qualifier{}".format(qualifier_count))
             continue
-        player_name_list = player_names[i].split()
-        if re.search("Daniel Elahi",player_names[i]):
-            player_entry = " ".join(["DE"] + player_name_list[2:] + [player_seed[i]]).strip()
-        elif re.search("Juan Ignacio",player_names[i]):
-            player_entry = " ".join(["JI"] + player_name_list[2:] + [player_seed[i]]).strip()
-        elif re.search("Marcelo Tomas",player_names[i]):
-            player_entry = " ".join(["MT"] + player_name_list[2:] + [player_seed[i]]).strip()
-        elif re.search("Holger Vitus Nodskov",player_names[i]):
-            player_entry = " ".join(["HVN"] + player_name_list[3:] + [player_seed[i]]).strip()
+        
+        if player_names[i] in exceptions.keys():
+            player_entry = (exceptions[player_names[i]] + " " + player_seed[i]).strip()
         else:
+            player_name_list = player_names[i].split()
             player_entry = " ".join([player_name_list[0][0]] + player_name_list[1:] + [player_seed[i]]).strip()
         player_entries.append(player_entry)
+        # if re.search("Daniel Elahi",player_names[i]):
+        #     player_entry = " ".join(["DE"] + player_name_list[2:] + [player_seed[i]]).strip()
+        # elif re.search("Juan Ignacio",player_names[i]):
+        #     player_entry = " ".join(["JI"] + player_name_list[2:] + [player_seed[i]]).strip()
+        # elif re.search("Marcelo Tomas",player_names[i]):
+        #     player_entry = " ".join(["MT"] + player_name_list[2:] + [player_seed[i]]).strip()
+        # elif re.search("Holger Vitus Nodskov",player_names[i]):
+        #     player_entry = " ".join(["HVN"] + player_name_list[3:] + [player_seed[i]]).strip()
+        # else:
+        #     player_entry = " ".join([player_name_list[0][0]] + player_name_list[1:] + [player_seed[i]]).strip()
+        # player_entries.append(player_entry)
 
     rounds = int(math.log2(len(player_entries)))
     result_entries = [[] for _ in range(rounds)]

@@ -1,0 +1,1236 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title> Paris 2021 </title>
+  <link rel="shortcut icon" type="image/png" href="../favicon.png"/>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="../css/main.css">
+  <script src="../js/filloutBracket.js"></script>
+  <style>
+    .player {
+      font-size: 9.6px;
+      font-family: Arial, Helvetica, sans-serif;
+      width: 100px;
+      height: 16px;
+      text-align: left;
+      padding-left: 3.0px;
+      border-bottom: 1px solid black;
+      border-radius: 0px;
+      background-color: transparent;
+      overflow: visible;
+    }
+    .line {
+      border-left: 1px solid black; 
+    }
+    select {
+      height: 100%;
+      width: 100%;
+      font-size: 8.0px;
+    }
+    .mytooltip {
+      visibility: hidden;
+      width: 100px; 
+      min-height: 32px;
+      background-color: white;
+      color: black;
+      border-radius: 3px;
+      border: 1px solid black;
+    }
+    .right {
+      position: absolute;
+      z-index: 1;
+      left: 101%;
+      top: -50%;
+    }
+    .left {
+      position: absolute;
+      z-index: 1;
+      left: -101%;
+      top:-50%;
+    }
+    .player:hover .mytooltip {
+      visibility: visible;
+    }
+  </style>
+</head>
+<body onLoad="loadFillout()">
+<div class="container">
+  <h1><a href="../"> Home </a></h1>
+  <h2> Paris 2021 </h2>
+  <nav class="navbar navbar-default border-primary">
+    <ul class = "nav navbar-nav">
+      <li><a href="./"> Cuadros </a></li>
+      <li><a href="./table.html"> Tabla de posiciones </a></li>
+      <li class="active"><a href="./submit.html"> Crear cuadro </a></li>
+      <li><a href="./inputResults.html"> Reportar resultados </a></li>
+    </ul>
+  </nav>
+  <div class="bracket_container" style="position:relative;height:1024.0px;width:1400px;">
+      <div id="bracket-size" style="display: none"> 64 </div>
+    <div class="line" style="position: absolute; left:100px;top:15.0px;height: 33px"> </div>
+    <div class="player" id="p0" style="position: absolute;left:0px;top:0.0px">
+    </div>
+    <div class="player" id="p1" style="position: absolute;left:0px;top:32.0px">
+    </div>
+    <div class="line" style="position: absolute; left:100px;top:79.0px;height: 33px"> </div>
+    <div class="player" id="p2" style="position: absolute;left:0px;top:64.0px">
+    </div>
+    <div class="player" id="p3" style="position: absolute;left:0px;top:96.0px">
+    </div>
+    <div class="line" style="position: absolute; left:100px;top:143.0px;height: 33px"> </div>
+    <div class="player" id="p4" style="position: absolute;left:0px;top:128.0px">
+    </div>
+    <div class="player" id="p5" style="position: absolute;left:0px;top:160.0px">
+    </div>
+    <div class="line" style="position: absolute; left:100px;top:207.0px;height: 33px"> </div>
+    <div class="player" id="p6" style="position: absolute;left:0px;top:192.0px">
+    </div>
+    <div class="player" id="p7" style="position: absolute;left:0px;top:224.0px">
+    </div>
+    <div class="line" style="position: absolute; left:100px;top:271.0px;height: 33px"> </div>
+    <div class="player" id="p8" style="position: absolute;left:0px;top:256.0px">
+    </div>
+    <div class="player" id="p9" style="position: absolute;left:0px;top:288.0px">
+    </div>
+    <div class="line" style="position: absolute; left:100px;top:335.0px;height: 33px"> </div>
+    <div class="player" id="p10" style="position: absolute;left:0px;top:320.0px">
+    </div>
+    <div class="player" id="p11" style="position: absolute;left:0px;top:352.0px">
+    </div>
+    <div class="line" style="position: absolute; left:100px;top:399.0px;height: 33px"> </div>
+    <div class="player" id="p12" style="position: absolute;left:0px;top:384.0px">
+    </div>
+    <div class="player" id="p13" style="position: absolute;left:0px;top:416.0px">
+    </div>
+    <div class="line" style="position: absolute; left:100px;top:463.0px;height: 33px"> </div>
+    <div class="player" id="p14" style="position: absolute;left:0px;top:448.0px">
+    </div>
+    <div class="player" id="p15" style="position: absolute;left:0px;top:480.0px">
+    </div>
+    <div class="line" style="position: absolute; left:100px;top:527.0px;height: 33px"> </div>
+    <div class="player" id="p16" style="position: absolute;left:0px;top:512.0px">
+    </div>
+    <div class="player" id="p17" style="position: absolute;left:0px;top:544.0px">
+    </div>
+    <div class="line" style="position: absolute; left:100px;top:591.0px;height: 33px"> </div>
+    <div class="player" id="p18" style="position: absolute;left:0px;top:576.0px">
+    </div>
+    <div class="player" id="p19" style="position: absolute;left:0px;top:608.0px">
+    </div>
+    <div class="line" style="position: absolute; left:100px;top:655.0px;height: 33px"> </div>
+    <div class="player" id="p20" style="position: absolute;left:0px;top:640.0px">
+    </div>
+    <div class="player" id="p21" style="position: absolute;left:0px;top:672.0px">
+    </div>
+    <div class="line" style="position: absolute; left:100px;top:719.0px;height: 33px"> </div>
+    <div class="player" id="p22" style="position: absolute;left:0px;top:704.0px">
+    </div>
+    <div class="player" id="p23" style="position: absolute;left:0px;top:736.0px">
+    </div>
+    <div class="line" style="position: absolute; left:100px;top:783.0px;height: 33px"> </div>
+    <div class="player" id="p24" style="position: absolute;left:0px;top:768.0px">
+    </div>
+    <div class="player" id="p25" style="position: absolute;left:0px;top:800.0px">
+    </div>
+    <div class="line" style="position: absolute; left:100px;top:847.0px;height: 33px"> </div>
+    <div class="player" id="p26" style="position: absolute;left:0px;top:832.0px">
+    </div>
+    <div class="player" id="p27" style="position: absolute;left:0px;top:864.0px">
+    </div>
+    <div class="line" style="position: absolute; left:100px;top:911.0px;height: 33px"> </div>
+    <div class="player" id="p28" style="position: absolute;left:0px;top:896.0px">
+    </div>
+    <div class="player" id="p29" style="position: absolute;left:0px;top:928.0px">
+    </div>
+    <div class="line" style="position: absolute; left:100px;top:975.0px;height: 33px"> </div>
+    <div class="player" id="p30" style="position: absolute;left:0px;top:960.0px">
+    </div>
+    <div class="player" id="p31" style="position: absolute;left:0px;top:992.0px">
+    </div>
+    <div class="line" style="position: absolute; left:1200px;top:15.0px;height: 33px"> </div>
+    <div class="player" id="p32" style="position: absolute;left:1200px;top:0.0px"> 
+    </div>
+    <div class="player" id="p33" style="position: absolute;left:1200px;top:32.0px"> 
+    </div>
+    <div class="line" style="position: absolute; left:1200px;top:79.0px;height: 33px"> </div>
+    <div class="player" id="p34" style="position: absolute;left:1200px;top:64.0px"> 
+    </div>
+    <div class="player" id="p35" style="position: absolute;left:1200px;top:96.0px"> 
+    </div>
+    <div class="line" style="position: absolute; left:1200px;top:143.0px;height: 33px"> </div>
+    <div class="player" id="p36" style="position: absolute;left:1200px;top:128.0px"> 
+    </div>
+    <div class="player" id="p37" style="position: absolute;left:1200px;top:160.0px"> 
+    </div>
+    <div class="line" style="position: absolute; left:1200px;top:207.0px;height: 33px"> </div>
+    <div class="player" id="p38" style="position: absolute;left:1200px;top:192.0px"> 
+    </div>
+    <div class="player" id="p39" style="position: absolute;left:1200px;top:224.0px"> 
+    </div>
+    <div class="line" style="position: absolute; left:1200px;top:271.0px;height: 33px"> </div>
+    <div class="player" id="p40" style="position: absolute;left:1200px;top:256.0px"> 
+    </div>
+    <div class="player" id="p41" style="position: absolute;left:1200px;top:288.0px"> 
+    </div>
+    <div class="line" style="position: absolute; left:1200px;top:335.0px;height: 33px"> </div>
+    <div class="player" id="p42" style="position: absolute;left:1200px;top:320.0px"> 
+    </div>
+    <div class="player" id="p43" style="position: absolute;left:1200px;top:352.0px"> 
+    </div>
+    <div class="line" style="position: absolute; left:1200px;top:399.0px;height: 33px"> </div>
+    <div class="player" id="p44" style="position: absolute;left:1200px;top:384.0px"> 
+    </div>
+    <div class="player" id="p45" style="position: absolute;left:1200px;top:416.0px"> 
+    </div>
+    <div class="line" style="position: absolute; left:1200px;top:463.0px;height: 33px"> </div>
+    <div class="player" id="p46" style="position: absolute;left:1200px;top:448.0px"> 
+    </div>
+    <div class="player" id="p47" style="position: absolute;left:1200px;top:480.0px"> 
+    </div>
+    <div class="line" style="position: absolute; left:1200px;top:527.0px;height: 33px"> </div>
+    <div class="player" id="p48" style="position: absolute;left:1200px;top:512.0px"> 
+    </div>
+    <div class="player" id="p49" style="position: absolute;left:1200px;top:544.0px"> 
+    </div>
+    <div class="line" style="position: absolute; left:1200px;top:591.0px;height: 33px"> </div>
+    <div class="player" id="p50" style="position: absolute;left:1200px;top:576.0px"> 
+    </div>
+    <div class="player" id="p51" style="position: absolute;left:1200px;top:608.0px"> 
+    </div>
+    <div class="line" style="position: absolute; left:1200px;top:655.0px;height: 33px"> </div>
+    <div class="player" id="p52" style="position: absolute;left:1200px;top:640.0px"> 
+    </div>
+    <div class="player" id="p53" style="position: absolute;left:1200px;top:672.0px"> 
+    </div>
+    <div class="line" style="position: absolute; left:1200px;top:719.0px;height: 33px"> </div>
+    <div class="player" id="p54" style="position: absolute;left:1200px;top:704.0px"> 
+    </div>
+    <div class="player" id="p55" style="position: absolute;left:1200px;top:736.0px"> 
+    </div>
+    <div class="line" style="position: absolute; left:1200px;top:783.0px;height: 33px"> </div>
+    <div class="player" id="p56" style="position: absolute;left:1200px;top:768.0px"> 
+    </div>
+    <div class="player" id="p57" style="position: absolute;left:1200px;top:800.0px"> 
+    </div>
+    <div class="line" style="position: absolute; left:1200px;top:847.0px;height: 33px"> </div>
+    <div class="player" id="p58" style="position: absolute;left:1200px;top:832.0px"> 
+    </div>
+    <div class="player" id="p59" style="position: absolute;left:1200px;top:864.0px"> 
+    </div>
+    <div class="line" style="position: absolute; left:1200px;top:911.0px;height: 33px"> </div>
+    <div class="player" id="p60" style="position: absolute;left:1200px;top:896.0px"> 
+    </div>
+    <div class="player" id="p61" style="position: absolute;left:1200px;top:928.0px"> 
+    </div>
+    <div class="line" style="position: absolute; left:1200px;top:975.0px;height: 33px"> </div>
+    <div class="player" id="p62" style="position: absolute;left:1200px;top:960.0px"> 
+    </div>
+    <div class="player" id="p63" style="position: absolute;left:1200px;top:992.0px"> 
+    </div>
+    <div class="line" style="position: absolute; left:200px;top:31.0px;height: 65px"> </div>
+    <div class="player" id="p64" style="position: absolute;left:100px;top:16.0px">
+ 
+      <select id = "select64" onchange="update_options(64)">
+        <option></option>
+      </select>
+      <div class="mytooltip right" id="tip64">
+        <table>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="player" id="p65" style="position: absolute;left:100px;top:80.0px">
+ 
+      <select id = "select65" onchange="update_options(65)">
+        <option></option>
+      </select>
+      <div class="mytooltip right" id="tip65">
+        <table>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="line" style="position: absolute; left:200px;top:159.0px;height: 65px"> </div>
+    <div class="player" id="p66" style="position: absolute;left:100px;top:144.0px">
+ 
+      <select id = "select66" onchange="update_options(66)">
+        <option></option>
+      </select>
+      <div class="mytooltip right" id="tip66">
+        <table>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="player" id="p67" style="position: absolute;left:100px;top:208.0px">
+ 
+      <select id = "select67" onchange="update_options(67)">
+        <option></option>
+      </select>
+      <div class="mytooltip right" id="tip67">
+        <table>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="line" style="position: absolute; left:200px;top:287.0px;height: 65px"> </div>
+    <div class="player" id="p68" style="position: absolute;left:100px;top:272.0px">
+ 
+      <select id = "select68" onchange="update_options(68)">
+        <option></option>
+      </select>
+      <div class="mytooltip right" id="tip68">
+        <table>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="player" id="p69" style="position: absolute;left:100px;top:336.0px">
+ 
+      <select id = "select69" onchange="update_options(69)">
+        <option></option>
+      </select>
+      <div class="mytooltip right" id="tip69">
+        <table>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="line" style="position: absolute; left:200px;top:415.0px;height: 65px"> </div>
+    <div class="player" id="p70" style="position: absolute;left:100px;top:400.0px">
+ 
+      <select id = "select70" onchange="update_options(70)">
+        <option></option>
+      </select>
+      <div class="mytooltip right" id="tip70">
+        <table>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="player" id="p71" style="position: absolute;left:100px;top:464.0px">
+ 
+      <select id = "select71" onchange="update_options(71)">
+        <option></option>
+      </select>
+      <div class="mytooltip right" id="tip71">
+        <table>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="line" style="position: absolute; left:200px;top:543.0px;height: 65px"> </div>
+    <div class="player" id="p72" style="position: absolute;left:100px;top:528.0px">
+ 
+      <select id = "select72" onchange="update_options(72)">
+        <option></option>
+      </select>
+      <div class="mytooltip right" id="tip72">
+        <table>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="player" id="p73" style="position: absolute;left:100px;top:592.0px">
+ 
+      <select id = "select73" onchange="update_options(73)">
+        <option></option>
+      </select>
+      <div class="mytooltip right" id="tip73">
+        <table>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="line" style="position: absolute; left:200px;top:671.0px;height: 65px"> </div>
+    <div class="player" id="p74" style="position: absolute;left:100px;top:656.0px">
+ 
+      <select id = "select74" onchange="update_options(74)">
+        <option></option>
+      </select>
+      <div class="mytooltip right" id="tip74">
+        <table>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="player" id="p75" style="position: absolute;left:100px;top:720.0px">
+ 
+      <select id = "select75" onchange="update_options(75)">
+        <option></option>
+      </select>
+      <div class="mytooltip right" id="tip75">
+        <table>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="line" style="position: absolute; left:200px;top:799.0px;height: 65px"> </div>
+    <div class="player" id="p76" style="position: absolute;left:100px;top:784.0px">
+ 
+      <select id = "select76" onchange="update_options(76)">
+        <option></option>
+      </select>
+      <div class="mytooltip right" id="tip76">
+        <table>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="player" id="p77" style="position: absolute;left:100px;top:848.0px">
+ 
+      <select id = "select77" onchange="update_options(77)">
+        <option></option>
+      </select>
+      <div class="mytooltip right" id="tip77">
+        <table>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="line" style="position: absolute; left:200px;top:927.0px;height: 65px"> </div>
+    <div class="player" id="p78" style="position: absolute;left:100px;top:912.0px">
+ 
+      <select id = "select78" onchange="update_options(78)">
+        <option></option>
+      </select>
+      <div class="mytooltip right" id="tip78">
+        <table>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="player" id="p79" style="position: absolute;left:100px;top:976.0px">
+ 
+      <select id = "select79" onchange="update_options(79)">
+        <option></option>
+      </select>
+      <div class="mytooltip right" id="tip79">
+        <table>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="line" style="position: absolute; left:1100px;top:31.0px;height: 65px"> </div>
+    <div class="player" id="p80" style="position: absolute;left:1100px;top:16.0px"> 
+      <select id = "select80" onchange="update_options(80)">
+        <option></option>
+      </select>
+      <div class="mytooltip left" id="tip80">
+        <table>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="player" id="p81" style="position: absolute;left:1100px;top:80.0px"> 
+      <select id = "select81" onchange="update_options(81)">
+        <option></option>
+      </select>
+      <div class="mytooltip left" id="tip81">
+        <table>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="line" style="position: absolute; left:1100px;top:159.0px;height: 65px"> </div>
+    <div class="player" id="p82" style="position: absolute;left:1100px;top:144.0px"> 
+      <select id = "select82" onchange="update_options(82)">
+        <option></option>
+      </select>
+      <div class="mytooltip left" id="tip82">
+        <table>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="player" id="p83" style="position: absolute;left:1100px;top:208.0px"> 
+      <select id = "select83" onchange="update_options(83)">
+        <option></option>
+      </select>
+      <div class="mytooltip left" id="tip83">
+        <table>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="line" style="position: absolute; left:1100px;top:287.0px;height: 65px"> </div>
+    <div class="player" id="p84" style="position: absolute;left:1100px;top:272.0px"> 
+      <select id = "select84" onchange="update_options(84)">
+        <option></option>
+      </select>
+      <div class="mytooltip left" id="tip84">
+        <table>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="player" id="p85" style="position: absolute;left:1100px;top:336.0px"> 
+      <select id = "select85" onchange="update_options(85)">
+        <option></option>
+      </select>
+      <div class="mytooltip left" id="tip85">
+        <table>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="line" style="position: absolute; left:1100px;top:415.0px;height: 65px"> </div>
+    <div class="player" id="p86" style="position: absolute;left:1100px;top:400.0px"> 
+      <select id = "select86" onchange="update_options(86)">
+        <option></option>
+      </select>
+      <div class="mytooltip left" id="tip86">
+        <table>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="player" id="p87" style="position: absolute;left:1100px;top:464.0px"> 
+      <select id = "select87" onchange="update_options(87)">
+        <option></option>
+      </select>
+      <div class="mytooltip left" id="tip87">
+        <table>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="line" style="position: absolute; left:1100px;top:543.0px;height: 65px"> </div>
+    <div class="player" id="p88" style="position: absolute;left:1100px;top:528.0px"> 
+      <select id = "select88" onchange="update_options(88)">
+        <option></option>
+      </select>
+      <div class="mytooltip left" id="tip88">
+        <table>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="player" id="p89" style="position: absolute;left:1100px;top:592.0px"> 
+      <select id = "select89" onchange="update_options(89)">
+        <option></option>
+      </select>
+      <div class="mytooltip left" id="tip89">
+        <table>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="line" style="position: absolute; left:1100px;top:671.0px;height: 65px"> </div>
+    <div class="player" id="p90" style="position: absolute;left:1100px;top:656.0px"> 
+      <select id = "select90" onchange="update_options(90)">
+        <option></option>
+      </select>
+      <div class="mytooltip left" id="tip90">
+        <table>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="player" id="p91" style="position: absolute;left:1100px;top:720.0px"> 
+      <select id = "select91" onchange="update_options(91)">
+        <option></option>
+      </select>
+      <div class="mytooltip left" id="tip91">
+        <table>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="line" style="position: absolute; left:1100px;top:799.0px;height: 65px"> </div>
+    <div class="player" id="p92" style="position: absolute;left:1100px;top:784.0px"> 
+      <select id = "select92" onchange="update_options(92)">
+        <option></option>
+      </select>
+      <div class="mytooltip left" id="tip92">
+        <table>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="player" id="p93" style="position: absolute;left:1100px;top:848.0px"> 
+      <select id = "select93" onchange="update_options(93)">
+        <option></option>
+      </select>
+      <div class="mytooltip left" id="tip93">
+        <table>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="line" style="position: absolute; left:1100px;top:927.0px;height: 65px"> </div>
+    <div class="player" id="p94" style="position: absolute;left:1100px;top:912.0px"> 
+      <select id = "select94" onchange="update_options(94)">
+        <option></option>
+      </select>
+      <div class="mytooltip left" id="tip94">
+        <table>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="player" id="p95" style="position: absolute;left:1100px;top:976.0px"> 
+      <select id = "select95" onchange="update_options(95)">
+        <option></option>
+      </select>
+      <div class="mytooltip left" id="tip95">
+        <table>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="line" style="position: absolute; left:300px;top:63.0px;height: 129px"> </div>
+    <div class="player" id="p96" style="position: absolute;left:200px;top:48.0px">
+ 
+      <select id = "select96" onchange="update_options(96)">
+        <option></option>
+      </select>
+      <div class="mytooltip right" id="tip96">
+        <table>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="player" id="p97" style="position: absolute;left:200px;top:176.0px">
+ 
+      <select id = "select97" onchange="update_options(97)">
+        <option></option>
+      </select>
+      <div class="mytooltip right" id="tip97">
+        <table>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="line" style="position: absolute; left:300px;top:319.0px;height: 129px"> </div>
+    <div class="player" id="p98" style="position: absolute;left:200px;top:304.0px">
+ 
+      <select id = "select98" onchange="update_options(98)">
+        <option></option>
+      </select>
+      <div class="mytooltip right" id="tip98">
+        <table>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="player" id="p99" style="position: absolute;left:200px;top:432.0px">
+ 
+      <select id = "select99" onchange="update_options(99)">
+        <option></option>
+      </select>
+      <div class="mytooltip right" id="tip99">
+        <table>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="line" style="position: absolute; left:300px;top:575.0px;height: 129px"> </div>
+    <div class="player" id="p100" style="position: absolute;left:200px;top:560.0px">
+ 
+      <select id = "select100" onchange="update_options(100)">
+        <option></option>
+      </select>
+      <div class="mytooltip right" id="tip100">
+        <table>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="player" id="p101" style="position: absolute;left:200px;top:688.0px">
+ 
+      <select id = "select101" onchange="update_options(101)">
+        <option></option>
+      </select>
+      <div class="mytooltip right" id="tip101">
+        <table>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="line" style="position: absolute; left:300px;top:831.0px;height: 129px"> </div>
+    <div class="player" id="p102" style="position: absolute;left:200px;top:816.0px">
+ 
+      <select id = "select102" onchange="update_options(102)">
+        <option></option>
+      </select>
+      <div class="mytooltip right" id="tip102">
+        <table>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="player" id="p103" style="position: absolute;left:200px;top:944.0px">
+ 
+      <select id = "select103" onchange="update_options(103)">
+        <option></option>
+      </select>
+      <div class="mytooltip right" id="tip103">
+        <table>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="line" style="position: absolute; left:1000px;top:63.0px;height: 129px"> </div>
+    <div class="player" id="p104" style="position: absolute;left:1000px;top:48.0px"> 
+      <select id = "select104" onchange="update_options(104)">
+        <option></option>
+      </select>
+      <div class="mytooltip left" id="tip104">
+        <table>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="player" id="p105" style="position: absolute;left:1000px;top:176.0px"> 
+      <select id = "select105" onchange="update_options(105)">
+        <option></option>
+      </select>
+      <div class="mytooltip left" id="tip105">
+        <table>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="line" style="position: absolute; left:1000px;top:319.0px;height: 129px"> </div>
+    <div class="player" id="p106" style="position: absolute;left:1000px;top:304.0px"> 
+      <select id = "select106" onchange="update_options(106)">
+        <option></option>
+      </select>
+      <div class="mytooltip left" id="tip106">
+        <table>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="player" id="p107" style="position: absolute;left:1000px;top:432.0px"> 
+      <select id = "select107" onchange="update_options(107)">
+        <option></option>
+      </select>
+      <div class="mytooltip left" id="tip107">
+        <table>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="line" style="position: absolute; left:1000px;top:575.0px;height: 129px"> </div>
+    <div class="player" id="p108" style="position: absolute;left:1000px;top:560.0px"> 
+      <select id = "select108" onchange="update_options(108)">
+        <option></option>
+      </select>
+      <div class="mytooltip left" id="tip108">
+        <table>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="player" id="p109" style="position: absolute;left:1000px;top:688.0px"> 
+      <select id = "select109" onchange="update_options(109)">
+        <option></option>
+      </select>
+      <div class="mytooltip left" id="tip109">
+        <table>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="line" style="position: absolute; left:1000px;top:831.0px;height: 129px"> </div>
+    <div class="player" id="p110" style="position: absolute;left:1000px;top:816.0px"> 
+      <select id = "select110" onchange="update_options(110)">
+        <option></option>
+      </select>
+      <div class="mytooltip left" id="tip110">
+        <table>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="player" id="p111" style="position: absolute;left:1000px;top:944.0px"> 
+      <select id = "select111" onchange="update_options(111)">
+        <option></option>
+      </select>
+      <div class="mytooltip left" id="tip111">
+        <table>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="line" style="position: absolute; left:400px;top:127.0px;height: 257px"> </div>
+    <div class="player" id="p112" style="position: absolute;left:300px;top:112.0px">
+ 
+      <select id = "select112" onchange="update_options(112)">
+        <option></option>
+      </select>
+      <div class="mytooltip right" id="tip112">
+        <table>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="player" id="p113" style="position: absolute;left:300px;top:368.0px">
+ 
+      <select id = "select113" onchange="update_options(113)">
+        <option></option>
+      </select>
+      <div class="mytooltip right" id="tip113">
+        <table>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="line" style="position: absolute; left:400px;top:639.0px;height: 257px"> </div>
+    <div class="player" id="p114" style="position: absolute;left:300px;top:624.0px">
+ 
+      <select id = "select114" onchange="update_options(114)">
+        <option></option>
+      </select>
+      <div class="mytooltip right" id="tip114">
+        <table>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="player" id="p115" style="position: absolute;left:300px;top:880.0px">
+ 
+      <select id = "select115" onchange="update_options(115)">
+        <option></option>
+      </select>
+      <div class="mytooltip right" id="tip115">
+        <table>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="line" style="position: absolute; left:900px;top:127.0px;height: 257px"> </div>
+    <div class="player" id="p116" style="position: absolute;left:900px;top:112.0px"> 
+      <select id = "select116" onchange="update_options(116)">
+        <option></option>
+      </select>
+      <div class="mytooltip left" id="tip116">
+        <table>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="player" id="p117" style="position: absolute;left:900px;top:368.0px"> 
+      <select id = "select117" onchange="update_options(117)">
+        <option></option>
+      </select>
+      <div class="mytooltip left" id="tip117">
+        <table>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="line" style="position: absolute; left:900px;top:639.0px;height: 257px"> </div>
+    <div class="player" id="p118" style="position: absolute;left:900px;top:624.0px"> 
+      <select id = "select118" onchange="update_options(118)">
+        <option></option>
+      </select>
+      <div class="mytooltip left" id="tip118">
+        <table>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="player" id="p119" style="position: absolute;left:900px;top:880.0px"> 
+      <select id = "select119" onchange="update_options(119)">
+        <option></option>
+      </select>
+      <div class="mytooltip left" id="tip119">
+        <table>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="line" style="position: absolute; left:500px;top:255.0px;height: 513px"> </div>
+    <div class="player" id="p120" style="position: absolute;left:400px;top:240.0px">
+ 
+      <select id = "select120" onchange="update_options(120)">
+        <option></option>
+      </select>
+      <div class="mytooltip right" id="tip120">
+        <table>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="player" id="p121" style="position: absolute;left:400px;top:752.0px">
+ 
+      <select id = "select121" onchange="update_options(121)">
+        <option></option>
+      </select>
+      <div class="mytooltip right" id="tip121">
+        <table>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="line" style="position: absolute; left:800px;top:255.0px;height: 513px"> </div>
+    <div class="player" id="p122" style="position: absolute;left:800px;top:240.0px"> 
+      <select id = "select122" onchange="update_options(122)">
+        <option></option>
+      </select>
+      <div class="mytooltip left" id="tip122">
+        <table>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="player" id="p123" style="position: absolute;left:800px;top:752.0px"> 
+      <select id = "select123" onchange="update_options(123)">
+        <option></option>
+      </select>
+      <div class="mytooltip left" id="tip123">
+        <table>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="player" id="p124" style="position: absolute;left:500px;top:496.0px">
+ 
+      <select id = "select124" onchange="update_options(124)">
+        <option></option>
+      </select>
+      <div class="mytooltip right" id="tip124">
+        <table>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="player" id="p125" style="position: absolute;left:700px;top:496.0px"> 
+      <select id = "select125" onchange="update_options(125)">
+        <option></option>
+      </select>
+      <div class="mytooltip left" id="tip125">
+        <table>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+          <tr>
+            <td></td> <td style="width: 32px; text-align: right"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="line" style="position: absolute; left:600px;top: 463px;height: 49.0px"> </div>
+    <div class="line" style="position: absolute; left:700px;top:463px;height: 49.0px"> </div>
+    <div class="player" id="p126" style="position: absolute;left:600px;top:448px;text-align: center"> 
+      <select id = "select126">
+        <option></option>
+      </select>
+    </div>
+    <div id="userinfo-container" style="position: absolute; left: 500px; top: 352px;width: 300px; height: 32px; text-align: center"> 
+      <label for="user-name"> Usuario: </label>
+      <input type="text" id="user-name" name="user-name">
+      <button onclick="save_bracket()"> Descargar </button>
+    </div>
+  </div>
+</body>
+</html>
+

@@ -1,0 +1,16 @@
+{
+    "tournament": "Paris 2021",
+    "points_per_round": [
+        1,
+        2,
+        3,
+        5,
+        7,
+        10,
+        15
+    ],
+    "atplink": "https://www.atptour.com/en/scores/current/paris/352/draws",
+    "bracketSize": 64,
+    "surface": "hard",
+    "sets": 3
+}
